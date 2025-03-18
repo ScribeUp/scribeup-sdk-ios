@@ -1,0 +1,699 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "ScribeUpSDK",
+    "printedName": "ScribeUpSDK",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SubscriptionManagerDelegate",
+        "printedName": "SubscriptionManagerDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onExit",
+            "printedName": "onExit(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "ScribeUpSDK.SubscriptionManagerError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SubscriptionManagerError",
+                    "printedName": "ScribeUpSDK.SubscriptionManagerError",
+                    "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegateP6onExityyAA0dE5ErrorVSgF",
+            "mangledName": "$s11ScribeUpSDK27SubscriptionManagerDelegateP6onExityyAA0dE5ErrorVSgF",
+            "moduleName": "ScribeUpSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScribeUpSDK.SubscriptionManagerDelegate>",
+            "sugared_genericSig": "<Self where Self : ScribeUpSDK.SubscriptionManagerDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onExit",
+            "printedName": "onExit(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "ScribeUpSDK.SubscriptionManagerError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SubscriptionManagerError",
+                    "printedName": "ScribeUpSDK.SubscriptionManagerError",
+                    "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegatePAAE6onExityyAA0dE5ErrorVSgF",
+            "mangledName": "$s11ScribeUpSDK27SubscriptionManagerDelegatePAAE6onExityyAA0dE5ErrorVSgF",
+            "moduleName": "ScribeUpSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScribeUpSDK.SubscriptionManagerDelegate>",
+            "sugared_genericSig": "<Self where Self : ScribeUpSDK.SubscriptionManagerDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegateP",
+        "mangledName": "$s11ScribeUpSDK27SubscriptionManagerDelegateP",
+        "moduleName": "ScribeUpSDK",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SubscriptionManagerError",
+        "printedName": "SubscriptionManagerError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "code",
+            "printedName": "code",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
+                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "message",
+            "printedName": "message",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
+                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(code:message:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerError",
+                "printedName": "ScribeUpSDK.SubscriptionManagerError",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV",
+        "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SubscriptionManagerViewController",
+        "printedName": "SubscriptionManagerViewController",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "WeakStorage",
+                "printedName": "(any ScribeUpSDK.SubscriptionManagerDelegate)?"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvp",
+            "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "ReferenceOwnership",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "ownership": 1,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any ScribeUpSDK.SubscriptionManagerDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SubscriptionManagerDelegate",
+                        "printedName": "any ScribeUpSDK.SubscriptionManagerDelegate",
+                        "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvg",
+                "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any ScribeUpSDK.SubscriptionManagerDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SubscriptionManagerDelegate",
+                        "printedName": "any ScribeUpSDK.SubscriptionManagerDelegate",
+                        "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvs",
+                "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvs",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvM",
+                "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC8delegateAA0dE8Delegate_pSgvM",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(url:productName:delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerViewController",
+                "printedName": "ScribeUpSDK.SubscriptionManagerViewController",
+                "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any ScribeUpSDK.SubscriptionManagerDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SubscriptionManagerDelegate",
+                    "printedName": "any ScribeUpSDK.SubscriptionManagerDelegate",
+                    "usr": "s:11ScribeUpSDK27SubscriptionManagerDelegateP"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:11ScribeUpSDK33SubscriptionManagerViewControllerC3url11productName8delegateACSS_SSAA0dE8Delegate_pSgtcfc",
+            "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC3url11productName8delegateACSS_SSAA0dE8Delegate_pSgtcfc",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLoad",
+            "printedName": "viewDidLoad()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerViewController(im)viewDidLoad",
+            "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC11viewDidLoadyyF",
+            "moduleName": "ScribeUpSDK",
+            "overriding": true,
+            "objc_name": "viewDidLoad",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "Override",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(nibName:bundle:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerViewController",
+                "printedName": "ScribeUpSDK.SubscriptionManagerViewController",
+                "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Bundle?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bundle",
+                    "printedName": "Foundation.Bundle",
+                    "usr": "c:objc(cs)NSBundle"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerViewController(im)initWithNibName:bundle:",
+            "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc",
+            "moduleName": "ScribeUpSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithNibName:bundle:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerViewController",
+        "mangledName": "$s11ScribeUpSDK33SubscriptionManagerViewControllerC",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "AccessControl",
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)UIViewController",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "UIKit.UIViewController",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "SwiftUI",
+        "printedName": "SwiftUI",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "DeveloperToolsSupport",
+        "printedName": "DeveloperToolsSupport",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 1083,
+      "length": 22,
+      "value": "\"Subscription Manager\""
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/Library\/Developer\/Xcode\/DerivedData\/ScribeUpSDK-bxtzcsleodtgwxcfkmrjawujezfe\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ScribeUpSDK\/IntermediateBuildFilesPath\/ScribeUpSDK.build\/Release-iphonesimulator\/ScribeUpSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 727,
+      "length": 9,
+      "value": "\"refresh\""
+    }
+  ]
+}
