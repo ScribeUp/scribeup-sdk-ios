@@ -1,0 +1,6 @@
+framework module ScribeUpSDK {
+  umbrella header "ScribeUpSDK.h"
+  export *
+
+  module * { export * }
+}
