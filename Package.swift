@@ -1,20 +1,25 @@
-// swift-tools-version:5.3
- import PackageDescription
+// swift-tools-version:5.7
+import PackageDescription
 
- let package = Package(
-     name: "ScribeUpSDK",
-     products: [
-         .library(
-             name: "ScribeUpSDK",
-             targets: ["ScribeUpSDK"]
-         ),
-     ],
-     dependencies: [
-     ],
-     targets: [
-        .binaryTarget(
-          name: "ScribeUpSDK",
-          path: "./Sources/ScribeUpSDK/ScribeUpSDK.xcframework"
+let package = Package(
+    name: "ScribeUpSDK",
+    platforms: [ .iOS(.v13) ],
+    products: [
+        .library(
+            name: "ScribeUpSDK",
+            type: .dynamic,
+            targets: ["ScribeUpSDK"]
         ),
-     ]
- )
+    ],
+    dependencies: [
+    ],
+    targets: [
+        .target(
+            name: "ScribeUpSDK",
+            path: "ScribeUpSDK",
+            resources: [
+                .process("Assets.xcassets")
+            ]
+        ),
+    ]
+)

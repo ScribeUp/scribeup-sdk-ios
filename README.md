@@ -1,44 +1,14 @@
-# ScribeUpSDK
+# iOS SDK (internal)
 
+## Building binary
+- `xcodebuild archive -scheme ScribeUpSDK -configuration Release -destination 'generic/platform=iOS' -archivePath './build/ios.xcarchive' SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES`
 
-### Installation
-The ScribeUp iOS SDK is available via Swift Package Manager. To add the SDK to your project, add the following repository URL as a package dependency:
+- `xcodebuild archive -scheme ScribeUpSDK -configuration Release -destination 'generic/platform=iOS Simulator' -archivePath './build/simulator.xcarchive' SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES`
 
-```
-https://github.com/ScribeUp/scribeup-sdk-ios
-```
+- `xcodebuild -create-xcframework -framework './build/ios.xcarchive/Products/Library/Frameworks/ScribeUpSDK.framework' -framework './build/simulator.xcarchive/Products/Library/Frameworks/ScribeUpSDK.framework' -output './ScribeUpSDK.xcframework'`
 
-Latest Version
-```
-0.0.1
-```
-
-### SubscriptionManagerViewController
-
-`SubscriptionManagerViewController` is a UIViewController subclass that lets you easily integrate the subscription manager into your app. For example, you can present it like this:
-
-```swift
-import ScribeUpSDK
-
-let subscriptionVC = SubscriptionManagerViewController(
-  url: authenticatedUrl,
-  productName: "Bill Navigator",
-  delegate: self
-)
-self.present(subscriptionVC, animated: true)
-```
-
-For details on completing authentication and generating a valid URL, please visit [ScribeUp Documentation](https://docs.scribeup.io).
-
-## Implementing SubscriptionManagerDelegate
-To receive optional callback events, conform to the SubscriptionManagerDelegate protocol. For example:
-
-### `onExit(_ error: SubscriptionManagerError?)`
-This callback is invoked when the user exits the subscription manager—either intentionally or as a result of an error.
-
-## Author
-
-[ScribeUp](https://scribeup.io)
-
-## License
-ScribeUpSDK is released under the MIT license. See the LICENSE file for details.
+## Deploying
+- Copy `ScribeUpSDK.xcframework` to external SDK repo
+- Bump up tag
+  - `git tag -a v0.0.X -m "ScribeUpSDK version 0.0.X"`
+  - `git push origin 0.0.X`
