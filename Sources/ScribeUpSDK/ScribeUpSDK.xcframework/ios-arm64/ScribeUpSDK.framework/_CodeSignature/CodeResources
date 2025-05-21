@@ -18,27 +18,35 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		VJPY9ncaBTYcTtNMMcgFzJUv0F4=
+		dk2e4SAzXSCVr7Vl6fFXy95w1sk=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		V5W+GeTvBmooJQlXW7n72lebVtQ=
+		z+6ASekAGMwBmUGaR7duyF83ez0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		sq3eE+0XbrgZwu/DraaAApXD3kw=
+		9//nJuiecay0WS04Sorg+nn5ZoU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		V5W+GeTvBmooJQlXW7n72lebVtQ=
+		z+6ASekAGMwBmUGaR7duyF83ez0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		i9NcuqeTmuUPdDuN84NF3DNSxCU=
+		5fIS2Y4u003w/6IVh3c9TIhQkcI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		rhzyrQaGJ9eBOdBIYLDriIRHrWQ=
+		</data>
+		<key>directory_contents.txt</key>
+		<data>
+		Mc1KMTAJ2q/c5Ajfe4+63HwyQAs=
+		</data>
+		<key>print.py</key>
+		<data>
+		c4O4qPBOMRpAIfNRtHn7U+xUAuQ=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -61,35 +69,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aNxH9BFE3HtCVnEVOBBnyduQlIbEi12l3vfoKib0gkU=
+			d4GrirjEJ4YamCpPXQgGYHuRCKOwST/a+agioJxPppE=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G8JQ4wlRA1+Fs/Jy7EdUZVIpCnjeSdJcMuUSLawf3Nc=
+			LHOpma/Ssz13MDChapEDb3byCUosTxI2sDDNVKy5LNc=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5JIw2PWT3uQDaaXOE7aN7D/tPJjZb4cLVxl6zlCiAgY=
+			pkp6SaTwA2MA8+9o4H8mDuxNkaoxi3nbnp7HttjJxfc=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G8JQ4wlRA1+Fs/Jy7EdUZVIpCnjeSdJcMuUSLawf3Nc=
+			LHOpma/Ssz13MDChapEDb3byCUosTxI2sDDNVKy5LNc=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NcESwFLzvCxuB1i3W6J6lIUXqx0zPbhN9hLj2FK+KGE=
+			+29ca6AEyOeltMResXRgUyVnjAYw7ZQj8RIERVr7LVw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -97,6 +105,20 @@
 			<key>hash2</key>
 			<data>
 			prPvU8XR6mXWjvnwbqHCEn7zNob8Upj7SR1BGsBcahg=
+			</data>
+		</dict>
+		<key>directory_contents.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MA6SqOcS9d2eBCdsiRqdAFBkzo8xoDFBuWtzVG7cusI=
+			</data>
+		</dict>
+		<key>print.py</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XIale0ag/NDuwoUtGnamQqu/B8WdxO6dxuZ66yQGBrU=
 			</data>
 		</dict>
 	</dict>
