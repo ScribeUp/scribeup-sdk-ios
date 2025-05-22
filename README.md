@@ -5,6 +5,11 @@
 
 The ScribeUp iOS SDK is available via [Swift Package Manager](https://swift.org/package-manager/) and [CocoaPods](https://cocoapods.org/).
 
+Latest Version
+```
+0.2.0
+```
+
 #### Swift Package Manager
 Add `https://github.com/ScribeUp/scribeup-sdk-ios` as a package dependency.
 
