@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		YNH+BJJ7MHok6mCl+C+zYsKwWzI=
+		AIDSE4P3r6hrbytFdqTWqBr72cQ=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		foSHSedBSPFeC1EC+2UdPfcBDyE=
+		JbQ77WAfZTS6O8Mxzna9/ofjsAQ=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -30,19 +30,19 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		foSHSedBSPFeC1EC+2UdPfcBDyE=
+		JbQ77WAfZTS6O8Mxzna9/ofjsAQ=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		vxud+dMalNXxraBZC5q/f43B++k=
+		0xbzxwEFuIoGZEGuHIOYWkVIA04=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		YNH+BJJ7MHok6mCl+C+zYsKwWzI=
+		AIDSE4P3r6hrbytFdqTWqBr72cQ=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		JqzOugtOUSg3OzJealSdWPRqWII=
+		JLob8rkgLmFGIHOLT/umHnRlgEc=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -50,15 +50,19 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		JqzOugtOUSg3OzJealSdWPRqWII=
+		JLob8rkgLmFGIHOLT/umHnRlgEc=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		bQDx7oj4a3lsdFEm2WmgoTyIR58=
+		XX9Y5SHhxR+xVJPsToGmbQ2FGAA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		rhzyrQaGJ9eBOdBIYLDriIRHrWQ=
+		</data>
+		<key>directory_contents.txt</key>
+		<data>
+		BN3VnIT5a86noh3URZsFz1qOGbo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -81,14 +85,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kHghe0D+IZu8p17gQaTRwj1WojOYgV7rKPg8iW8AQvs=
+			3+g1OWV5WRdCBKuVnuT/wNVNfxCcO0YKPwjjmHONhOg=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			P51ixWw3qng4F/rNkpIw2jurVxkN3Ldq63T3cLH4esA=
+			KgAehortNjr6EqfMjctJhpNzu5Yh446dB/M2wIXfpkw=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -102,28 +106,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P51ixWw3qng4F/rNkpIw2jurVxkN3Ldq63T3cLH4esA=
+			KgAehortNjr6EqfMjctJhpNzu5Yh446dB/M2wIXfpkw=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EaAUVGZ2W0Or0pi+M9/TTNfS9LispTXdSVQwvv0lcn0=
+			cgQ5uBSKauaXlwm9d1GpYnCEsR0xhnqjdiFU+C4LCBc=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kHghe0D+IZu8p17gQaTRwj1WojOYgV7rKPg8iW8AQvs=
+			3+g1OWV5WRdCBKuVnuT/wNVNfxCcO0YKPwjjmHONhOg=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dvS1aAwaWCFuDpH/PkeMfLjNBzYEtkhAcZ09XB3VsE8=
+			wMrtGyXE8XPmqOx1HgCreitn6OvHjzeJSskPu2zyND8=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -137,14 +141,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dvS1aAwaWCFuDpH/PkeMfLjNBzYEtkhAcZ09XB3VsE8=
+			wMrtGyXE8XPmqOx1HgCreitn6OvHjzeJSskPu2zyND8=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+/TqrjWgOnjCpfYQrL/9Kz5RKPCEvoKXcfOm2Y2GP5A=
+			ctWw5odzBBpYHtDZYALMV9Aei+0qulLSFhxuxJG5r/c=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -152,6 +156,13 @@
 			<key>hash2</key>
 			<data>
 			prPvU8XR6mXWjvnwbqHCEn7zNob8Upj7SR1BGsBcahg=
+			</data>
+		</dict>
+		<key>directory_contents.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			s+AjmFTQP2quAo3s4K8LAkPqBT4spaswjwZW1aJGfas=
 			</data>
 		</dict>
 	</dict>
