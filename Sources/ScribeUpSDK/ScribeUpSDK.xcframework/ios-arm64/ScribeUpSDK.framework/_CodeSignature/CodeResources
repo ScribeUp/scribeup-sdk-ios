@@ -18,27 +18,31 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		VJPY9ncaBTYcTtNMMcgFzJUv0F4=
+		3z0QG7HsitIUbsQs0CIEQBDTZBw=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		V5W+GeTvBmooJQlXW7n72lebVtQ=
+		8uLowjEf9D/A5QlJHXMroRo9gD4=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		sq3eE+0XbrgZwu/DraaAApXD3kw=
+		9//nJuiecay0WS04Sorg+nn5ZoU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		V5W+GeTvBmooJQlXW7n72lebVtQ=
+		8uLowjEf9D/A5QlJHXMroRo9gD4=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		i9NcuqeTmuUPdDuN84NF3DNSxCU=
+		wTBYxObyVQuB4Qq+VQKo4ljKsBI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		rhzyrQaGJ9eBOdBIYLDriIRHrWQ=
+		</data>
+		<key>directory_contents.txt</key>
+		<data>
+		BN3VnIT5a86noh3URZsFz1qOGbo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -61,35 +65,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aNxH9BFE3HtCVnEVOBBnyduQlIbEi12l3vfoKib0gkU=
+			rFXfENrPouzBS2B0lZ7I23TVzy2B4bCQDPh6zrRlX4s=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G8JQ4wlRA1+Fs/Jy7EdUZVIpCnjeSdJcMuUSLawf3Nc=
+			O3RQswLifVGnUq9XDKrH6+Y0jMcJx1d1muuOnR7+DTs=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5JIw2PWT3uQDaaXOE7aN7D/tPJjZb4cLVxl6zlCiAgY=
+			pkp6SaTwA2MA8+9o4H8mDuxNkaoxi3nbnp7HttjJxfc=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G8JQ4wlRA1+Fs/Jy7EdUZVIpCnjeSdJcMuUSLawf3Nc=
+			O3RQswLifVGnUq9XDKrH6+Y0jMcJx1d1muuOnR7+DTs=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NcESwFLzvCxuB1i3W6J6lIUXqx0zPbhN9hLj2FK+KGE=
+			xpcbd7vA/CJMR9OsZxazW21GzOgO0cl7rNx03Ix433U=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -97,6 +101,13 @@
 			<key>hash2</key>
 			<data>
 			prPvU8XR6mXWjvnwbqHCEn7zNob8Upj7SR1BGsBcahg=
+			</data>
+		</dict>
+		<key>directory_contents.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			s+AjmFTQP2quAo3s4K8LAkPqBT4spaswjwZW1aJGfas=
 			</data>
 		</dict>
 	</dict>
