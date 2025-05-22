@@ -1,0 +1,3119 @@
+|-- LoginViewControllerHelpers
+    |-- Auth.swift
+        |-- Content:
+        |   import UIKit
+        |   import WebKit
+        |   
+        |   // MARK: - Types
+        |   
+        |   struct CookieCheck {
+        |       let name: String
+        |       let value: String?
+        |   }
+        |   
+        |   public protocol MerchantLoginViewControllerDelegate: AnyObject {
+        |       func merchantLoginSucceeded(context: [String: String])
+        |       func merchantLoginFailed(error: Error)
+        |   }
+        |   
+        |   // MARK: - MerchantLoginViewController Extension
+        |   
+        |   extension MerchantLoginViewController {
+        |       // MARK: - Login Confirmation
+        |   
+        |       @MainActor
+        |       func confirmLoginIfNeeded(for url: URL?) {
+        |           JSONLogger.shared.log("Checking login conditions for URL: \(url?.absoluteString ?? "unknown")")
+        |           guard let urlString = url?.absoluteString else { return }
+        |   
+        |           for check in sdkLoggedInChecks {
+        |               guard let type = check.type else { continue }
+        |               switch type {
+        |               case "url_exact":
+        |                   if let expected = check.value, urlString == expected {
+        |                       JSONLogger.shared.log("Login condition met by url_exact match.")
+        |                       self.handleLoginSuccess()
+        |                       return
+        |                   }
+        |               case "url_regex":
+        |                   if let pattern = check.pattern,
+        |                      let regex = try? NSRegularExpression(pattern: pattern, options: []),
+        |                      regex.firstMatch(in: urlString, options: [], range: NSRange(urlString.startIndex..., in: urlString)) != nil {
+        |                       JSONLogger.shared.log("Login condition met by url_regex match.")
+        |                       self.handleLoginSuccess()
+        |                       return
+        |                   }
+        |               case "interceptor":
+        |                   if let key = check.key, interceptedValues[key] != nil {
+        |                       JSONLogger.shared.log("Login condition met by interceptor match for key: \(key)")
+        |                       self.handleLoginSuccess()
+        |                       return
+        |                   }
+        |   
+        |                   guard let cookieChecks = check.cookies, !cookieChecks.isEmpty else { continue }
+        |                   self.handleCookiePredicateCheck(cookieChecks)
+        |               default:
+        |                   break
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func handleCookiePredicateCheck(_ cookieChecks: [CookiePredicate]) {
+        |           self.getCookies { [weak self] cookies in
+        |               guard let self = self else { return }
+        |               let allMatch = self.validateCookieChecks(cookieChecks, against: cookies)
+        |               if allMatch {
+        |                   JSONLogger.shared.log("Login condition met by cookie predicate match.")
+        |                   Task { @MainActor in
+        |                       self.handleLoginSuccess()
+        |                   }
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func validateCookieChecks(_ checks: [CookiePredicate], against cookies: [HTTPCookie]) -> Bool {
+        |           for cookieCheck in checks {
+        |               guard let matchingCookie = cookies.first(where: { $0.name == cookieCheck.name }) else {
+        |                   return false
+        |               }
+        |               if let expectedValue = cookieCheck.value, !expectedValue.isEmpty {
+        |                   if matchingCookie.value != expectedValue {
+        |                       return false
+        |                   }
+        |               }
+        |           }
+        |           return true
+        |       }
+        |   
+        |       // MARK: - Login Failure
+        |   
+        |       func confirmLoginFailure(error: Error) {
+        |           JSONLogger.shared.log("Login failed: \(error.localizedDescription)")
+        |           apiController.updateJobStatus(jobId: self.jobId, status: "login_fail", token: self.token) { [weak self] result in
+        |               guard let self = self else { return }
+        |               DispatchQueue.main.async { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.handleLoginFailureCleanup(error: error)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func handleLoginFailureCleanup(error: Error) {
+        |           DispatchQueue.main.async { [weak self] in
+        |               self?.cleanup { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.delegate?.merchantLoginFailed(error: error)
+        |                   self.dismiss(animated: true, completion: nil)
+        |               }
+        |           }
+        |       }
+        |   
+        |       // MARK: - Login Success
+        |   
+        |       func handleLoginSuccess() {
+        |           Task { @MainActor in
+        |               guard !loginCompleted else { return }
+        |               self.loginCompleted = true
+        |   
+        |               DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        |                   guard let self = self else { return }
+        |                   let updatedContext = self.interceptedValues
+        |                   JSONLogger.shared.log("Tentative login success detected. Updated context: \(updatedContext)")
+        |                   self.performAuthCheck(context: updatedContext, authCheckConfig: self.merchant.sdkAuthCheck)
+        |               }
+        |           }
+        |       }
+        |   
+        |       // MARK: - Auth Check
+        |   
+        |       func performAuthCheck(context: [String: String], authCheckConfig: AuthCheck, attempt: Int = 1) {
+        |           self.webView?.removeFromSuperview()
+        |   
+        |           if authCheckConfig.skipOnDevice == true {
+        |               JSONLogger.shared.log("AuthCheck skipped on device")
+        |               self.confirmLoginSuccess(context: context, attempt: attempt)
+        |               return
+        |           }
+        |   
+        |           if let contextKey = authCheckConfig.context, !contextKey.isEmpty,
+        |              let contextValue = context[contextKey], !contextValue.isEmpty {
+        |               JSONLogger.shared.log("AuthCheck succeeded by context key '\(contextKey)' present.")
+        |               self.confirmLoginSuccess(context: context, attempt: attempt)
+        |               return
+        |           }
+        |   
+        |           self.performAuthCheckRequest(context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |       }
+        |   
+        |       private func performAuthCheckRequest(context: [String: String], authCheckConfig: AuthCheck, attempt: Int) {
+        |           self.getCookies { [weak self] cookies in
+        |               guard let self = self else { return }
+        |   
+        |               guard let urlTemplate = authCheckConfig.url else {
+        |                   let err = NSError(domain: "ScribeUpSDK", code: 1000, userInfo: [NSLocalizedDescriptionKey: "Missing auth check URL"])
+        |                   self.confirmLoginFailure(error: err)
+        |                   return
+        |               }
+        |   
+        |               let (request, error) = self.prepareAuthCheckRequest(
+        |                   urlTemplate: urlTemplate,
+        |                   context: context,
+        |                   cookies: cookies,
+        |                   authCheckConfig: authCheckConfig
+        |               )
+        |   
+        |               if let error = error {
+        |                   self.confirmLoginFailure(error: error)
+        |                   return
+        |               }
+        |   
+        |               guard let request = request else { return }
+        |   
+        |               self.executeAuthCheckRequest(request: request, context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |           }
+        |       }
+        |   
+        |       private func prepareAuthCheckRequest(urlTemplate: String, context: [String: String], cookies: [HTTPCookie], authCheckConfig: AuthCheck) -> (URLRequest?, Error?) {
+        |           let method = authCheckConfig.method ?? "GET"
+        |           var headers = authCheckConfig.headers ?? [:]
+        |           var bodyString = authCheckConfig.data ?? ""
+        |   
+        |           var urlString = urlTemplate
+        |           urlString = self.replacePlaceholders(in: urlString, context: context, cookies: cookies)
+        |           headers = self.replacePlaceholders(in: headers, context: context, cookies: cookies)
+        |           bodyString = self.replacePlaceholders(in: bodyString, context: context, cookies: cookies)
+        |   
+        |           guard let requestUrl = URL(string: urlString) else {
+        |               return (nil, NSError(domain: "ScribeUpSDK", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Invalid auth check URL"]))
+        |           }
+        |   
+        |           var request = URLRequest(url: requestUrl)
+        |           request.httpMethod = method
+        |   
+        |           for (hKey, hVal) in headers {
+        |               request.setValue(hVal, forHTTPHeaderField: hKey)
+        |           }
+        |   
+        |           if authCheckConfig.skipCookies != true {
+        |               let cookieHeaders = HTTPCookie.requestHeaderFields(with: cookies)
+        |               request.setValue(cookieHeaders["Cookie"], forHTTPHeaderField: "Cookie")
+        |           }
+        |   
+        |           if !bodyString.isEmpty {
+        |               request.httpBody = bodyString.data(using: .utf8)
+        |           }
+        |   
+        |           return (request, nil)
+        |       }
+        |   
+        |       private func replacePlaceholders(in string: String, context: [String: String], cookies: [HTTPCookie]) -> String {
+        |           var result = string
+        |   
+        |           for (key, value) in context {
+        |               let placeholder = "%context|\(key)%"
+        |               result = result.replacingOccurrences(of: placeholder, with: value)
+        |           }
+        |   
+        |           for cookie in cookies {
+        |               let placeholder = "%cookies|\(cookie.name)%"
+        |               result = result.replacingOccurrences(of: placeholder, with: cookie.value)
+        |           }
+        |   
+        |           return result
+        |       }
+        |   
+        |       private func replacePlaceholders(in headers: [String: String], context: [String: String], cookies: [HTTPCookie]) -> [String: String] {
+        |           var result = headers
+        |   
+        |           for (hKey, hVal) in headers {
+        |               result[hKey] = replacePlaceholders(in: hVal, context: context, cookies: cookies)
+        |           }
+        |   
+        |           return result
+        |       }
+        |   
+        |       private func executeAuthCheckRequest(request: URLRequest, context: [String: String], authCheckConfig: AuthCheck, attempt: Int) {
+        |           let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        |               guard let self = self else { return }
+        |   
+        |               if let error = error {
+        |                   JSONLogger.shared.log("AuthCheck Attempt \(attempt) - Network error: \(error.localizedDescription)")
+        |                   self.handleAuthCheckFailure(context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |                   return
+        |               }
+        |   
+        |               guard let httpResponse = response as? HTTPURLResponse else {
+        |                   self.handleAuthCheckFailure(context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |                   return
+        |               }
+        |   
+        |               self.handleAuthCheckResponse(
+        |                   response: httpResponse,
+        |                   data: data,
+        |                   context: context,
+        |                   authCheckConfig: authCheckConfig,
+        |                   attempt: attempt,
+        |                   originalRequest: request
+        |               )
+        |           }
+        |           task.resume()
+        |       }
+        |   
+        |       private func handleAuthCheckResponse(response: HTTPURLResponse, data: Data?, context: [String: String], authCheckConfig: AuthCheck, attempt: Int, originalRequest: URLRequest) {
+        |           let statusCode = response.statusCode
+        |           let finalUrlString = response.url?.absoluteString ?? ""
+        |   
+        |           JSONLogger.shared.log("AuthCheck Attempt \(attempt) - statusCode: \(statusCode), finalUrl: \(finalUrlString)")
+        |   
+        |           if let data = data, let bodyText = String(data: data, encoding: .utf8) {
+        |               JSONLogger.shared.log("AuthCheck Attempt \(attempt) - Body: \(bodyText)")
+        |           }
+        |   
+        |           let success = self.validateAuthCheckResponse(response: response, originalRequest: originalRequest)
+        |   
+        |           DispatchQueue.main.async { [weak self] in
+        |               guard let self = self else { return }
+        |               if success {
+        |                   self.handleAuthCheckSuccess(context: context, attempt: attempt)
+        |               } else if attempt < MerchantLoginViewController.maxAuthCheckAttempts {
+        |                   self.retryAuthCheck(context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |               } else {
+        |                   self.handleAuthCheckFailure(context: context, authCheckConfig: authCheckConfig, attempt: attempt)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func validateAuthCheckResponse(response: HTTPURLResponse, originalRequest: URLRequest) -> Bool {
+        |           let statusOK = (200...299).contains(response.statusCode)
+        |   
+        |           guard let finalURL = response.url,
+        |                 let finalComponents = URLComponents(url: finalURL, resolvingAgainstBaseURL: false),
+        |                 let originalURL = originalRequest.url,
+        |                 let requestComponents = URLComponents(url: originalURL, resolvingAgainstBaseURL: false) else {
+        |               return false
+        |           }
+        |   
+        |           let hostMatches = finalComponents.host == requestComponents.host
+        |           let pathMatches = finalComponents.path == requestComponents.path
+        |   
+        |           return statusOK && hostMatches && pathMatches
+        |       }
+        |   
+        |       private func handleAuthCheckSuccess(context: [String: String], attempt: Int) {
+        |           JSONLogger.shared.log("AuthCheck succeeded on attempt \(attempt). Confirming login success.")
+        |           DispatchQueue.main.async { [weak self] in
+        |               self?.dismiss(animated: true) { [weak self] in
+        |                   self?.confirmLoginSuccess(context: context, attempt: attempt)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func retryAuthCheck(context: [String: String], authCheckConfig: AuthCheck, attempt: Int) {
+        |           let linearDelay = MerchantLoginViewController.initialAuthCheckDelay * Double(attempt)
+        |           let delay = min(linearDelay, MerchantLoginViewController.maxAuthCheckDelay)
+        |           JSONLogger.shared.log("AuthCheck attempt \(attempt) failed. Retrying in \(delay)s (attempt \(attempt + 1))...")
+        |   
+        |           DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+        |               self?.performAuthCheck(context: context, authCheckConfig: authCheckConfig, attempt: attempt + 1)
+        |           }
+        |       }
+        |   
+        |       private func handleAuthCheckFailure(context: [String: String], authCheckConfig: AuthCheck, attempt: Int) {
+        |           JSONLogger.shared.log("AuthCheck failed after \(attempt) attempts. Login verification failed.")
+        |           let err = NSError(domain: "ScribeUpSDK", code: 1002, userInfo: [NSLocalizedDescriptionKey: "Authentication verification failed"])
+        |   
+        |           DispatchQueue.main.async { [weak self] in
+        |               self?.dismiss(animated: true) { [weak self] in
+        |                   self?.confirmLoginFailure(error: err)
+        |               }
+        |           }
+        |       }
+        |   
+        |       // MARK: - Login Success Confirmation
+        |   
+        |       func confirmLoginSuccess(context: [String: String], attempt: Int) {
+        |           JSONLogger.shared.log("Login success confirmed. Context: \(context)")
+        |           self.webViewInterceptor?.cleanup()
+        |   
+        |           self.getCookies { [weak self] cookies in
+        |               guard let self = self else { return }
+        |               self.createSession(context: context, attempt: attempt, cookies: cookies)
+        |           }
+        |       }
+        |   
+        |       private func createSession(context: [String: String], attempt: Int, cookies: [HTTPCookie]) {
+        |           let cookieArray = self.prepareCookieArray(cookies)
+        |           let sessionBody = self.prepareSessionBody(context: context, attempt: attempt, cookies: cookieArray)
+        |   
+        |           JSONLogger.shared.log("Sending session creation request with body: \(sessionBody)")
+        |   
+        |           self.apiController.createSession(sessionBody: sessionBody) { [weak self] result in
+        |               guard let self = self else { return }
+        |               self.handleSessionCreationResult(result: result, context: context)
+        |           }
+        |       }
+        |   
+        |       private func prepareCookieArray(_ cookies: [HTTPCookie]) -> [[String: Any]] {
+        |           return cookies.map { cookie -> [String: Any] in
+        |               var expires: Int? = nil
+        |               if let date = cookie.expiresDate {
+        |                   expires = Int(date.timeIntervalSince1970)
+        |               }
+        |               return [
+        |                   "name": cookie.name,
+        |                   "value": cookie.value,
+        |                   "domain": cookie.domain,
+        |                   "path": cookie.path,
+        |                   "secure": cookie.isSecure,
+        |                   "expires": expires as Any,
+        |                   "http_only": cookie.isHTTPOnly
+        |               ]
+        |           }
+        |       }
+        |   
+        |       private func prepareSessionBody(context: [String: String], attempt: Int, cookies: [[String: Any]]) -> [String: Any] {
+        |           return [
+        |               "cookies": cookies,
+        |               "jobId": self.jobId,
+        |               "merchant_id": self.merchant.id,
+        |               "attempt": attempt,
+        |               "context": context,
+        |               "token": self.token
+        |           ]
+        |       }
+        |   
+        |       private func handleSessionCreationResult(result: Result<SessionResponse, Error>, context: [String: String]) {
+        |           switch result {
+        |           case .success(let sessionResponse):
+        |               guard sessionResponse.valid else {
+        |                   let error = NSError(domain: "ScribeUpSDK",
+        |                                     code: 1003,
+        |                                     userInfo: [NSLocalizedDescriptionKey: "Session response is invalid"])
+        |                   self.handleInvalidSessionResponse(error: error)
+        |                   return
+        |               }
+        |   
+        |               JSONLogger.shared.log("Session created successfully. ID: \(sessionResponse.id)")
+        |               self.startJob(sessionId: sessionResponse.id, context: context)
+        |   
+        |           case .failure(let error):
+        |               JSONLogger.shared.log("Session creation failed: \(error)")
+        |               self.handleSessionCreationFailure(error: error)
+        |           }
+        |       }
+        |   
+        |       private func handleInvalidSessionResponse(error: Error) {
+        |           self.apiController.updateJobStatus(jobId: self.jobId, status: "login_fail", token: self.token) { [weak self] _ in
+        |               guard let self = self else { return }
+        |               DispatchQueue.main.async { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.handleLoginFailureCleanup(error: error)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func startJob(sessionId: String, context: [String: String]) {
+        |           let startJobBody: [String: Any] = [
+        |               "jobId": self.jobId,
+        |               "session_id": sessionId,
+        |               "token": self.token
+        |           ]
+        |   
+        |           self.apiController.startJob(jobBody: startJobBody) { [weak self] result in
+        |               guard let self = self else { return }
+        |               self.handleJobStartResult(result: result, context: context)
+        |           }
+        |       }
+        |   
+        |       private func handleJobStartResult(result: Result<SimpleSuccessResponse, Error>, context: [String: String]) {
+        |           switch result {
+        |           case .success:
+        |               JSONLogger.shared.log("Job started successfully.")
+        |               self.closeJob(context: context)
+        |   
+        |           case .failure(let error):
+        |               JSONLogger.shared.log("Failed to start job: \(error)")
+        |               self.handleJobStartFailure(error: error)
+        |           }
+        |       }
+        |   
+        |       private func closeJob(context: [String: String]) {
+        |           self.apiController.updateJobStatus(jobId: self.jobId, status: "close", token: self.token) { [weak self] result in
+        |               guard let self = self else { return }
+        |               DispatchQueue.main.async { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.handleJobCloseResult(result: result, context: context)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func handleJobCloseResult(result: Result<SimpleSuccessResponse, Error>, context: [String: String]) {
+        |           switch result {
+        |           case .success:
+        |               JSONLogger.shared.log("SDK closed successfully.")
+        |               DispatchQueue.main.async { [weak self] in
+        |                   self?.cleanup {
+        |                       self?.delegate?.merchantLoginSucceeded(context: context)
+        |                       self?.dismiss(animated: true, completion: nil)
+        |                   }
+        |               }
+        |   
+        |           case .failure(let error):
+        |               JSONLogger.shared.log("Failed to close SDK: \(error)")
+        |               self.handleLoginFailureCleanup(error: error)
+        |           }
+        |       }
+        |   
+        |       private func handleJobStartFailure(error: Error) {
+        |           self.apiController.updateJobStatus(jobId: self.jobId, status: "login_fail", token: self.token) { [weak self] _ in
+        |               guard let self = self else { return }
+        |               DispatchQueue.main.async { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.handleLoginFailureCleanup(error: error)
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func handleSessionCreationFailure(error: Error) {
+        |           self.apiController.updateJobStatus(jobId: self.jobId, status: "login_fail", token: self.token) { [weak self] _ in
+        |               guard let self = self else { return }
+        |               DispatchQueue.main.async { [weak self] in
+        |                   guard let self = self else { return }
+        |                   self.handleLoginFailureCleanup(error: error)
+        |               }
+        |           }
+        |       }
+        |   }
+    |-- Interceptor.swift
+        |-- Content:
+        |   import UIKit
+        |   import WebKit
+        |   
+        |   
+        |   
+        |   public extension Dictionary where Key: Hashable, Value: Hashable {
+        |       var combinedHash: Int {
+        |           return self.reduce(0) { $0 ^ ($1.key.hashValue &* 31) ^ ($1.value.hashValue &* 17) }
+        |       }
+        |   }
+        |   
+        |   
+        |   enum URLMatchType: String {
+        |       case exact
+        |       case contains
+        |   }
+        |   
+        |   /// Responsible for setting up JavaScript injection, timers, and handling script messages.
+        |   class WebViewInterceptor: NSObject, WKScriptMessageHandler {
+        |       private weak var webView: WKWebView?
+        |       private let interceptorBlocks: [MerchantInterceptor]
+        |       private let interceptors: [MerchantInterceptor]
+        |       private var _interceptedValues: [String: String] = [:]
+        |       private let interceptedValuesQueue = DispatchQueue(label: "com.scribeup.interceptedValuesQueue", attributes: .concurrent)
+        |       private weak var cookieTimer: DispatchTimer?
+        |       private weak var storageCheckTimer: DispatchTimer?
+        |       private let storageQueue = DispatchQueue(label: "com.scribeup.storageQueue")
+        |       private var previousLocalStorage: [String: String] = [:]
+        |       private var previousSessionStorage: [String: String] = [:]
+        |       private var previousCookieStorage: [String: String] = [:]
+        |   
+        |       private let loginConfirmation: (URL?) -> Void
+        |   
+        |       // Add a property to track all active timers
+        |       private var activeTimers: [DispatchTimer] = []
+        |   
+        |       var interceptedValues: [String: String] {
+        |           var values: [String: String] = [:]
+        |           interceptedValuesQueue.sync {
+        |               values = _interceptedValues
+        |           }
+        |           return values
+        |       }
+        |   
+        |       init(webView: WKWebView,
+        |            interceptors: [MerchantInterceptor],
+        |            interceptorBlocks: [MerchantInterceptor],
+        |            loginConfirmation: @escaping (URL?) -> Void) {
+        |           self.webView = webView
+        |           self.interceptorBlocks = interceptorBlocks
+        |           self.interceptors = interceptors
+        |           self.loginConfirmation = loginConfirmation
+        |           super.init()
+        |           configureInterceptor()
+        |       }
+        |   
+        |       // Add a method to manage timers
+        |       private func addTimer(_ timer: DispatchTimer) {
+        |           activeTimers.append(timer)
+        |       }
+        |   
+        |       // Add a method to cancel all timers
+        |       func cancelAllTimers() {
+        |           activeTimers.forEach { $0.cancel() }
+        |           activeTimers.removeAll()
+        |           cookieTimer?.cancel()
+        |           cookieTimer = nil
+        |           storageCheckTimer?.cancel()
+        |           storageCheckTimer = nil
+        |       }
+        |   
+        |       private func condensed(_ text: String, maxLength: Int) -> String {
+        |           if text.count > maxLength {
+        |               let index = text.index(text.startIndex, offsetBy: maxLength)
+        |               return String(text[..<index]) + "… [truncated]"
+        |           }
+        |           return text
+        |       }
+        |   
+        |       private func configureInterceptor() {
+        |           guard let contentController = webView?.configuration.userContentController else { return }
+        |   
+        |           // Prepare the JavaScript using your existing helper.
+        |           let interceptorBlocksJson = jsonStringFromBlocks()
+        |           let interceptScript = JavaScriptHelper.networkInterceptorScript(withInterceptorBlocks: interceptorBlocksJson)
+        |           contentController.addUserScript(interceptScript)
+        |   
+        |           // Register the script message handlers.
+        |           contentController.add(self, name: "networkInterceptor")
+        |           contentController.add(self, name: "urlChange")
+        |           contentController.add(self, name: "networkInterceptorBlocker")
+        |           self.startCookieCheckTimer()
+        |           self.startStorageCheckTimer()
+        |       }
+        |   
+        |       private func jsonStringFromBlocks() -> String {
+        |           let encoder = JSONEncoder()
+        |           if let data = try? encoder.encode(interceptorBlocks),
+        |              let jsonString = String(data: data, encoding: .utf8) {
+        |               return jsonString
+        |           }
+        |           return "[]"
+        |       }
+        |   
+        |       private func applyTransformer(value: String, transformer: String, claimKey: String) -> String? {
+        |           switch transformer {
+        |           case "decode_jwt":
+        |               return decodeJwt(value, claim: claimKey)
+        |           default:
+        |               return value
+        |           }
+        |       }
+        |   
+        |       private func decodeJwt(_ token: String, claim: String?) -> String? {
+        |           let segments = token.components(separatedBy: ".")
+        |           guard segments.count >= 2 else {
+        |               JSONLogger.shared.log("Invalid JWT token: must have at least header and payload segments")
+        |               return nil
+        |           }
+        |   
+        |           // Ensure we have a valid payload segment
+        |           guard segments.count >= 2, !segments[1].isEmpty else {
+        |               JSONLogger.shared.log("Invalid JWT token: missing or empty payload segment")
+        |               return nil
+        |           }
+        |   
+        |           var payloadBase64 = segments[1]
+        |               .replacingOccurrences(of: "-", with: "+")
+        |               .replacingOccurrences(of: "_", with: "/")
+        |   
+        |           let remainder = payloadBase64.count % 4
+        |           if remainder > 0 {
+        |               payloadBase64 += String(repeating: "=", count: 4 - remainder)
+        |           }
+        |   
+        |           guard let data = Data(base64Encoded: payloadBase64),
+        |                 let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+        |                 let dict = jsonObject as? [String: Any],
+        |                 let claim = claim, !claim.isEmpty else {
+        |               JSONLogger.shared.log("Failed to decode JWT payload or missing claim")
+        |               return nil
+        |           }
+        |           JSONLogger.shared.log("Parsed JWT payload: \(dict) for claim \(claim)")
+        |           if let value = dict[claim] {
+        |               if let stringValue = value as? String {
+        |                   return stringValue
+        |               } else {
+        |                   return "\(value)"
+        |               }
+        |           }
+        |           return nil
+        |       }
+        |   
+        |       func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        |           switch message.name {
+        |           case "networkInterceptor":
+        |               processNetworkInterceptor(message: message)
+        |           case "urlChange":
+        |               processURLChange(message: message)
+        |           case "networkInterceptorBlocker":
+        |               processNetworkInterceptorBlocker(message: message)
+        |           default:
+        |               break
+        |           }
+        |       }
+        |   
+        |       private func processNetworkInterceptor(message: WKScriptMessage) {
+        |           guard let info = message.body as? [String: Any],
+        |                 let url = info["url"] as? String,
+        |                 let method = info["method"] as? String,
+        |                 var body = info["body"] as? String else { return }
+        |           var src = info["src"] as? String
+        |   
+        |           // Sample large request bodies
+        |           let maxBodyLength = 1024 * 10 // 10KB
+        |           if body.count > maxBodyLength {
+        |               // For large bodies, only keep the first and last 5KB
+        |               let prefix = String(body.prefix(maxBodyLength / 2))
+        |               let suffix = String(body.suffix(maxBodyLength / 2))
+        |               body = "\(prefix)...[truncated \(body.count - maxBodyLength) bytes]...\(suffix)"
+        |           }
+        |   
+        |           DispatchQueue.global(qos: .background).async {
+        |               let maxLength = (url.contains(".json") || url.contains(".css")) ? 100 : 500000
+        |               InterceptLogger.shared.record(event: [
+        |                   "type": "network",
+        |                   "url": url,
+        |                   "method": method,
+        |                   "body": self.condensed(body, maxLength: maxLength),
+        |                   "src": src ?? ""
+        |               ])
+        |   
+        |               for rule in self.interceptors {
+        |                   if rule.matchType != "exact" && rule.matchType != "contains" { continue }
+        |                   guard let ruleURL = rule.url else { continue }
+        |                   let matchTypeRaw = rule.matchType ?? "exact"
+        |                   let matchType = URLMatchType(rawValue: matchTypeRaw) ?? .exact
+        |                   let ruleMethod = rule.method?.uppercased()
+        |   
+        |                   let methodMatches = (ruleMethod == nil || ruleMethod == method)
+        |                   let urlMatches: Bool = {
+        |                       switch matchType {
+        |                       case .exact:
+        |                           return url == ruleURL
+        |                       case .contains:
+        |                           return url.contains(ruleURL)
+        |                       }
+        |                   }()
+        |                   if urlMatches && methodMatches {
+        |                       if let pattern = rule.pattern,
+        |                          let key = rule.key,
+        |                          let re = try? NSRegularExpression(pattern: pattern, options: []) {
+        |                           body += "\n URL='\(url)"
+        |                           let nsBody = body as NSString
+        |                           let range = NSRange(location: 0, length: nsBody.length)
+        |                           if let match = re.firstMatch(in: body, options: [], range: range), match.numberOfRanges > 1 {
+        |                               var extracted = nsBody.substring(with: match.range(at: 1))
+        |                               if let transformer = rule.transformer {
+        |                                   if let transformed = self.applyTransformer(value: extracted, transformer: transformer, claimKey: key) {
+        |                                       extracted = transformed
+        |                                       JSONLogger.shared.log("Extracted value \(extracted) for key '\(key)' transformed")
+        |                                   } else {
+        |                                       JSONLogger.shared.log("No value extracted for key '\(key)'")
+        |                                       continue
+        |                                   }
+        |                               }
+        |                               DispatchQueue.main.async {
+        |                                   self.interceptedValuesQueue.async(flags: .barrier) {
+        |                                       self._interceptedValues[key] = extracted
+        |                                   }
+        |                                   JSONLogger.shared.log("Extracted value for key '\(key)': \(extracted)")
+        |                                   self.loginConfirmation(URL(string: url))
+        |                               }
+        |                           }
+        |                       }
+        |                   }
+        |               }
+        |           }
+        |       }
+        |   
+        |       private func processURLChange(message: WKScriptMessage) {
+        |           if let newUrlString = message.body as? String, let newUrl = URL(string: newUrlString) {
+        |               JSONLogger.shared.log("URL changed (pushState/popstate): \(newUrlString)")
+        |               for rule in self.interceptors {
+        |                   if rule.matchType != "url" { continue }
+        |                   if let pattern = rule.pattern, let key = rule.key {
+        |                       let claimKey = rule.subKey ?? key
+        |                       if let re = try? NSRegularExpression(pattern: pattern, options: []) {
+        |                           let nsString = newUrlString as NSString
+        |                           let range = NSRange(location: 0, length: nsString.length)
+        |                           if let match = re.firstMatch(in: newUrlString, options: [], range: range),
+        |                              match.numberOfRanges > 1 {
+        |                               var extracted = nsString.substring(with: match.range(at: 1))
+        |                               if let transformer = rule.transformer {
+        |                                   if let transformed = self.applyTransformer(value: extracted, transformer: transformer, claimKey: claimKey) {
+        |                                       extracted = transformed
+        |                                       JSONLogger.shared.log("Extracted value \(extracted) for key '\(key)' transformed using claim '\(claimKey)'")
+        |                                   } else {
+        |                                       JSONLogger.shared.log("No value extracted for key '\(key)' after transformer in URL interceptor")
+        |                                       continue
+        |                                   }
+        |                               }
+        |                               DispatchQueue.main.async {
+        |                                   self.interceptedValuesQueue.async(flags: .barrier) {
+        |                                       self._interceptedValues[key] = extracted
+        |                                   }
+        |                                   JSONLogger.shared.log("Extracted value for key '\(key)' from URL interceptor: \(extracted)")
+        |                                   self.loginConfirmation(newUrl)
+        |                               }
+        |                           }
+        |                       }
+        |                   }
+        |               }
+        |               DispatchQueue.main.async {
+        |                   self.loginConfirmation(newUrl)
+        |               }
+        |           }
+        |           return
+        |       }
+        |   
+        |       private func processNetworkInterceptorBlocker(message: WKScriptMessage) {
+        |           JSONLogger.shared.log("networkInterceptorBlocker log: \(message)")
+        |       }
+        |   
+        |       func cleanup() {
+        |           // Cancel all timers immediately
+        |           cancelAllTimers()
+        |   
+        |           // Remove script message handlers from the webView's userContentController.
+        |           if let contentController = webView?.configuration.userContentController {
+        |               contentController.removeScriptMessageHandler(forName: "networkInterceptor")
+        |               contentController.removeScriptMessageHandler(forName: "urlChange")
+        |               contentController.removeScriptMessageHandler(forName: "networkInterceptorBlocker")
+        |           }
+        |           interceptedValuesQueue.async(flags: .barrier) {
+        |               self._interceptedValues.removeAll()
+        |           }
+        |   
+        |           // Ensure webView cleanup happens on main thread
+        |           DispatchQueue.main.async { [weak self] in
+        |               guard let self = self else { return }
+        |               if let popup = self.webView {
+        |                   popup.stopLoading()
+        |                   popup.navigationDelegate = nil
+        |                   popup.uiDelegate = nil
+        |                   popup.removeFromSuperview()
+        |               }
+        |           }
+        |       }
+        |   
+        |       deinit {
+        |           cancelAllTimers() // Cancel all timers first
+        |           cleanup()
+        |       }
+        |   
+        |       private func startStorageCheckTimer() {
+        |           // Cancel existing timer if any
+        |           storageCheckTimer?.cancel()
+        |   
+        |           storageCheckTimer = DispatchTimer(interval: 3, queue: DispatchQueue.scribeTimerQueue) { [weak self] in
+        |               guard let self = self, self.webView != nil else {
+        |                   // If webView is nil, cancel the timer
+        |                   self?.storageCheckTimer?.cancel()
+        |                   self?.storageCheckTimer = nil
+        |                   return
+        |               }
+        |               self.checkStorage()
+        |           }
+        |   
+        |           if let timer = storageCheckTimer {
+        |               addTimer(timer)
+        |           }
+        |           JSONLogger.shared.log("Storage check timer started on shared background queue.")
+        |       }
+        |   
+        |       private func checkStorage() {
+        |           guard let webView = self.webView else {
+        |               // If webView is nil, cancel the timer
+        |               storageCheckTimer?.cancel()
+        |               storageCheckTimer = nil
+        |               return
+        |           }
+        |   
+        |           DispatchQueue.main.async { [weak self] in
+        |               guard let self = self else { return }
+        |               webView.evaluateJavaScript(JavaScriptHelper.storageListeners) { [weak self] result, error in
+        |                   guard let self = self else { return }
+        |   
+        |                   if let dict = result as? [String: Any] {
+        |                       self.storageQueue.async { [weak self] in
+        |                           guard let self = self else { return }
+        |                           var didChange = false
+        |   
+        |                           if let localDict = dict["local"] as? [String: String] {
+        |                               let newLocal = self.compareAndLogStorageChanges(newStorage: localDict, oldStorage: self.previousLocalStorage, type: "localStorage")
+        |                               let localChanged = (newLocal != self.previousLocalStorage)
+        |                               self.previousLocalStorage = newLocal
+        |   
+        |                               if localChanged {
+        |                                   self.applyStorageInterceptors(storeType: "local", dictionary: newLocal)
+        |                                   didChange = true
+        |                               }
+        |                           }
+        |   
+        |                           if let sessionDict = dict["session"] as? [String: String] {
+        |                               let newSession = self.compareAndLogStorageChanges(newStorage: sessionDict, oldStorage: self.previousSessionStorage, type: "sessionStorage")
+        |                               let sessionChanged = (newSession != self.previousSessionStorage)
+        |                               self.previousSessionStorage = newSession
+        |   
+        |                               if sessionChanged {
+        |                                   self.applyStorageInterceptors(storeType: "session", dictionary: newSession)
+        |                                   didChange = true
+        |                               }
+        |                           }
+        |   
+        |                           if didChange {
+        |                               DispatchQueue.main.async { [weak self] in
+        |                                   guard let self = self else { return }
+        |                                   self.loginConfirmation(self.webView?.url)
+        |                               }
+        |                           }
+        |                       }
+        |                   } else if let error = error {
+        |                       JSONLogger.shared.log("Error checking storage: \(error)")
+        |                   }
+        |               }
+        |           }
+        |       }
+        |   
+        |       func applyStorageInterceptors(storeType: String, dictionary: [String: String]) {
+        |           guard let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []),
+        |                 let storeString = String(data: data, encoding: .utf8)
+        |           else {
+        |               return
+        |           }
+        |   
+        |           for rule in self.interceptors {
+        |               guard let matchType = rule.matchType,
+        |                     (storeType == "local" && matchType == "local") ||
+        |                       (storeType == "session" && matchType == "session")
+        |               else {
+        |                   continue
+        |               }
+        |   
+        |               if let pattern = rule.pattern,
+        |                  let key = rule.key,
+        |                  let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+        |   
+        |                   let nsStoreString = storeString as NSString
+        |                   let range = NSRange(location: 0, length: nsStoreString.length)
+        |                   if let match = regex.firstMatch(in: storeString, options: [], range: range),
+        |                      match.numberOfRanges > 1 {
+        |   
+        |                       var extracted = nsStoreString.substring(with: match.range(at: 1))
+        |   
+        |                       if let transformer = rule.transformer {
+        |                           if let transformed = self.applyTransformer(value: extracted, transformer: transformer, claimKey: key) {
+        |                               extracted = transformed
+        |                           } else {
+        |                               JSONLogger.shared.log("Failed to transform extracted value for key '\(key)'")
+        |                               continue
+        |                           }
+        |                       }
+        |   
+        |                       DispatchQueue.main.async {
+        |                           self.interceptedValuesQueue.async(flags: .barrier) {
+        |                               self._interceptedValues[key] = extracted
+        |                           }
+        |                           JSONLogger.shared.log("Extracted value for key '\(key)' from \(storeType) interceptor: \(extracted)")
+        |                       }
+        |                   }
+        |               }
+        |           }
+        |   
+        |       }
+        |   
+        |       private func compareAndLogStorageChanges(newStorage: [String: String], oldStorage: [String: String], type: String) -> [String: String] {
+        |           if newStorage.combinedHash == oldStorage.combinedHash {
+        |               return oldStorage
+        |           }
+        |           for (key, newValue) in newStorage {
+        |               let oldValue = oldStorage[key]
+        |               if oldValue != newValue {
+        |                   InterceptLogger.shared.record(event: ["type": type, "key": key, "value": newValue])
+        |               }
+        |           }
+        |           for key in oldStorage.keys {
+        |               if newStorage[key] == nil {
+        |                   InterceptLogger.shared.record(event: ["type": type, "key": key, "value": ""])
+        |               }
+        |           }
+        |           return newStorage
+        |       }
+        |   
+        |       func startCookieCheckTimer() {
+        |           // Cancel any existing timer first
+        |           cookieTimer?.cancel()
+        |   
+        |           cookieTimer = DispatchTimer(interval: 3, queue: DispatchQueue.scribeTimerQueue) { [weak self] in
+        |               guard let self = self, self.webView != nil else {
+        |                   // If webView is nil, cancel the timer
+        |                   self?.cookieTimer?.cancel()
+        |                   self?.cookieTimer = nil
+        |                   return
+        |               }
+        |               self.checkCookies()
+        |           }
+        |   
+        |           if let timer = cookieTimer {
+        |               addTimer(timer)
+        |           }
+        |           JSONLogger.shared.log("Cookie check timer started on shared background queue.")
+        |       }
+        |   
+        |       private func checkCookies() {
+        |           guard let webView = self.webView else {
+        |               // If webView is nil, cancel the timer
+        |               cookieTimer?.cancel()
+        |               cookieTimer = nil
+        |               return
+        |           }
+        |   
+        |           DispatchQueue.main.async { [weak self] in
+        |               guard let self = self else { return }
+        |               webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
+        |                   guard let self = self else { return }
+        |                   var currentCookieStorage: [String: String] = [:]
+        |                   for cookie in cookies {
+        |                       currentCookieStorage[cookie.name] = cookie.value
+        |                   }
+        |   
+        |                   if currentCookieStorage.combinedHash != self.previousCookieStorage.combinedHash {
+        |                       let cookieDescriptions = cookies.map { "\($0.name)=\($0.value)" }
+        |                           .joined(separator: ", ")
+        |                       JSONLogger.shared.log("Current cookies: \(cookieDescriptions)")
+        |                       self.previousCookieStorage = currentCookieStorage
+        |                       DispatchQueue.main.async {
+        |                           self.loginConfirmation(webView.url)
+        |                       }
+        |                   }
+        |               }
+        |           }
+        |       }
+        |   
+        |   }
+        |   
+        |   
+        |   
+        |   // MARK: - WKHTTPCookieStoreObserver
+        |   @available(iOS 11.0, *)
+        |   extension MerchantLoginViewController: WKHTTPCookieStoreObserver {
+        |       public func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
+        |           guard let webView = self.webView else { return }
+        |           let hasCookiePredicate = self.sdkLoggedInChecks.contains { $0.type == "cookie_predicate" }
+        |           if hasCookiePredicate, let currentUrl = webView.url {
+        |               DispatchQueue.main.async {
+        |                   self.confirmLoginIfNeeded(for: currentUrl)
+        |               }
+        |           }
+        |   
+        |           // Use the custom getCookies function here as well.
+        |           self.getCookies { cookies in
+        |               for cookie in cookies {
+        |                   DispatchQueue.global(qos: .background).async {
+        |                       InterceptLogger.shared.record(event: ["type": "cookie", "name": cookie.name, "value": cookie.value])
+        |                   }
+        |               }
+        |           }
+        |       }
+        |   }
+        |   
+        |   extension MerchantLoginViewController: WKUIDelegate {
+        |   
+        |   
+        |   
+        |       @available(iOS 9.0, *)
+        |       public func webViewDidClose(_ webView: WKWebView) {
+        |           guard webView == oauthPopup else { return }
+        |           JSONLogger.shared.log("OAuth popup closed via window.close(); re‑evaluating login state.")
+        |           oauthCloseTapped()
+        |       }
+        |   }
+        |   
+        |   
+        |   // MARK: - WKNavigationDelegate for webview nav changes
+        |   extension MerchantLoginViewController: WKNavigationDelegate {
+        |       public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        |           JSONLogger.shared.log("WebView finished navigation to: \(webView.url?.absoluteString ?? "unknown")")
+        |   
+        |           var jsScript = JavaScriptHelper.removeAndDisableElementsScript(removeSelectors: sdkRemoveElements,
+        |                                                                          disableLinkSelectors: sdkDisableLinks)
+        |           if !sdkRemoveElements.isEmpty {
+        |               JSONLogger.shared.log("Removing elements: \(sdkRemoveElements)")
+        |           }
+        |           if !sdkDisableLinks.isEmpty {
+        |               JSONLogger.shared.log("Disabling links: \(sdkDisableLinks)")
+        |           }
+        |   
+        |           JSONLogger.shared.log("Executing injected JS: \(jsScript)")
+        |           webView.evaluateJavaScript(jsScript, completionHandler: nil)
+        |           self.confirmLoginIfNeeded(for: webView.url)
+        |       }
+        |   
+        |       public func webView(_ webView: WKWebView,
+        |                           decidePolicyFor navigationAction: WKNavigationAction,
+        |                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        |           JSONLogger.shared.log("WebView nav action -> \(navigationAction.request.url?.absoluteString ?? "unknown")")
+        |           self.confirmLoginIfNeeded(for: navigationAction.request.url)
+        |           decisionHandler(.allow)
+        |       }
+        |   }
+        |   
+    |-- Logger.swift
+        |-- Content:
+        |   import Foundation
+        |   
+        |   // MARK: - Logger Definitions
+        |   
+        |   /// A model representing a single log entry.
+        |   /// Conforms to Codable so that log entries can be easily encoded/decoded from JSON.
+        |   struct LogEntry: Codable {
+        |       let timestamp: String
+        |       let message: String
+        |   }
+        |   
+        |   /// A logger that collects log entries and writes them to a JSON file.
+        |   /// It uses an actor to ensure thread‐safe operations and periodically flushes the logs.
+        |   actor JSONLoggerActor {
+        |       private var entries: [LogEntry] = []
+        |       private let fileURL: URL
+        |       private var isFlushing = false
+        |       private let maxEntries = 2000 // Maximum number of entries to keep
+        |   
+        |       init(fileURL: URL) {
+        |           self.fileURL = fileURL
+        |           if FileManager.default.fileExists(atPath: fileURL.path) {
+        |               try? FileManager.default.removeItem(at: fileURL)
+        |           }
+        |           entries = []
+        |       }
+        |   
+        |       func reset() {
+        |           entries.removeAll()
+        |           if FileManager.default.fileExists(atPath: fileURL.path) {
+        |               try? FileManager.default.removeItem(at: fileURL)
+        |           }
+        |       }
+        |   
+        |       func log(_ message: String) {
+        |           let timestamp = ISO8601DateFormatter().string(from: Date())
+        |           let entry = LogEntry(timestamp: timestamp, message: message)
+        |           entries.append(entry)
+        |           if entries.count > maxEntries {
+        |               entries.removeFirst(entries.count - maxEntries)
+        |           }
+        |       }
+        |   
+        |       func flushLogs() async {
+        |           guard !isFlushing else { return }
+        |           isFlushing = true
+        |           defer { isFlushing = false }
+        |   
+        |           let entriesCopy = entries
+        |           entries.removeAll()
+        |   
+        |           do {
+        |               let data = try Self.jsonEncoder.encode(entriesCopy)
+        |               do {
+        |                   try data.write(to: self.fileURL, options: .atomic)
+        |               } catch {
+        |                   // If write fails, try to truncate and write again
+        |                   try? FileManager.default.removeItem(at: self.fileURL)
+        |                   try data.write(to: self.fileURL, options: .atomic)
+        |               }
+        |           } catch {
+        |               // Log encoding error - entries are already cleared
+        |               print("Failed to encode log entries: \(error)")
+        |           }
+        |       }
+        |   
+        |       private static let jsonEncoder: JSONEncoder = {
+        |           let encoder = JSONEncoder()
+        |           return encoder
+        |       }()
+        |   }
+        |   
+        |   class JSONLogger {
+        |       static let shared = JSONLogger()
+        |       private let actor: JSONLoggerActor
+        |       private var flushTimer: DispatchTimer?
+        |       private let _fileURL: URL
+        |   
+        |       private init() {
+        |           let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        |           _fileURL = cachesDirectory.appendingPathComponent("merchant_logs.json")
+        |           self.actor = JSONLoggerActor(fileURL: _fileURL)
+        |   
+        |           // Start a timer to flush logs every 3 seconds.
+        |           flushTimer = DispatchTimer(interval: 3, queue: DispatchQueue.scribeTimerQueue) { [weak self] in
+        |               guard let self = self else { return }
+        |               Task {
+        |                   await self.actor.flushLogs()
+        |               }
+        |           }
+        |       }
+        |   
+        |       var fileURL: URL {
+        |           _fileURL
+        |       }
+        |   
+        |       func reset() {
+        |           Task {
+        |               await actor.reset()
+        |           }
+        |           flushTimer?.cancel()
+        |           flushTimer = nil
+        |       }
+        |   
+        |       func log(_ message: String) {
+        |           Task {
+        |               await actor.log(message)
+        |           }
+        |       }
+        |   
+        |       func flushNow() async {
+        |           await actor.flushLogs()
+        |       }
+        |   
+        |       deinit {
+        |           flushTimer?.cancel()
+        |           flushTimer = nil
+        |           Task {
+        |               await actor.flushLogs() // Final flush on deinitialization if needed.
+        |           }
+        |       }
+        |   }
+        |   
+        |   /// A model representing a single interception event entry.
+        |   /// Conforms to Codable for JSON serialization.
+        |   struct InterceptEntry: Codable {
+        |       let timestamp: String
+        |       let event: [String: String]
+        |       let compressed: Bool
+        |   }
+        |   
+        |   /// A logger for capturing network, cookie, and storage interception events.
+        |   /// Logs are periodically written to a JSON file.
+        |   class InterceptLogger {
+        |       static let shared = InterceptLogger()
+        |       private var entries: [InterceptEntry] = []
+        |       private let logQueue = DispatchQueue(label: "com.scribeup.interceptlogger", qos: .background)
+        |       private let queueKey = DispatchSpecificKey<Void>()
+        |       let fileURL: URL
+        |       private var flushTimer: DispatchTimer?
+        |       private let flushLock = NSLock()
+        |       private let maxEntries = 2000 // Maximum number of entries to keep
+        |       private let maxEntrySize = 1024 * 1024 // 1MB max size per entry
+        |       private let compressionThreshold = 1024 * 10 // 10KB threshold for compression
+        |   
+        |       private init() {
+        |           let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        |           fileURL = cachesDirectory.appendingPathComponent("interceptions.json")
+        |           if FileManager.default.fileExists(atPath: fileURL.path) {
+        |               try? FileManager.default.removeItem(at: self.fileURL)
+        |           }
+        |           entries = []
+        |   
+        |           // Set queue-specific key for re-entrancy detection
+        |           logQueue.setSpecific(key: queueKey, value: ())
+        |   
+        |           // Start a timer to flush logs every 3 seconds.
+        |           flushTimer = DispatchTimer(interval: 3, queue: DispatchQueue.scribeTimerQueue) { [weak self] in
+        |               guard let self = self else { return }
+        |               self.flushLogs()
+        |           }
+        |       }
+        |   
+        |       /// Records an interception event with size limits and compression.
+        |       func record(event: [String: String]) {
+        |           let timestamp = ISO8601DateFormatter().string(from: Date())
+        |   
+        |           // Process and compress large values
+        |           var processedEvent = event
+        |           var needsCompression = false
+        |   
+        |           for (key, value) in event {
+        |               if value.count > compressionThreshold {
+        |                   if let compressed = compressString(value) {
+        |                       processedEvent[key] = compressed
+        |                       needsCompression = true
+        |                   } else {
+        |                       // If compression fails, truncate the value
+        |                       processedEvent[key] = String(value.prefix(maxEntrySize))
+        |                   }
+        |               } else if value.count > maxEntrySize {
+        |                   // Truncate values that are too large but below compression threshold
+        |                   processedEvent[key] = String(value.prefix(maxEntrySize))
+        |               }
+        |           }
+        |   
+        |           let entry = InterceptEntry(timestamp: timestamp, event: processedEvent, compressed: needsCompression)
+        |           logQueue.async {
+        |               // Add new entry and trim if needed
+        |               self.entries.append(entry)
+        |               if self.entries.count > self.maxEntries {
+        |                   self.entries.removeFirst(self.entries.count - self.maxEntries)
+        |               }
+        |           }
+        |       }
+        |   
+        |       /// Compresses a string using zlib compression
+        |       private func compressString(_ string: String) -> String? {
+        |           guard let data = string.data(using: .utf8) else { return nil }
+        |   
+        |           do {
+        |               let compressed = try (data as NSData).compressed(using: .zlib)
+        |               return compressed.base64EncodedString()
+        |           } catch {
+        |               return nil
+        |           }
+        |       }
+        |   
+        |       /// Decompresses a compressed string
+        |       private func decompressString(_ compressedString: String) -> String? {
+        |           guard let data = Data(base64Encoded: compressedString),
+        |                 let decompressed = try? (data as NSData).decompressed(using: .zlib),
+        |                 let string = String(data: decompressed as Data, encoding: .utf8) else {
+        |               return nil
+        |           }
+        |           return string
+        |       }
+        |   
+        |       /// Flushes all interception events to the JSON file.
+        |       private func flushLogs() {
+        |           // Use a lock to prevent concurrent flushes
+        |           guard flushLock.try() else { return }
+        |           defer { flushLock.unlock() }
+        |   
+        |           // Create a copy of entries to avoid holding the lock during file I/O
+        |           var entriesCopy: [InterceptEntry] = []
+        |           logQueue.sync {
+        |               entriesCopy = self.entries
+        |           }
+        |   
+        |           do {
+        |               let data = try Self.jsonEncoder.encode(entriesCopy)
+        |               do {
+        |                   try data.write(to: self.fileURL, options: .atomic)
+        |               } catch {
+        |                   // If write fails, try to truncate and write again
+        |                   try? FileManager.default.removeItem(at: self.fileURL)
+        |                   try data.write(to: self.fileURL, options: .atomic)
+        |               }
+        |           } catch {
+        |               // Log encoding error and clear entries to prevent memory buildup
+        |               logQueue.async {
+        |                   self.entries.removeAll()
+        |               }
+        |           }
+        |       }
+        |   
+        |       func flushNow() {
+        |           // Always dispatch to logQueue to ensure consistent queue usage
+        |           logQueue.async { [weak self] in
+        |               self?.flushLogs()
+        |           }
+        |       }
+        |   
+        |       func reset() {
+        |           logQueue.async {
+        |               self.entries.removeAll()
+        |               if FileManager.default.fileExists(atPath: self.fileURL.path) {
+        |                   try? FileManager.default.removeItem(at: self.fileURL)
+        |               }
+        |           }
+        |           flushTimer?.cancel()
+        |           flushTimer = nil
+        |       }
+        |   
+        |       deinit {
+        |           flushTimer?.cancel()
+        |           flushTimer = nil
+        |           flushLogs() // Final flush on deinitialization if needed.
+        |       }
+        |   
+        |       private static let jsonEncoder: JSONEncoder = {
+        |           let encoder = JSONEncoder()
+        |           return encoder
+        |       }()
+        |   
+        |       private static let jsonDecoder: JSONDecoder = {
+        |           let decoder = JSONDecoder()
+        |           return decoder
+        |       }()
+        |   }
+        |   
+        |   
+        |   extension MerchantLoginViewController {
+        |       func deleteLocalFiles() {
+        |           let fileManager = FileManager.default
+        |           let paths: [URL] = [JSONLogger.shared.fileURL, InterceptLogger.shared.fileURL] +
+        |           (self.htmlFileURL != nil ? [self.htmlFileURL!] : [])
+        |           for fileURL in paths {
+        |               if fileManager.fileExists(atPath: fileURL.path) {
+        |                   try? fileManager.removeItem(at: fileURL)
+        |               }
+        |           }
+        |       }
+        |   
+        |   }
+    |-- Scripts.swift
+        |-- Content:
+        |   import Foundation
+        |   import WebKit
+        |   
+        |   public struct JavaScriptHelper {
+        |   
+        |       /// Generates a WKUserScript that intercepts network requests.
+        |       static func networkInterceptorScript(withInterceptorBlocks interceptorBlocksJson: String) -> WKUserScript {
+        |           let interceptScript = """
+        |           (function() {
+        |               function logBlock(message) {
+        |                   window.webkit.messageHandlers.networkInterceptorBlocker.postMessage(message);
+        |               }
+        |               var interceptorBlocks = \(interceptorBlocksJson);
+        |               function isBlocked(url, method) {
+        |                   var reqMethod = method.toUpperCase();
+        |                   for (var i = 0; i < interceptorBlocks.length; i++) {
+        |                       var rule = interceptorBlocks[i];
+        |                       if (url.indexOf(rule.url) !== -1 && reqMethod === rule.method.toUpperCase()) {
+        |                           logBlock(`Request blocked: url=${url}`);
+        |                           return true;
+        |                       }
+        |                   }
+        |                   return false;
+        |               }
+        |   
+        |               const xhrOpen = XMLHttpRequest.prototype.open;
+        |               XMLHttpRequest.prototype.open = function(method, url) {
+        |                   this._interceptMethod = method;
+        |                   this._interceptUrl = url;
+        |                   if (isBlocked(url, method)) { return; }
+        |                   return xhrOpen.apply(this, arguments);
+        |               };
+        |               const xhrSend = XMLHttpRequest.prototype.send;
+        |               XMLHttpRequest.prototype.send = function(body) {
+        |                   this.addEventListener('load', function() {
+        |                       const resUrl = this.responseURL || this._interceptUrl;
+        |                       const resMethod = this._interceptMethod || "";
+        |                       var responseText = "";
+        |                       if (this.responseType === '' || this.responseType === 'text') {
+        |                           responseText = this.responseText || "";
+        |                       } else if (this.responseType === 'json' && this.response) {
+        |                           responseText = JSON.stringify(this.response);
+        |                       }
+        |                       let headersObj = {};
+        |                       const rawHeaders = this.getAllResponseHeaders();
+        |                       if (rawHeaders) {
+        |                           const headerLines = rawHeaders.split(/\\r?\\n/);
+        |                           headerLines.forEach(function(line) {
+        |                               if (!line) return;
+        |                               const separatorIndex = line.indexOf(': ');
+        |                               if (separatorIndex > 0) {
+        |                                   const headerName = line.substring(0, separatorIndex);
+        |                                   const headerValue = line.substring(separatorIndex + 2);
+        |                                   headersObj[headerName] = headerValue;
+        |                               }
+        |                           });
+        |                       }
+        |                       const headersJson = JSON.stringify(headersObj);
+        |                       const combinedContent = responseText + "\\n###HEADERS###" + headersJson;
+        |                       window.webkit.messageHandlers.networkInterceptor.postMessage({
+        |                           url: resUrl, method: resMethod, body: combinedContent, src: 'XMLHttpRequest'
+        |                       });
+        |                   });
+        |                   return xhrSend.apply(this, arguments);
+        |               };
+        |               if (window.fetch) {
+        |                   const originalFetch = window.fetch;
+        |                   window.fetch = function(input, init) {
+        |                       const reqMethod = (init && init.method) ? init.method.toUpperCase() : "GET";
+        |                       const reqHeaders = (init && init.headers) ? init.headers : {};
+        |                       const reqUrl = (typeof input === 'string') ? input : input.url;
+        |   
+        |                       if (isBlocked(reqUrl, reqMethod)) {
+        |                           return Promise.reject(new Error("Request blocked by interceptor"));
+        |                       }
+        |                       return originalFetch(input, init).then(response => {
+        |                           response.clone().text().then(function(bodyText) {
+        |                               let headersObj = reqHeaders;
+        |                               response.headers.forEach(function(value, key) {
+        |                                   headersObj[key] = value;
+        |                               });
+        |                               const headersJson = JSON.stringify(headersObj);
+        |                               const combinedContent = bodyText + "\\n###HEADERS###" + headersJson;
+        |                               window.webkit.messageHandlers.networkInterceptor.postMessage({
+        |                                   url: response.url, method: reqMethod, body: combinedContent, src: 'fetch'
+        |                               });
+        |                           });
+        |                           return response;
+        |                       });
+        |                   }
+        |               }
+        |           })();
+        |           """
+        |           return WKUserScript(source: interceptScript,
+        |                               injectionTime: .atDocumentStart,
+        |                               forMainFrameOnly: false)
+        |       }
+        |   
+        |       /// Generates a WKUserScript that notifies the app when the URL changes.
+        |       static func urlChangeNotificationScript() -> WKUserScript {
+        |           let urlChangeScript = """
+        |           (function() {
+        |               function notifyUrlChange() {
+        |                   window.webkit.messageHandlers.urlChange.postMessage(document.location.href);
+        |               }
+        |               history.pushState = (function(originalPushState) {
+        |                   return function() {
+        |                       let result = originalPushState.apply(this, arguments);
+        |                       notifyUrlChange();
+        |                       return result;
+        |                   };
+        |               })(history.pushState);
+        |               history.replaceState = (function(originalReplaceState) {
+        |                   return function() {
+        |                       let result = originalReplaceState.apply(this, arguments);
+        |                       notifyUrlChange();
+        |                       return result;
+        |                   };
+        |               })(history.replaceState);
+        |               window.addEventListener('popstate', function() {
+        |                   notifyUrlChange();
+        |               });
+        |           })();
+        |           """
+        |           return WKUserScript(source: urlChangeScript,
+        |                               injectionTime: .atDocumentStart,
+        |                               forMainFrameOnly: false)
+        |       }
+        |   
+        |       /// Generates a JavaScript string used to remove elements and disable links.
+        |       static func removeAndDisableElementsScript(removeSelectors: [String],
+        |                                                  disableLinkSelectors: [String]) -> String {
+        |           var script = """
+        |           (function() {
+        |               function removeAndDisableElements() {
+        |           """
+        |   
+        |           // Helper function to escape selectors
+        |           func escapeSelector(_ selector: String) -> String {
+        |               return selector
+        |                   .replacingOccurrences(of: "\\", with: "\\\\")
+        |                   .replacingOccurrences(of: "'", with: "\\'")
+        |                   .replacingOccurrences(of: "\"", with: "\\\"")
+        |                   .replacingOccurrences(of: "\n", with: "\\n")
+        |                   .replacingOccurrences(of: "\r", with: "\\r")
+        |                   .replacingOccurrences(of: "\t", with: "\\t")
+        |           }
+        |   
+        |           // Remove elements
+        |           for selector in removeSelectors {
+        |               let escapedSelector = escapeSelector(selector)
+        |               script += "try { document.querySelectorAll('\(escapedSelector)').forEach(el => el.remove()); } catch(e) { console.error('Error removing elements with selector \"\(escapedSelector)\":', e); }\n"
+        |           }
+        |   
+        |           // Disable links
+        |           for selector in disableLinkSelectors {
+        |               let escapedSelector = escapeSelector(selector)
+        |               script += """
+        |               try {
+        |                   document.querySelectorAll('\(escapedSelector)').forEach(el => {
+        |                       if(el.tagName === 'A'){ el.removeAttribute('href'); }
+        |                       el.style.pointerEvents = 'none';
+        |                   });
+        |               } catch(e) {
+        |                   console.error('Error disabling links with selector "\(escapedSelector)":', e);
+        |               }
+        |               """
+        |           }
+        |   
+        |           script += """
+        |               }
+        |               removeAndDisableElements();
+        |               const observer = new MutationObserver(() => {
+        |                   removeAndDisableElements();
+        |               });
+        |               observer.observe(document.documentElement, {
+        |                   childList: true,
+        |                   subtree: true
+        |               });
+        |           })();
+        |           """
+        |           return script
+        |       }
+        |   
+        |       static var storageListeners = """
+        |           (function() {
+        |               var local = {};
+        |               for(var i=0; i<localStorage.length; i++){
+        |                   var k = localStorage.key(i);
+        |                   local[k] = localStorage.getItem(k);
+        |               }
+        |               var session = {};
+        |               for(var i=0; i<sessionStorage.length; i++){
+        |                   var k = sessionStorage.key(i);
+        |                   session[k] = sessionStorage.getItem(k);
+        |               }
+        |               return {local: local, session: session};
+        |           })();
+        |           """
+        |   }
+    |-- TimerHelpers.swift
+        |-- Content:
+        |   import Foundation
+        |   
+        |   // MARK: - Shared Background Queue and DispatchTimer Helper
+        |   
+        |   extension DispatchQueue {
+        |       /// A dedicated background queue used to schedule timer events for the SDK.
+        |       static let scribeTimerQueue = DispatchQueue(label: "com.scribeup.timers", qos: .background)
+        |   }
+        |   
+        |   /// A helper class to wrap a DispatchSourceTimer for repeated events.
+        |   class DispatchTimer {
+        |       private var timer: DispatchSourceTimer?
+        |       private var isCancelled = false
+        |   
+        |       /// Initializes and starts a DispatchTimer.
+        |       ///
+        |       /// - Parameters:
+        |       ///   - interval: The time interval (in seconds) between timer events.
+        |       ///   - leeway: The amount of time the system is allowed to defer the timer (default: 100 milliseconds).
+        |       ///   - queue: The dispatch queue on which the timer will run.
+        |       ///   - eventHandler: The closure to be executed on each timer event.
+        |       init(interval: TimeInterval, leeway: DispatchTimeInterval = .milliseconds(100), queue: DispatchQueue, eventHandler: @escaping () -> Void) {
+        |           timer = DispatchSource.makeTimerSource(queue: queue)
+        |           timer?.schedule(deadline: .now() + interval, repeating: interval, leeway: leeway)
+        |           timer?.setEventHandler(handler: eventHandler)
+        |           timer?.resume()
+        |       }
+        |   
+        |       /// Cancels the timer and releases its resources.
+        |       func cancel() {
+        |           guard !isCancelled else { return }
+        |           isCancelled = true
+        |           timer?.cancel()
+        |           timer = nil
+        |       }
+        |   
+        |       deinit {
+        |           cancel()
+        |       }
+        |   }
+|-- MerchantLoginViewController.swift
+    |-- Content:
+    |   import UIKit
+    |   import WebKit
+    |   import os.log
+    |   
+    |   public class MerchantLoginViewController: UIViewController {
+    |   
+    |       // MARK: ‑ Public properties kept unchanged
+    |       public weak var delegate: MerchantLoginViewControllerDelegate?
+    |       var webView: WKWebView?
+    |       var oauthPopup: WKWebView?
+    |       let merchant: Merchant
+    |       let merchantUrl: String
+    |       let interceptors: [MerchantInterceptor]
+    |       let interceptorBlocks: [MerchantInterceptor]
+    |       let sdkRemoveElements: [String]
+    |       let sdkDisableLinks: [String]
+    |       let sdkLoggedInChecks: [SDKLoggedInCheck]
+    |       let userAgent: String
+    |       var headerView: UIView?
+    |       @MainActor var loginCompleted = false
+    |       var jobId: String
+    |       let token: String
+    |       let apiController: ScribeUpAPIController
+    |       var webViewInterceptor: WebViewInterceptor?
+    |   
+    |       // MARK: ‑ NEW: container + header for OAuth popup
+    |       private var closeButton: UIButton?             // reference so we can disable it
+    |       private var isClosing          = false         // guards multiple Exit taps
+    |       private var hasCleanedUp       = false         // guards multiple cleanup runs
+    |       private var cleanupLock = os_unfair_lock()     // guards cleanup synchronization
+    |       var oauthContainerView: UIView?
+    |       var oauthHeaderView: UIView?
+    |       // MARK: ‑ Upload URLs (unchanged)
+    |       var logUploadURL: URL?
+    |       var interceptUploadURL: URL?
+    |       var htmlUploadURL: URL?
+    |   
+    |       var htmlFileURL: URL? {
+    |           let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+    |           return cachesDirectory.appendingPathComponent("pageContent.html")
+    |       }
+    |   
+    |       var isolatedDataStore: WKWebsiteDataStore!
+    |       static let initialAuthCheckDelay: TimeInterval = 0.5
+    |       static let maxAuthCheckAttempts: Int = 5
+    |       static let maxAuthCheckDelay: TimeInterval = 4.0  // Maximum delay of 4 seconds
+    |       var interceptedValues: [String: String] {
+    |           return self.webViewInterceptor?.interceptedValues ?? [:]
+    |       }
+    |       public init(merchant: Merchant,
+    |                   jobId: String = "",
+    |                   token: String,
+    |                   apiController: ScribeUpAPIController,
+    |                   uploadUrls: [String: URL]? = nil) {
+    |   
+    |           self.merchant = merchant
+    |           self.merchantUrl = merchant.sdkLoginUrl
+    |           self.interceptors = merchant.interceptors
+    |           self.interceptorBlocks = merchant.interceptorBlocks ?? []
+    |           self.sdkRemoveElements = merchant.sdkRemoveElements ?? []
+    |           self.sdkDisableLinks = merchant.sdkDisableLinks ?? []
+    |           self.sdkLoggedInChecks = merchant.sdkLoggedInChecks ?? []
+    |           self.userAgent = merchant.userAgent ?? "DefaultUserAgent"
+    |           self.jobId = jobId
+    |           self.token = token
+    |           self.apiController = apiController
+    |           self.logUploadURL = uploadUrls?["sdk_logs"]
+    |           self.htmlUploadURL = uploadUrls?["sdk_html"]
+    |           self.interceptUploadURL = uploadUrls?["sdk_interceptions"]
+    |           super.init(nibName: nil, bundle: nil)
+    |       }
+    |   
+    |       required public init?(coder: NSCoder) {
+    |           fatalError("init(coder:) has not been implemented")
+    |       }
+    |   
+    |       public override func viewDidLoad() {
+    |           super.viewDidLoad()
+    |           view.backgroundColor = .white
+    |   
+    |           JSONLogger.shared.log("View did load. Setting up MerchantLoginViewController.")
+    |   
+    |           apiController.updateJobStatus(jobId: self.jobId, status: "open", token: self.token) { [weak self] result in
+    |               guard let self = self else { return }
+    |               DispatchQueue.main.async { [weak self] in
+    |                   guard let self = self else { return }
+    |                   switch result {
+    |                   case .success(_):
+    |                       JSONLogger.shared.log("Job status updated to 'open'")
+    |                   case .failure(let error):
+    |                       JSONLogger.shared.log("Failed to update job status to 'open': \(error)")
+    |                   }
+    |               }
+    |           }
+    |   
+    |           // Create an isolated (non-persistent) data store.
+    |           self.isolatedDataStore = WKWebsiteDataStore.nonPersistent()
+    |           clearCookies(from: self.isolatedDataStore) { [weak self] in
+    |               guard let self = self else { return }
+    |               self.setupHeader()
+    |               self.setupWebView(using: self.isolatedDataStore)
+    |               self.loadMerchantLogin()
+    |           }
+    |   
+    |           // Register as a cookie observer on the isolated data store.
+    |           if #available(iOS 11.0, *) {
+    |               self.isolatedDataStore.httpCookieStore.add(self)
+    |               JSONLogger.shared.log("Added cookie observer.")
+    |           }
+    |       }
+    |   
+    |       deinit {
+    |           // No blocking cleanup in deinit - all cleanup is done in viewWillDisappear
+    |           if #available(iOS 11.0, *) {
+    |               self.isolatedDataStore.httpCookieStore.remove(self)
+    |           }
+    |           webViewInterceptor?.cleanup()
+    |       }
+    |   
+    |       @objc func oauthBackTapped() {
+    |           guard let popup = oauthPopup else { return }
+    |           if popup.canGoBack {
+    |               popup.goBack()
+    |           } else {
+    |               JSONLogger.shared.log("OAuth back tapped – no history.")
+    |           }
+    |       }
+    |   
+    |       @objc func oauthCloseTapped() {
+    |           guard !isClosing else { return }            // already closing via Exit
+    |           JSONLogger.shared.log("OAuth close tapped – dismissing popup.")
+    |   
+    |           // UI updates on main thread
+    |           Task { @MainActor in
+    |               self.closeButton?.isEnabled = false
+    |               if let popup = self.oauthPopup {
+    |                   popup.stopLoading()
+    |                   popup.navigationDelegate = nil
+    |                   popup.uiDelegate = nil
+    |                   popup.removeFromSuperview()
+    |               }
+    |               self.oauthPopup = nil
+    |               self.oauthHeaderView?.removeFromSuperview()
+    |               self.oauthContainerView?.removeFromSuperview()
+    |               self.oauthHeaderView = nil
+    |               self.oauthContainerView = nil
+    |           }
+    |   
+    |           // Heavy work in background
+    |           Task.detached(priority: .background) { [weak self] in
+    |               guard let self = self else { return }
+    |   
+    |               // Flush logs in background
+    |               await JSONLogger.shared.flushNow()
+    |               await InterceptLogger.shared.flushNow()
+    |   
+    |               // File operations in background
+    |               await withCheckedContinuation { continuation in
+    |                   self.uploadFiles { [weak self] in
+    |                       guard let self = self else {
+    |                           continuation.resume()
+    |                           return
+    |                       }
+    |   
+    |                       // Reset logs and cleanup in background
+    |                       Task.detached(priority: .background) {
+    |                           JSONLogger.shared.reset()
+    |                           InterceptLogger.shared.reset()
+    |                           self.deleteLocalFiles()
+    |   
+    |                           // Re-evaluate login on main thread
+    |                           Task { @MainActor in
+    |                               self.confirmLoginIfNeeded(for: self.webView?.url)
+    |                               continuation.resume()
+    |                           }
+    |                       }
+    |                   }
+    |               }
+    |           }
+    |       }
+    |   
+    |       func getCookies(from dataStore: WKWebsiteDataStore? = nil, completion: @escaping ([HTTPCookie]) -> Void) {
+    |           // First try the provided data store
+    |           if let store = dataStore {
+    |               store.httpCookieStore.getAllCookies { cookies in
+    |                   completion(cookies)
+    |               }
+    |               return
+    |           }
+    |   
+    |           // Then try the webView's data store if available
+    |           if let webViewStore = self.webView?.configuration.websiteDataStore {
+    |               webViewStore.httpCookieStore.getAllCookies { cookies in
+    |                   completion(cookies)
+    |               }
+    |               return
+    |           }
+    |   
+    |           // Finally fall back to our isolated data store which we know exists
+    |           self.isolatedDataStore.httpCookieStore.getAllCookies { cookies in
+    |               completion(cookies)
+    |           }
+    |       }
+    |   
+    |       private func clearCookies(from dataStore: WKWebsiteDataStore, completion: @escaping () -> Void) {
+    |           let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
+    |           let dateFrom = Date(timeIntervalSince1970: 0)
+    |           dataStore.removeData(ofTypes: dataTypes, modifiedSince: dateFrom) { [weak self] in
+    |               guard let self = self else { return }
+    |               self.getCookies(from: dataStore) { [weak self] cookies in
+    |                   guard let self = self else { return }
+    |                   let dispatchGroup = DispatchGroup()
+    |   
+    |                   // Delete all cookies and wait for each deletion to complete
+    |                   for cookie in cookies {
+    |                       dispatchGroup.enter()
+    |                       dataStore.httpCookieStore.delete(cookie) {
+    |                           dispatchGroup.leave()
+    |                       }
+    |                   }
+    |   
+    |                   // Wait for all cookie deletions to complete before calling completion
+    |                   dispatchGroup.notify(queue: .main) {
+    |                       JSONLogger.shared.log("Cleared website data and cookies.")
+    |                       completion()
+    |                   }
+    |               }
+    |           }
+    |       }
+    |   
+    |       private func setupHeader() {
+    |           headerView = UIView()
+    |           guard let headerView = headerView else { return }
+    |           headerView.backgroundColor = .white
+    |           headerView.translatesAutoresizingMaskIntoConstraints = false
+    |           view.addSubview(headerView)
+    |   
+    |           let closeBtn = UIButton(type: .system)
+    |           // Use a clean "X" SF Symbol instead of text for the exit button.
+    |           closeBtn.setImage(UIImage(systemName: "xmark"), for: .normal)
+    |           closeBtn.tintColor = .black
+    |           closeBtn.accessibilityLabel = "Exit"
+    |           closeBtn.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+    |           closeBtn.translatesAutoresizingMaskIntoConstraints = false
+    |           headerView.addSubview(closeBtn)
+    |           self.closeButton = closeBtn                // store reference
+    |   
+    |           NSLayoutConstraint.activate([
+    |               headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+    |               headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    |               headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    |               headerView.heightAnchor.constraint(equalToConstant: 50),
+    |   
+    |               closeBtn.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
+    |               closeBtn.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+    |           ])
+    |   
+    |           JSONLogger.shared.log("Header setup completed.")
+    |       }
+    |   
+    |       private func setupWebView(using dataStore: WKWebsiteDataStore) {
+    |           let config = WKWebViewConfiguration()
+    |           let contentController = WKUserContentController()
+    |           config.userContentController = contentController
+    |           config.processPool = WKProcessPool()
+    |           config.websiteDataStore = dataStore
+    |   
+    |           let prefs = WKPreferences()
+    |           prefs.javaScriptCanOpenWindowsAutomatically = true
+    |           config.preferences = prefs
+    |   
+    |           webView = WKWebView(frame: .zero, configuration: config)
+    |           guard let webView = webView else { return }
+    |           webView.uiDelegate = self
+    |           webView.navigationDelegate = self
+    |           // Guard against empty user agent strings which can crash WebKit on iOS 17
+    |           if !userAgent.isEmpty {
+    |               webView.customUserAgent = userAgent
+    |           }
+    |           webView.translatesAutoresizingMaskIntoConstraints = false
+    |           view.addSubview(webView)
+    |   
+    |           guard let headerView = headerView else { return }
+    |           NSLayoutConstraint.activate([
+    |               webView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+    |               webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    |               webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    |               webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    |           ])
+    |   
+    |           webViewInterceptor = WebViewInterceptor(webView: webView, interceptors: interceptors, interceptorBlocks: interceptorBlocks, loginConfirmation:self.confirmLoginIfNeeded)
+    |       }
+    |   
+    |       private func loadMerchantLogin() {
+    |           guard let url = URL(string: merchantUrl) else {
+    |               JSONLogger.shared.log("Invalid merchant URL: \(merchantUrl)")
+    |               return
+    |           }
+    |           JSONLogger.shared.log("Loading merchant login URL: \(merchantUrl)")
+    |           webView?.load(URLRequest(url: url))
+    |       }
+    |   
+    |       @MainActor
+    |       func cleanup(completion: @escaping () -> Void) {
+    |           // prevent double‑invocation using lock
+    |           os_unfair_lock_lock(&cleanupLock)
+    |           defer { os_unfair_lock_unlock(&cleanupLock) }
+    |   
+    |           guard !hasCleanedUp else {
+    |               completion()
+    |               return
+    |           }
+    |           hasCleanedUp = true
+    |   
+    |           if #available(iOS 11.0, *) {
+    |               self.isolatedDataStore.httpCookieStore.remove(self)
+    |           }
+    |   
+    |           // UI cleanup on main thread
+    |           Task { @MainActor in
+    |               // Clean up OAuth popup if it exists
+    |               if let popup = self.oauthPopup {
+    |                   popup.stopLoading()
+    |                   popup.navigationDelegate = nil
+    |                   popup.uiDelegate = nil
+    |                   popup.removeFromSuperview()
+    |               }
+    |               self.oauthPopup = nil
+    |               self.oauthHeaderView?.removeFromSuperview()
+    |               self.oauthContainerView?.removeFromSuperview()
+    |               self.oauthHeaderView = nil
+    |               self.oauthContainerView = nil
+    |   
+    |               // If the webView is already nil, just upload logs and finish
+    |               guard let currentWebView = self.webView else {
+    |                   JSONLogger.shared.log("cleanup() called but webView already nil.")
+    |   
+    |                   // Move heavy work to background
+    |                   Task.detached(priority: .background) { [weak self] in
+    |                       guard let self = self else {
+    |                           completion()
+    |                           return
+    |                       }
+    |   
+    |                       // Flush logs in background
+    |                       await JSONLogger.shared.flushNow()
+    |                       await InterceptLogger.shared.flushNow()
+    |   
+    |                       // File operations in background
+    |                       await withCheckedContinuation { continuation in
+    |                           self.uploadFiles { [weak self] in
+    |                               guard let self = self else {
+    |                                   continuation.resume()
+    |                                   return
+    |                               }
+    |   
+    |                               // Reset logs and cleanup in background
+    |                               Task.detached(priority: .background) {
+    |                                   JSONLogger.shared.reset()
+    |                                   InterceptLogger.shared.reset()
+    |                                   self.deleteLocalFiles()
+    |                                   self.webView = nil
+    |                                   continuation.resume()
+    |                               }
+    |                           }
+    |                       }
+    |                       completion()
+    |                   }
+    |                   return
+    |               }
+    |   
+    |               // Remove webView from view hierarchy first
+    |               currentWebView.removeFromSuperview()
+    |   
+    |               // Cancel timers before taking HTML snapshot
+    |               self.webViewInterceptor?.cancelAllTimers()
+    |   
+    |               // Take HTML snapshot and perform cleanup in background
+    |               Task.detached(priority: .background) { [weak self] in
+    |                   guard let self = self else {
+    |                       completion()
+    |                       return
+    |                   }
+    |   
+    |                   // Capture webView weakly to avoid retain cycle
+    |                   weak var weakWebView = currentWebView
+    |   
+    |                   // Take HTML snapshot on main thread
+    |                   let html = await Task<String?, Never> { @MainActor in
+    |                       guard weakWebView != nil else {
+    |                           JSONLogger.shared.log("WebView was deallocated before JavaScript completion")
+    |                           return nil
+    |                       }
+    |   
+    |                       // Use async/await for evaluateJavaScript
+    |                       return await withCheckedContinuation { continuation in
+    |                           currentWebView.evaluateJavaScript("document.documentElement.outerHTML.toString()") { result, error in
+    |                               if let error = error {
+    |                                   JSONLogger.shared.log("Failed to get HTML snapshot: \(error)")
+    |                                   continuation.resume(returning: nil)
+    |                                   return
+    |                               }
+    |                               continuation.resume(returning: result as? String)
+    |                           }
+    |                       }
+    |                   }.value
+    |   
+    |                   // Save HTML snapshot in background if we got it
+    |                   if let html = html, let htmlURL = self.htmlFileURL {
+    |                       try? html.write(to: htmlURL, atomically: true, encoding: .utf8)
+    |                   }
+    |   
+    |                   // Cleanup in background
+    |                   self.webViewInterceptor?.cleanup()
+    |   
+    |                   // Flush logs in background
+    |                   await JSONLogger.shared.flushNow()
+    |                   await InterceptLogger.shared.flushNow()
+    |   
+    |                   // File operations in background
+    |                   await withCheckedContinuation { continuation in
+    |                       self.uploadFiles { [weak self] in
+    |                           guard let self = self else {
+    |                               continuation.resume()
+    |                               return
+    |                           }
+    |   
+    |                           // Reset logs and cleanup in background
+    |                           Task.detached(priority: .background) {
+    |                               JSONLogger.shared.reset()
+    |                               InterceptLogger.shared.reset()
+    |                               self.deleteLocalFiles()
+    |                               self.webView = nil
+    |                               continuation.resume()
+    |                           }
+    |                       }
+    |                   }
+    |                   completion()
+    |               }
+    |           }
+    |       }
+    |   
+    |   
+    |   
+    |       // MARK: - Close Action with Churn Survey Integration
+    |       @objc private func closeTapped() {
+    |               guard !isClosing else { return }           // ignore subsequent taps
+    |               isClosing = true
+    |               closeButton?.isEnabled = false
+    |   
+    |               JSONLogger.shared.log("Close tapped. Showing churn survey popup.")
+    |               apiController.updateJobStatus(jobId: jobId, status: "exit", token: token) { [weak self] result in
+    |                   guard let self = self else { return }
+    |                   DispatchQueue.main.async { [weak self] in
+    |                       guard let self = self else { return }
+    |                       switch result {
+    |                       case .success: JSONLogger.shared.log("Job status updated to 'exit'")
+    |                       case .failure(let err):
+    |                           JSONLogger.shared.log("Failed to update job status to 'exit': \(err)")
+    |                       }
+    |                       self.cleanup {
+    |                           self.dismiss(animated: true, completion: nil)
+    |                       }
+    |                   }
+    |               }
+    |           }
+    |   
+    |       public override func viewWillDisappear(_ animated: Bool) {
+    |           super.viewWillDisappear(animated)
+    |   
+    |           // Cancel timers first to prevent retain cycles
+    |           webViewInterceptor?.cancelAllTimers()
+    |   
+    |           // Use the same cleanup method to ensure consistent behavior
+    |           Task { @MainActor in
+    |               cleanup {
+    |                   // No-op completion since we're already in viewWillDisappear
+    |               }
+    |           }
+    |       }
+    |   
+    |       private func uploadFiles(completion: @escaping () -> Void) {
+    |           // Create a background queue for file operations
+    |           let uploadQueue = DispatchQueue(label: "com.scribeup.fileupload", qos: .background)
+    |   
+    |           uploadQueue.async { [weak self] in
+    |               guard let self = self else {
+    |                   completion()
+    |                   return
+    |               }
+    |   
+    |               let group = DispatchGroup()
+    |   
+    |               // Upload logs if URL exists
+    |               if let logURL = self.logUploadURL,
+    |                  let logData = try? Data(contentsOf: self.htmlFileURL!) {
+    |                   group.enter()
+    |                   self.uploadFile(data: logData, to: logURL) {
+    |                       group.leave()
+    |                   }
+    |               }
+    |   
+    |               // Upload HTML if URL exists
+    |               if let htmlURL = self.htmlUploadURL,
+    |                  let htmlData = try? Data(contentsOf: self.htmlFileURL!) {
+    |                   group.enter()
+    |                   self.uploadFile(data: htmlData, to: htmlURL) {
+    |                       group.leave()
+    |                   }
+    |               }
+    |   
+    |               // Upload intercepts if URL exists
+    |               if let interceptURL = self.interceptUploadURL,
+    |                  let interceptData = try? Data(contentsOf: self.htmlFileURL!) {
+    |                   group.enter()
+    |                   self.uploadFile(data: interceptData, to: interceptURL) {
+    |                       group.leave()
+    |                   }
+    |               }
+    |   
+    |               group.notify(queue: .main) {
+    |                   completion()
+    |               }
+    |           }
+    |       }
+    |   
+    |       private func uploadFile(data: Data, to url: URL, completion: @escaping () -> Void) {
+    |           var request = URLRequest(url: url)
+    |           request.httpMethod = "POST"
+    |           request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+    |   
+    |           let task = URLSession.shared.uploadTask(with: request, from: data) { _, _, _ in
+    |               completion()
+    |           }
+    |           task.resume()
+    |       }
+    |   
+    |       public func webView(_ webView: WKWebView,
+    |                           createWebViewWith configuration: WKWebViewConfiguration,
+    |                           for navigationAction: WKNavigationAction,
+    |                           windowFeatures: WKWindowFeatures) -> WKWebView? {
+    |   
+    |           guard navigationAction.targetFrame == nil,
+    |                 let url = navigationAction.request.url else { return nil }
+    |   
+    |           JSONLogger.shared.log("Opening OAuth popup for \(url)")
+    |   
+    |           // Share cookies + process pool
+    |           configuration.processPool = webView.configuration.processPool
+    |           configuration.websiteDataStore = webView.configuration.websiteDataStore
+    |   
+    |           // Allow further pop‑ups
+    |           let prefs = WKPreferences()
+    |           prefs.javaScriptCanOpenWindowsAutomatically = true
+    |           configuration.preferences = prefs
+    |   
+    |           // Create the webview synchronously
+    |           let popup = WKWebView(frame: .zero, configuration: configuration)
+    |           popup.uiDelegate = self
+    |           popup.navigationDelegate = self
+    |           // Guard against empty user agent strings which can crash WebKit on iOS 17
+    |           if !userAgent.isEmpty {
+    |               popup.customUserAgent = userAgent
+    |           }
+    |   
+    |           // Alt‑UA handling
+    |           if let altUA = merchant.altUserAgents?
+    |                           .first(where: { url.absoluteString.lowercased().contains($0.key.lowercased()) })?
+    |                           .value {
+    |               if !altUA.isEmpty {
+    |                   popup.customUserAgent = altUA
+    |               }
+    |           }
+    |   
+    |           // Store the popup reference immediately
+    |           self.oauthPopup = popup
+    |   
+    |           // Setup UI asynchronously
+    |           DispatchQueue.main.async { [weak self] in
+    |               guard let self = self else { return }
+    |   
+    |               // ---------- 1) CONTAINER ----------
+    |               let container = UIView()
+    |               container.translatesAutoresizingMaskIntoConstraints = false
+    |               self.view.addSubview(container)
+    |               NSLayoutConstraint.activate([
+    |                   container.topAnchor.constraint(equalTo: self.headerView?.bottomAnchor ?? self.view.bottomAnchor),
+    |                   container.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+    |                   container.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+    |                   container.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    |               ])
+    |   
+    |               // ---------- 2) NAVIGATION BAR ----------
+    |               let navBar = UINavigationBar()
+    |               navBar.translatesAutoresizingMaskIntoConstraints = false
+    |               container.addSubview(navBar)
+    |               NSLayoutConstraint.activate([
+    |                   navBar.topAnchor.constraint(equalTo: container.topAnchor),
+    |                   navBar.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+    |                   navBar.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+    |               ])
+    |   
+    |               // Native appearance (iOS 15+)
+    |               var appearance = UINavigationBarAppearance()
+    |               appearance.configureWithOpaqueBackground()
+    |               appearance.backgroundColor = .systemBackground
+    |               navBar.standardAppearance = appearance
+    |               navBar.scrollEdgeAppearance = appearance
+    |   
+    |               let navItem = UINavigationItem(title: self.merchant.name)
+    |               navItem.leftBarButtonItem = UIBarButtonItem(
+    |                   image: UIImage(systemName: "chevron.backward"),
+    |                   style: .plain,
+    |                   target: self,
+    |                   action: #selector(self.oauthBackTapped)
+    |               )
+    |               navItem.rightBarButtonItem = UIBarButtonItem(
+    |                   barButtonSystemItem: .close,
+    |                   target: self,
+    |                   action: #selector(self.oauthCloseTapped)
+    |               )
+    |               navBar.setItems([navItem], animated: false)
+    |   
+    |               // Add the webview to the container
+    |               popup.translatesAutoresizingMaskIntoConstraints = false
+    |               container.addSubview(popup)
+    |               NSLayoutConstraint.activate([
+    |                   popup.topAnchor.constraint(equalTo: navBar.bottomAnchor),
+    |                   popup.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+    |                   popup.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+    |                   popup.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+    |               ])
+    |   
+    |               // Store UI refs
+    |               self.oauthContainerView = container
+    |               self.oauthHeaderView = navBar
+    |           }
+    |   
+    |           return popup    // Return the webview immediately
+    |       }
+    |   }
+    |   
+    |   
+|-- ScribeUpAPIController.swift
+    |-- Content:
+    |   import Foundation
+    |   
+    |   // MARK: - API Models
+    |   
+    |   public struct SimpleSuccessResponse: Codable {
+    |       let success: Bool
+    |       let recurrence_id: String
+    |   }
+    |   
+    |   public struct JobResponse: Codable {
+    |       public let id: String
+    |       public let status: String
+    |       public let type: String? // Optional
+    |       public let failedReason: String?
+    |       public let failedReasonFactor: String?
+    |       public let created: String?
+    |       public let modified: String?
+    |       public let externalUserId: String?
+    |       public let merchant: Merchant
+    |       public let sdkUploads: [String: URL]
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case id
+    |           case status
+    |           case type
+    |           case failedReason = "failed_reason"
+    |           case failedReasonFactor = "failed_reason_factor"
+    |           case created
+    |           case modified
+    |           case externalUserId = "external_user_id"
+    |           case merchant
+    |           case sdkUploads = "sdk_uploads"
+    |       }
+    |   }
+    |   
+    |   public struct Merchant: Codable {
+    |       // Public fields that are used in the SDK
+    |       public let sdkLoginUrl: String
+    |       public let interceptors: [MerchantInterceptor]
+    |       public let sdkLoggedInChecks: [SDKLoggedInCheck]?
+    |       public let sdkDisableLinks: [String]?
+    |       public let sdkRemoveElements: [String]?
+    |       public let userAgent: String?
+    |       public let altUserAgents: [String: String]?
+    |       public let sdkAuthCheck: AuthCheck
+    |       public let name: String
+    |   
+    |       // Internal fields that are not used in the public API
+    |       internal let id: String
+    |       internal let merchantId: String
+    |       internal let logo: String?
+    |       internal let sdkAuthenticatedUrl: String?
+    |       internal let sdkAuthenticatedIsRegex: Bool?
+    |       internal let isSdk: Bool
+    |       internal let interceptorBlocks: [MerchantInterceptor]?
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case id
+    |           case merchantId = "merchant_id"
+    |           case name
+    |           case logo
+    |           case sdkLoginUrl = "sdk_login_url"
+    |           case sdkAuthenticatedUrl = "sdk_authenticated_url"
+    |           case sdkAuthenticatedIsRegex = "sdk_authenticated_is_regex"
+    |           case sdkAuthCheck = "sdk_auth_check"
+    |           case isSdk = "is_sdk"
+    |           case interceptors
+    |           case interceptorBlocks = "interceptor_blocks"
+    |           case sdkLoggedInChecks = "sdk_logged_in_checks"
+    |           case sdkDisableLinks = "sdk_disable_links"
+    |           case sdkRemoveElements = "sdk_remove_elements"
+    |           case userAgent = "user_agent"
+    |           case altUserAgents = "alt_user_agents"
+    |       }
+    |   }
+    |   
+    |   public struct AuthCheck: Codable {
+    |       public let method: String?
+    |       public let headers: [String: String]?
+    |       public let url: String?
+    |       public let data: String?
+    |       public let cookieUrl: String?
+    |       public let context: String?
+    |       public let useCurl: Bool?
+    |       public let skipCookies: Bool?
+    |       public let skipOnDevice: Bool?
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case method
+    |           case headers
+    |           case url
+    |           case data
+    |           case cookieUrl = "cookie_url"
+    |           case context
+    |           case useCurl = "use_curl"
+    |           case skipCookies = "skip_cookies"
+    |           case skipOnDevice = "skip_on_device"
+    |       }
+    |   }
+    |   
+    |   public struct MerchantInterceptor: Codable {
+    |       public let url: String?
+    |       public let urlRegex: String?
+    |       public let pattern: String?
+    |       public let key: String?
+    |       public let transformer: String?
+    |       public let matchType: String?
+    |       public let method: String?
+    |       public let subKey: String?
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case url
+    |           case urlRegex = "url_regex"
+    |           case matchType = "match_type"
+    |           case pattern
+    |           case key
+    |           case transformer
+    |           case method
+    |           case subKey = "sub_key"
+    |       }
+    |   }
+    |   
+    |   public struct SDKLoggedInCheck: Codable {
+    |       public let key: String?
+    |       public let type: String?
+    |       public let value: String?
+    |       public let cookies: [CookiePredicate]?
+    |       public let pattern: String?
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case key
+    |           case type
+    |           case value
+    |           case cookies
+    |           case pattern
+    |       }
+    |   }
+    |   
+    |   public struct CookiePredicate: Codable {
+    |       public let name: String?
+    |       public let value: String?
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case name
+    |           case value
+    |       }
+    |   }
+    |   
+    |   public struct JobStatusResponse: Codable {
+    |       public let id: String
+    |       public let status: String
+    |       public let type: String
+    |       public let failedReason: String?
+    |       public let failedReasonFactor: String?
+    |       public let created: String
+    |       public let modified: String
+    |       public let externalUserId: String
+    |       public let merchant: Merchant
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case id
+    |           case status
+    |           case type
+    |           case failedReason = "failed_reason"
+    |           case failedReasonFactor = "failed_reason_factor"
+    |           case created
+    |           case modified
+    |           case externalUserId = "external_user_id"
+    |           case merchant
+    |       }
+    |   }
+    |   
+    |   /// Represents the response you get back from /session/create, matching TypeScript's `SessionResponse`.
+    |   public struct SessionResponse: Codable {
+    |       public let id: String
+    |       public let valid: Bool
+    |   }
+    |   
+    |   /// Represents the response you get back from /job/start.
+    |   /// If your API returns the same JSON structure as `JobResponse`,
+    |   /// you can reuse the same fields:
+    |   public struct JobStartResponse: Codable {
+    |       public let id: String
+    |       public let status: String
+    |       public let type: String
+    |       public let failedReason: String?
+    |       public let failedReasonFactor: String?
+    |       public let created: String
+    |       public let modified: String
+    |       public let externalUserId: String
+    |       public let merchant: Merchant
+    |   
+    |       enum CodingKeys: String, CodingKey {
+    |           case id
+    |           case status
+    |           case type
+    |           case failedReason = "failed_reason"
+    |           case failedReasonFactor = "failed_reason_factor"
+    |           case created
+    |           case modified
+    |           case externalUserId = "external_user_id"
+    |           case merchant
+    |       }
+    |   }
+    |   
+    |   // MARK: - ScribeUpAPIController (Instance-based)
+    |   import Foundation
+    |   
+    |   /// A callback-based API controller that doesn't rely on Swift Concurrency.
+    |   /// You can configure the baseURL by creating an instance with the desired URL.
+    |   public class ScribeUpAPIController {
+    |   
+    |       private let baseURL: URL
+    |   
+    |       /// Initialize the controller with the desired base URL (e.g. "https://api.scribeup.io").
+    |       public init(baseURL: URL) {
+    |           self.baseURL = baseURL
+    |       }
+    |   
+    |   
+    |       public func getJobStatus(
+    |           jobId: String,
+    |           token: String,
+    |           completion: @escaping (Result<JobResponse, Error>) -> Void
+    |       ) {
+    |           // Move URL construction to background queue
+    |           DispatchQueue.global(qos: .userInitiated).async {
+    |               // Construct the base URL with the jobId
+    |               let jobURL = self.baseURL.appendingPathComponent(jobId)
+    |   
+    |               // Use URLComponents to add the query parameter sdk=true
+    |               var components = URLComponents(url: jobURL, resolvingAgainstBaseURL: false)
+    |               components?.queryItems = [URLQueryItem(name: "sdk", value: "true")]
+    |   
+    |               // Ensure the final URL is valid
+    |               guard let finalURL = components?.url else {
+    |                   DispatchQueue.main.async {
+    |                       completion(.failure(URLError(.badURL)))
+    |                   }
+    |                   return
+    |               }
+    |   
+    |               var request = URLRequest(url: finalURL)
+    |               request.httpMethod = "GET"
+    |               request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    |               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    |   
+    |               let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    |                   if let error = error {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   guard let data = data,
+    |                         let httpResponse = response as? HTTPURLResponse,
+    |                         (200...299).contains(httpResponse.statusCode) else {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(URLError(.badServerResponse)))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   do {
+    |                       let jobResponse = try JSONDecoder().decode(JobResponse.self, from: data)
+    |                       DispatchQueue.main.async {
+    |                           completion(.success(jobResponse))
+    |                       }
+    |                   } catch {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                   }
+    |               }
+    |               task.resume()
+    |           }
+    |       }
+    |   
+    |   
+    |       /// Update job status: "open", "close", "exit", "login_fail", etc.
+    |       /// Includes `token` in the Authorization header, and calls completion on success/failure.
+    |       public func updateJobStatus(
+    |           jobId: String,
+    |           status: String,
+    |           token: String,
+    |           completion: @escaping (Result<SimpleSuccessResponse, Error>) -> Void
+    |       ) {
+    |           // Move URL construction and request preparation to background queue
+    |           DispatchQueue.global(qos: .userInitiated).async {
+    |               // Construct the URL -> /{jobId}
+    |               let url = self.baseURL.appendingPathComponent("\(jobId)")
+    |               var request = URLRequest(url: url)
+    |               request.httpMethod = "PUT"
+    |   
+    |               // Add headers
+    |               request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    |               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    |   
+    |               // Build the JSON body
+    |               let body: [String: Any] = ["status": status]
+    |               do {
+    |                   request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+    |               } catch {
+    |                   DispatchQueue.main.async {
+    |                       completion(.failure(error))
+    |                   }
+    |                   return
+    |               }
+    |   
+    |               // Execute the network call
+    |               let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    |                   // Handle any network-level error
+    |                   if let error = error {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   // Ensure we got data
+    |                   guard let data = data else {
+    |                       let noDataError = NSError(
+    |                           domain: "ScribeUpSDK",
+    |                           code: -1,
+    |                           userInfo: [NSLocalizedDescriptionKey: "No data returned when updating job status."]
+    |                       )
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(noDataError))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   // Decode as JobResponse
+    |                   do {
+    |                       let decoded = try JSONDecoder().decode(SimpleSuccessResponse.self, from: data)
+    |                       DispatchQueue.main.async {
+    |                           completion(.success(decoded))
+    |                       }
+    |                   } catch {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                   }
+    |               }
+    |               task.resume()
+    |           }
+    |       }
+    |   
+    |   
+    |       /// Create a session, sending an arbitrary JSON body that includes your cookie array, etc.
+    |       /// Expects a SessionResponse upon success.
+    |       public func createSession(
+    |           sessionBody: [String: Any],
+    |           completion: @escaping (Result<SessionResponse, Error>) -> Void
+    |       ) {
+    |           // Move URL construction and request preparation to background queue
+    |           DispatchQueue.global(qos: .userInitiated).async {
+    |               // 1) Extract necessary fields from sessionBody
+    |               guard let merchantId = sessionBody["merchant_id"] as? String else {
+    |                   let error = NSError(domain: "ScribeUpSDK",
+    |                                       code: 1000,
+    |                                       userInfo: [NSLocalizedDescriptionKey: "Missing or invalid merchant_id"])
+    |                   DispatchQueue.main.async {
+    |                       completion(.failure(error))
+    |                   }
+    |                   return
+    |               }
+    |   
+    |               // 2) Construct the POST URL
+    |               let url = self.baseURL.appendingPathComponent("/sessions/\(merchantId)")
+    |               var request = URLRequest(url: url)
+    |               request.httpMethod = "POST"
+    |   
+    |               // 3) Set Authorization header if `token` was provided
+    |               if let token = sessionBody["token"] as? String {
+    |                   request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    |               }
+    |               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    |   
+    |               // 4) Encode sessionBody to JSON
+    |               do {
+    |                   request.httpBody = try JSONSerialization.data(withJSONObject: sessionBody, options: [])
+    |               } catch {
+    |                   DispatchQueue.main.async {
+    |                       completion(.failure(error))
+    |                   }
+    |                   return
+    |               }
+    |   
+    |               // 5) Perform the network request
+    |               let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    |                   // Handle low-level network error
+    |                   if let error = error {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   // Ensure we have response data
+    |                   guard let data = data else {
+    |                       let noDataErr = NSError(domain: "ScribeUpSDK",
+    |                                               code: -1,
+    |                                               userInfo: [NSLocalizedDescriptionKey: "No data from /session/create"])
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(noDataErr))
+    |                       }
+    |                       return
+    |                   }
+    |   
+    |                   // 7) Attempt to decode the response as SessionResponse
+    |                   do {
+    |                       let decoded = try JSONDecoder().decode(SessionResponse.self, from: data)
+    |                       DispatchQueue.main.async {
+    |                           completion(.success(decoded))
+    |                       }
+    |                   } catch {
+    |                       DispatchQueue.main.async {
+    |                           completion(.failure(error))
+    |                       }
+    |                   }
+    |               }
+    |               task.resume()
+    |           }
+    |       }
+    |   
+    |   
+    |       /// Start a job with an arbitrary JSON body. Expects a JobStartResponse upon success.
+    |       public func startJob(
+    |           jobBody: [String: Any],
+    |           completion: @escaping (Result<SimpleSuccessResponse, Error>) -> Void
+    |       ) {
+    |           // 1) Validate and extract jobId
+    |           guard let jobId = jobBody["jobId"] as? String else {
+    |               let error = NSError(domain: "ScribeUpSDK",
+    |                                   code: 1000,
+    |                                   userInfo: [NSLocalizedDescriptionKey: "Missing or invalid jobId"])
+    |               completion(.failure(error))
+    |               return
+    |           }
+    |   
+    |           // 2) Construct the URL to "/{jobId}"
+    |           let url = baseURL.appendingPathComponent("\(jobId)")
+    |           var request = URLRequest(url: url)
+    |   
+    |           // 3) Use PUT instead of POST
+    |           request.httpMethod = "PUT"
+    |   
+    |           // 4) If present, set the Authorization header
+    |           if let token = jobBody["token"] as? String {
+    |               request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    |           }
+    |           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    |   
+    |           // 5) Encode the JSON body
+    |           do {
+    |               request.httpBody = try JSONSerialization.data(withJSONObject: jobBody, options: [])
+    |           } catch {
+    |               completion(.failure(error))
+    |               return
+    |           }
+    |   
+    |           // 6) Make the network request
+    |           let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    |               // Handle any low-level networking error
+    |               if let error = error {
+    |                   completion(.failure(error))
+    |                   return
+    |               }
+    |   
+    |               // Ensure we have data
+    |               guard let data = data else {
+    |                   let noDataErr = NSError(
+    |                       domain: "ScribeUpSDK",
+    |                       code: -1,
+    |                       userInfo: [NSLocalizedDescriptionKey: "No data returned from startJob endpoint"]
+    |                   )
+    |                   completion(.failure(noDataErr))
+    |                   return
+    |               }
+    |   
+    |   
+    |               // 7) Decode as JobResponse
+    |               do {
+    |                   let decoded = try JSONDecoder().decode(SimpleSuccessResponse.self, from: data)
+    |                   completion(.success(decoded))
+    |               } catch {
+    |                   completion(.failure(error))
+    |               }
+    |           }
+    |           task.resume()
+    |       }
+    |   
+    |   }
+|-- ScribeUpSDK.h
+    |-- Content:
+    |   //
+    |   //  ScribeUpSDK.h
+    |   //  ScribeUpSDK
+    |   //
+    |   //  Created by Yohei Oka on 3/2/25.
+    |   //
+    |   
+    |   #import <Foundation/Foundation.h>
+    |   
+    |   //! Project version number for ScribeUpSDK.
+    |   FOUNDATION_EXPORT double ScribeUpSDKVersionNumber;
+    |   
+    |   //! Project version string for ScribeUpSDK.
+    |   FOUNDATION_EXPORT const unsigned char ScribeUpSDKVersionString[];
+    |   
+    |   // In this header, you should import all the public headers of your framework using statements like #import <ScribeUpSDK/PublicHeader.h>
+    |   
+    |   
+|-- SubscriptionManagerDelegate.swift
+    |-- Content:
+    |   //
+    |   //  SubscriptionManagerDelegate.swift
+    |   //  ScribeUpSDK
+    |   //
+    |   //  Created by Yohei Oka on 2/27/25.
+    |   //
+    |   
+    |   import Foundation
+    |   
+    |   public protocol SubscriptionManagerDelegate: AnyObject {
+    |       /// Optional callback when the user exits the subscription manager
+    |       func onExit(_ error: SubscriptionManagerError?)
+    |   }
+    |   
+    |   // Default implementation for optional methods
+    |   public extension SubscriptionManagerDelegate {
+    |       func onExit(_ error: SubscriptionManagerError?) {}
+    |   }
+|-- SubscriptionManagerError.swift
+    |-- Content:
+    |   //
+    |   //  SubscriptionManagerError.swift
+    |   //  ScribeUpSDK
+    |   //
+    |   //  Created by Yohei Oka on 2/27/25.
+    |   //
+    |   
+    |   import Foundation
+    |   
+    |   public struct SubscriptionManagerError: Error {
+    |       public let code: Int
+    |       public let message: String
+    |   
+    |       public init(code: Int, message: String) {
+    |           self.code = code
+    |           self.message = message
+    |       }
+    |   }
+|-- SubscriptionManagerViewController.swift
+    |-- Content:
+    |   //
+    |   //  SubscriptionManagerViewController.swift
+    |   //  ScribeUpSDK
+    |   //
+    |   //  Created by Yohei Oka on 2/27/25.
+    |   //
+    |   
+    |   import UIKit
+    |   import WebKit
+    |   
+    |   /// `SubscriptionManagerViewController` handles displaying a web page inside a `WKWebView`.
+    |   /// It also supports intercepting custom URLs and handling merchant login flows.
+    |   public class SubscriptionManagerViewController: UIViewController, WKNavigationDelegate {
+    |   
+    |       // MARK: - Properties
+    |   
+    |       /// The current version of the ScribeUp Iris SDK
+    |       public static let sdkVersion = ScribeUpSDKVersion.version
+    |   
+    |       private var webView: WKWebView? // WebView instance
+    |       private let url: String // URL to be loaded
+    |       private let productName: String // Header title
+    |       public weak var delegate: SubscriptionManagerDelegate? // Delegate for event handling
+    |       private var headerView: UIView? // Custom header view
+    |   
+    |       // MARK: - Initializer
+    |   
+    |       /// Initializes the Subscription Manager ViewController
+    |       /// - Parameters:
+    |       ///   - url: The web URL to load.
+    |       ///   - productName: The name of the product to display in the header.
+    |       ///   - delegate: The delegate to handle exit or error events.
+    |       public init(url: String, productName: String = "Subscription Manager", delegate: SubscriptionManagerDelegate? = nil) {
+    |           self.url = url
+    |           self.productName = productName
+    |           self.delegate = delegate
+    |           super.init(nibName: nil, bundle: nil)
+    |       }
+    |   
+    |       required init?(coder: NSCoder) {
+    |           fatalError("init(coder:) has not been implemented")
+    |       }
+    |   
+    |       // MARK: - Lifecycle Methods
+    |   
+    |       override public func viewDidLoad() {
+    |           super.viewDidLoad()
+    |           view.backgroundColor = .white
+    |           setupHeader()  // Adds a custom header with title and buttons
+    |           setupWebView() // Configures and adds the WebView
+    |           loadURL()      // Loads the provided URL
+    |       }
+    |   
+    |       // MARK: - Header Setup
+    |   
+    |       /// Sets up the header with a title, refresh button, and close button.
+    |       private func setupHeader() {
+    |           headerView = UIView()
+    |           guard let headerView = headerView else { return }
+    |           headerView.backgroundColor = .white
+    |           headerView.translatesAutoresizingMaskIntoConstraints = false
+    |           view.addSubview(headerView)
+    |   
+    |           let titleLabel = UILabel()
+    |           titleLabel.text = productName
+    |           titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+    |           titleLabel.textAlignment = .center
+    |           titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    |           headerView.addSubview(titleLabel)
+    |   
+    |           let refreshButton = UIButton(type: .system)
+    |           refreshButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+    |           refreshButton.tintColor = .black
+    |           refreshButton.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
+    |           refreshButton.translatesAutoresizingMaskIntoConstraints = false
+    |           headerView.addSubview(refreshButton)
+    |   
+    |           let closeButton = UIButton(type: .system)
+    |           closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+    |           closeButton.tintColor = .black
+    |           closeButton.accessibilityLabel = "Exit"
+    |           closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+    |           closeButton.translatesAutoresizingMaskIntoConstraints = false
+    |           headerView.addSubview(closeButton)
+    |   
+    |           NSLayoutConstraint.activate([
+    |               headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+    |               headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    |               headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    |               headerView.heightAnchor.constraint(equalToConstant: 50),
+    |   
+    |               refreshButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 15),
+    |               refreshButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+    |   
+    |               titleLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+    |               titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+    |   
+    |               closeButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
+    |               closeButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+    |           ])
+    |       }
+    |   
+    |       // MARK: - Button Actions
+    |   
+    |       @objc private func closeTapped() {
+    |           delegate?.onExit(nil)
+    |           DispatchQueue.main.async { [weak self] in
+    |               self?.dismiss(animated: true, completion: nil)
+    |           }
+    |       }
+    |   
+    |       @objc private func refreshTapped() {
+    |           webView?.reload()
+    |       }
+    |   
+    |       // MARK: - WebView Setup
+    |   
+    |       /// Initializes and configures the WebView.
+    |       private func setupWebView() {
+    |           // 1️⃣ Build a configuration that forwards JS console.* calls to native.
+    |           let contentController = WKUserContentController()
+    |   
+    |           let config = WKWebViewConfiguration()
+    |           config.userContentController = contentController
+    |   
+    |           webView = WKWebView(frame: .zero, configuration: config)
+    |           guard let webView = webView else { return }
+    |   
+    |           // Retain existing configuration such as navigationDelegate and custom UA.
+    |           webView.navigationDelegate = self
+    |           webView.translatesAutoresizingMaskIntoConstraints = false
+    |   
+    |           webView.evaluateJavaScript("navigator.userAgent") { [weak self] userAgent, _ in
+    |               guard let self, let defaultUA = userAgent as? String else { return }
+    |               self.webView?.customUserAgent = defaultUA + " ScribeUpIrisSDK-\(SubscriptionManagerViewController.sdkVersion)"
+    |           }
+    |   
+    |           view.addSubview(webView)
+    |   
+    |           guard let headerView = headerView else { return }
+    |           NSLayoutConstraint.activate([
+    |               webView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+    |               webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+    |               webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    |               webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    |           ])
+    |       }
+    |   
+    |       // MARK: - URL Validation & Loading
+    |   
+    |       /// Validates if a URL is properly formatted and can be opened.
+    |       /// - Parameter url: The URL to validate.
+    |       /// - Returns: `true` if the URL is valid, otherwise `false`.
+    |       private func isValidURL(_ url: URL) -> Bool {
+    |           // Only check scheme case-insensitively
+    |           guard let scheme = url.scheme?.lowercased() else { return false }
+    |           let isValidScheme = scheme == "http" || scheme == "https"
+    |   
+    |           let canOpen = UIApplication.shared.canOpenURL(url)
+    |   
+    |           return isValidScheme && canOpen
+    |       }
+    |   
+    |       /// Loads the provided URL into the WebView or exits if invalid.
+    |       private func loadURL() {
+    |           guard let url = URL(string: self.url), isValidURL(url) else {
+    |               let error = SubscriptionManagerError(code: 1001, message: "Invalid URL: \(self.url)")
+    |               DispatchQueue.main.async { [weak self] in
+    |                   self?.delegate?.onExit(error)
+    |               }
+    |   
+    |               // Dismiss the view controller immediately if the URL is invalid
+    |               DispatchQueue.main.async { [weak self] in
+    |                   guard let self = self else { return }
+    |                   if let navigationController = self.navigationController {
+    |                       navigationController.popViewController(animated: true)
+    |                   } else {
+    |                       self.dismiss(animated: true, completion: nil)
+    |                   }
+    |               }
+    |               return
+    |           }
+    |           webView?.load(URLRequest(url: url))
+    |       }
+    |   
+    |       // MARK: - WebView Navigation Interceptor
+    |   
+    |       /// Intercepts navigation actions in the WebView to handle custom URLs.
+    |       public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    |           if let url = navigationAction.request.url, url.scheme == "scribeup" {
+    |               handleCustomURL(url)
+    |               decisionHandler(.cancel) // Prevent navigation to the intercepted URL
+    |               return
+    |           }
+    |   
+    |           // Handle x-safari scheme URLs more securely
+    |           if let url = navigationAction.request.url,
+    |              let scheme = url.scheme,
+    |              scheme == "x-safari-https" || scheme == "x-safari-http" {
+    |               // Extract the actual URL by removing the x-safari- prefix
+    |               let actualScheme = scheme.replacingOccurrences(of: "x-safari-", with: "")
+    |               var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    |               components?.scheme = actualScheme
+    |   
+    |               if let safariURL = components?.url {
+    |                   UIApplication.shared.open(safariURL)
+    |               }
+    |               decisionHandler(.cancel)
+    |               return
+    |           }
+    |           decisionHandler(.allow) // Allow normal navigation
+    |       }
+    |   
+    |       /// Handles custom URLs used for special actions (e.g., opening a merchant login flow).
+    |       private func handleCustomURL(_ url: URL) {
+    |           let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    |           let queryItems = urlComponents?.queryItems ?? []
+    |   
+    |           var params: [String: String] = [:]
+    |           for queryItem in queryItems {
+    |               params[queryItem.name] = queryItem.value
+    |           }
+    |   
+    |           // Handle "openIris" URL to trigger merchant login
+    |           if url.host == "openIris" {
+    |               let jobId = params["job_id"] ?? ""
+    |               let token = params["token"] ?? ""
+    |               let env = params["env"] ?? ""
+    |   
+    |               // Whitelist allowed environments
+    |               let allowedEnvs = ["dev", "alpha","staging", "demo", "production"]
+    |               guard allowedEnvs.contains(env) else {
+    |                   let error = SubscriptionManagerError(code: 1002, message: "Invalid environment: \(env)")
+    |                   delegate?.onExit(error)
+    |                   return
+    |               }
+    |   
+    |               // Construct base URL based on whitelisted environment
+    |               let baseURLString: String
+    |               if env == "dev" {
+    |                   #if DEBUG
+    |                   baseURLString = "https://localhost:8002/api/v1/iris-api"
+    |                   #else
+    |                   fatalError("Development environment should not be used in production builds")
+    |                   #endif
+    |               } else {
+    |                   baseURLString = "https://\(env).api.scribeup.co/api/v1/iris-api"
+    |               }
+    |   
+    |               // Assert that we're not using HTTP in production
+    |               #if !DEBUG
+    |               assert(baseURLString.hasPrefix("https://"), "Production builds must use HTTPS endpoints")
+    |               #endif
+    |   
+    |               guard let baseURL = URL(string: baseURLString) else {
+    |                   let error = SubscriptionManagerError(code: 1002, message: "Invalid environment: \(env)")
+    |                   delegate?.onExit(error)
+    |                   return
+    |               }
+    |   
+    |               let apiController = ScribeUpAPIController(baseURL: baseURL)
+    |   
+    |               apiController.getJobStatus(jobId: jobId, token: token) { result in
+    |                   switch result {
+    |                   case .success(let jobStatusData):
+    |                       // Extract merchant configuration from jobStatusData.merchant.
+    |                       // Expected keys: sdkLoginUrl, interceptors, sdk_remove_elements, sdk_disable_links,
+    |                       // sdk_logged_in_checks, and user_agent.
+    |                       let merchant = jobStatusData.merchant
+    |                       let merchantUrl = merchant.sdkLoginUrl
+    |                       let interceptors = merchant.interceptors as [MerchantInterceptor]
+    |                       let sdkRemoveElements = merchant.sdkRemoveElements ?? []
+    |                       let sdkDisableLinks = merchant.sdkDisableLinks ?? []
+    |                       let sdkLoggedInChecks = merchant.sdkLoggedInChecks ?? []
+    |                       let userAgent = merchant.userAgent ?? ""
+    |                       let uploadUrls = jobStatusData.sdkUploads
+    |   
+    |                       DispatchQueue.main.async {
+    |                           // Use the correct initializer that takes a Merchant instance
+    |                           let merchantLoginVC = MerchantLoginViewController(merchant: merchant, jobId: jobId, token:token, apiController: apiController, uploadUrls:uploadUrls)
+    |                           self.present(merchantLoginVC, animated: true, completion: nil)
+    |                       }
+    |                   case .failure(let error):
+    |                       let subscriptionError = SubscriptionManagerError(code: 1000, message: "Unexpected Error")
+    |                       self.delegate?.onExit(subscriptionError)
+    |   
+    |                       DispatchQueue.main.async {
+    |                           if let navigationController = self.navigationController {
+    |                               navigationController.popViewController(animated: true)
+    |                           } else {
+    |                               self.dismiss(animated: true, completion: nil)
+    |                           }
+    |                       }
+    |                       break
+    |                   }
+    |               }
+    |           }
+    |       }
+    |   
+    |   
+    |   }
+|-- Version.swift
+    |-- Content:
+    |   import Foundation
+    |   
+    |   /// Version information for the ScribeUp SDK
+    |   public enum ScribeUpSDKVersion {
+    |       /// The current version of the SDK
+    |       public static let version = "0.1.6"
+    |   
+    |       /// The build number of the SDK
+    |       public static let build = "1"
+    |   }
