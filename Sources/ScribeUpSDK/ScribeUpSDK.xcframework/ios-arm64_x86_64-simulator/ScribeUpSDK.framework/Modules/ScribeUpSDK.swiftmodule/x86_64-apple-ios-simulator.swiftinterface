@@ -2,7 +2,6 @@
 // swift-compiler-version: Apple Swift version 6.1 effective-5.10 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)
 // swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name ScribeUpSDK
 // swift-module-flags-ignorable:  -interface-compiler-version 6.1
-import DatadogInternal
 import DatadogLogs
 import DeveloperToolsSupport
 import Foundation
@@ -14,6 +13,23 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
+  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
+  @objc deinit
+}
+public enum ScribeUpLog {
+  public enum Level {
+    case debug, info, notice, warn, error, critical
+    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
+}
 public protocol SubscriptionManagerDelegate : AnyObject {
   func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
 }
@@ -175,28 +191,25 @@ public enum ScribeUpSDKVersion {
   @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
   @objc deinit
 }
+public enum DDSite {
+  case us1
+  case us3
+  case us5
+  case eu1
+  case ap1
+  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct ScribeUpDDConfig {
   public let clientToken: Swift.String
-  public let site: DatadogInternal.DatadogSite
+  public let site: ScribeUpSDK.DDSite
   public let environment: Swift.String
-  public init(clientToken: Swift.String, site: DatadogInternal.DatadogSite = .us5, environment: Swift.String = "production")
-}
-@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
-  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
-  @objc deinit
-}
-public enum ScribeUpLog {
-  public enum Level {
-    case debug, info, notice, warn, error, critical
-    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
+  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
 }
 extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
 extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
+extension ScribeUpSDK.DDSite : Swift.Equatable {}
+extension ScribeUpSDK.DDSite : Swift.Hashable {}
