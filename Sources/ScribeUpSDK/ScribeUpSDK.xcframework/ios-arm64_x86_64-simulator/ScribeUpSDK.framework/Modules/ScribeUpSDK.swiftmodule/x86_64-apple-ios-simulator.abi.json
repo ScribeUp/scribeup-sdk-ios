@@ -6,6 +6,154 @@
     "children": [
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScribeUpSDKVersion",
+        "printedName": "ScribeUpSDKVersion",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "version",
+            "printedName": "version",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
+            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
+            "moduleName": "ScribeUpSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
+                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
+                "moduleName": "ScribeUpSDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "build",
+            "printedName": "build",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
+            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
+            "moduleName": "ScribeUpSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
+                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
+                "moduleName": "ScribeUpSDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:11ScribeUpSDK0aB10SDKVersionO",
+        "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -466,184 +614,6 @@
             "printedName": "UITraitChangeObservable",
             "usr": "s:5UIKit23UITraitChangeObservableP",
             "mangledName": "$s5UIKit23UITraitChangeObservableP"
-          }
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "SubscriptionManagerError",
-        "printedName": "SubscriptionManagerError",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "code",
-            "printedName": "code",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
-            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
-                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "message",
-            "printedName": "message",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
-            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
-                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(code:message:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "SubscriptionManagerError",
-                "printedName": "ScribeUpSDK.SubscriptionManagerError",
-                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
-            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "init_kind": "Designated"
-          }
-        ],
-        "declKind": "Struct",
-        "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV",
-        "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "AccessControl"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Error",
-            "printedName": "Error",
-            "usr": "s:s5ErrorP",
-            "mangledName": "$ss5ErrorP"
           },
           {
             "kind": "Conformance",
@@ -653,6 +623,13 @@
             "mangledName": "$ss8SendableP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -5907,8 +5884,8 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
+        "name": "Foundation",
+        "printedName": "Foundation",
         "declKind": "Import",
         "moduleName": "ScribeUpSDK"
       },
@@ -5920,121 +5897,15 @@
         "moduleName": "ScribeUpSDK"
       },
       {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
         "kind": "TypeDecl",
-        "name": "ScribeUpSDKVersion",
-        "printedName": "ScribeUpSDKVersion",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "version",
-            "printedName": "version",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
-            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
-            "moduleName": "ScribeUpSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "HasStorage",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
-                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
-                "moduleName": "ScribeUpSDK",
-                "static": true,
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "build",
-            "printedName": "build",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
-            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
-            "moduleName": "ScribeUpSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "HasStorage",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
-                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
-                "moduleName": "ScribeUpSDK",
-                "static": true,
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          }
-        ],
-        "declKind": "Enum",
-        "usr": "s:11ScribeUpSDK0aB10SDKVersionO",
-        "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO",
+        "name": "JavaScriptHelper",
+        "printedName": "JavaScriptHelper",
+        "declKind": "Struct",
+        "usr": "s:11ScribeUpSDK16JavaScriptHelperV",
+        "mangledName": "$s11ScribeUpSDK16JavaScriptHelperV",
         "moduleName": "ScribeUpSDK",
         "declAttributes": [
-          "AccessControl",
-          "RawDocComment"
+          "AccessControl"
         ],
         "conformances": [
           {
@@ -6052,6 +5923,195 @@
             "mangledName": "$ss9EscapableP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SubscriptionManagerError",
+        "printedName": "SubscriptionManagerError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "code",
+            "printedName": "code",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
+                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4codeSivg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "message",
+            "printedName": "message",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
+                "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV7messageSSvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(code:message:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerError",
+                "printedName": "ScribeUpSDK.SubscriptionManagerError",
+                "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
+            "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV4code7messageACSi_SStcfc",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:11ScribeUpSDK24SubscriptionManagerErrorV",
+        "mangledName": "$s11ScribeUpSDK24SubscriptionManagerErrorV",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -6583,13 +6643,6 @@
             "printedName": "UITraitChangeObservable",
             "usr": "s:5UIKit23UITraitChangeObservableP",
             "mangledName": "$s5UIKit23UITraitChangeObservableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
           }
         ]
       },
@@ -6706,6 +6759,20 @@
             "mangledName": "$ss8CopyableP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -7780,77 +7847,10 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "JavaScriptHelper",
-        "printedName": "JavaScriptHelper",
-        "declKind": "Struct",
-        "usr": "s:11ScribeUpSDK16JavaScriptHelperV",
-        "mangledName": "$s11ScribeUpSDK16JavaScriptHelperV",
         "moduleName": "ScribeUpSDK",
         "declAttributes": [
-          "AccessControl"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          }
+          "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -7955,13 +7955,6 @@
             "printedName": "Escapable",
             "usr": "s:s9EscapableP",
             "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
           },
           {
             "kind": "Conformance",
@@ -8183,6 +8176,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
             "name": "Hashable",
             "printedName": "Hashable",
             "usr": "s:SH",
@@ -8293,6 +8293,62 @@
   },
   "ConstValues": [
     {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 168,
+      "length": 7,
+      "value": "\"0.3.6\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 243,
+      "length": 3,
+      "value": "\"1\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 775,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "StringLiteral",
+      "offset": 925,
+      "length": 27,
+      "value": "\"com.scribeup.storageQueue\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1011,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1074,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1136,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1337,
+      "length": 4,
+      "value": "true"
+    },
+    {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
       "offset": 1203,
@@ -8300,25 +8356,18 @@
       "value": "\"Subscription Manager\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
       "kind": "StringLiteral",
-      "offset": 815,
-      "length": 26,
-      "value": "\"com.scribeup.sdk.uploads\""
+      "offset": 241,
+      "length": 21,
+      "value": "\"com.scribeup.timers\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 882,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 951,
-      "length": 4,
-      "value": "true"
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "kind": "IntegerLiteral",
+      "offset": 942,
+      "length": 3,
+      "value": "250"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/ScribeUpAPIController.swift",
@@ -8524,60 +8573,11 @@
       "value": "\"external_user_id\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 775,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Scripts.swift",
       "kind": "StringLiteral",
-      "offset": 925,
-      "length": 27,
-      "value": "\"com.scribeup.storageQueue\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1011,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1074,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1136,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1337,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 168,
-      "length": 7,
-      "value": "\"0.3.5\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 243,
-      "length": 3,
-      "value": "\"1\""
+      "offset": 7484,
+      "length": 500,
+      "value": "\"(function() {\n    var local = {};\n    for(var i=0; i<localStorage.length; i++){\n        var k = localStorage.key(i);\n        local[k] = localStorage.getItem(k);\n    }\n    var session = {};\n    for(var i=0; i<sessionStorage.length; i++){\n        var k = sessionStorage.key(i);\n        session[k] = sessionStorage.getItem(k);\n    }\n    return {local: local, session: session};\n})();\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
@@ -8603,30 +8603,37 @@
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1908,
+      "offset": 1938,
       "length": 3,
       "value": "0.5"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 1955,
+      "offset": 1985,
       "length": 1,
       "value": "5"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 2006,
+      "offset": 2036,
       "length": 3,
       "value": "8.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
       "kind": "StringLiteral",
-      "offset": 2574,
+      "offset": 2604,
       "length": 2,
       "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Auth.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4971,
+      "length": 1,
+      "value": "1"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
@@ -8720,32 +8727,25 @@
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
       "kind": "StringLiteral",
-      "offset": 241,
-      "length": 21,
-      "value": "\"com.scribeup.timers\""
+      "offset": 815,
+      "length": 26,
+      "value": "\"com.scribeup.sdk.uploads\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
-      "kind": "IntegerLiteral",
-      "offset": 942,
-      "length": 3,
-      "value": "250"
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 882,
+      "length": 5,
+      "value": "false"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Scripts.swift",
-      "kind": "StringLiteral",
-      "offset": 7484,
-      "length": 500,
-      "value": "\"(function() {\n    var local = {};\n    for(var i=0; i<localStorage.length; i++){\n        var k = localStorage.key(i);\n        local[k] = localStorage.getItem(k);\n    }\n    var session = {};\n    for(var i=0; i<sessionStorage.length; i++){\n        var k = sessionStorage.key(i);\n        session[k] = sessionStorage.getItem(k);\n    }\n    return {local: local, session: session};\n})();\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Auth.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4708,
-      "length": 1,
-      "value": "1"
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 951,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Library\/Developer\/Xcode\/DerivedData\/ScribeUpSDK-ghgwmfqecdvgascwkkgmbsxmrqzf\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ScribeUpSDK\/IntermediateBuildFilesPath\/ScribeUpSDK.build\/Release-iphonesimulator\/ScribeUpSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
