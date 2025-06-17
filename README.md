@@ -13,19 +13,6 @@ Latest Version
 #### Swift Package Manager
 Add `https://github.com/ScribeUp/scribeup-sdk-ios` as a package dependency.
 
-#### CocoaPods
-To install the SDK with CocoaPods, add `ScribeUpSDK` as one of your target dependencies in your Podfile:
-
-```ruby
-use_frameworks!
-
-target 'MyApp' do
-    pod 'ScribeUpSDK'
-end
-```
-
-Please be sure to run `pod update` and use `pod install --repo-update` to ensure you have the most recent version of the SDK installed.
-
 
 ### SubscriptionManagerViewController
 
