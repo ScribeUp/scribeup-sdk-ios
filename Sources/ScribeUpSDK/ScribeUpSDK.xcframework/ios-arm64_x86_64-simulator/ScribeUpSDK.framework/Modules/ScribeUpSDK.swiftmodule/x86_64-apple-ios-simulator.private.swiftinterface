@@ -12,17 +12,6 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public struct SubscriptionManagerError : Swift.Error {
-  public let code: Swift.Int
-  public let message: Swift.String
-  public init(code: Swift.Int, message: Swift.String)
-}
-public protocol SubscriptionManagerDelegate : AnyObject {
-  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
-extension ScribeUpSDK.SubscriptionManagerDelegate {
-  public func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
 public enum ScribeUpLog {
   public enum Level {
     case debug, info, notice, warn, error, critical
@@ -207,6 +196,17 @@ public struct ScribeUpDDConfig {
   public let site: ScribeUpSDK.DDSite
   public let environment: Swift.String
   public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
+}
+public struct SubscriptionManagerError : Swift.Error {
+  public let code: Swift.Int
+  public let message: Swift.String
+  public init(code: Swift.Int, message: Swift.String)
+}
+public protocol SubscriptionManagerDelegate : AnyObject {
+  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
+}
+extension ScribeUpSDK.SubscriptionManagerDelegate {
+  public func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
 }
 extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
 extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
