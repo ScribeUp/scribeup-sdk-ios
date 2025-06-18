@@ -19,27 +19,6 @@
         "moduleName": "ScribeUpSDK"
       },
       {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "MerchantLoginViewController",
         "printedName": "MerchantLoginViewController",
@@ -7711,6 +7690,27 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -8150,62 +8150,6 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 775,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "StringLiteral",
-      "offset": 925,
-      "length": 27,
-      "value": "\"com.scribeup.storageQueue\""
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1011,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1074,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1136,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1337,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
-      "kind": "StringLiteral",
-      "offset": 241,
-      "length": 21,
-      "value": "\"com.scribeup.timers\""
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
-      "kind": "IntegerLiteral",
-      "offset": 942,
-      "length": 3,
-      "value": "250"
-    },
-    {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/MerchantLoginViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 553,
@@ -8259,7 +8203,7 @@
       "kind": "StringLiteral",
       "offset": 168,
       "length": 7,
-      "value": "\"0.4.7\""
+      "value": "\"0.4.8\""
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
@@ -8603,6 +8547,62 @@
       "offset": 1214,
       "length": 22,
       "value": "\"Subscription Manager\""
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 775,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "StringLiteral",
+      "offset": 925,
+      "length": 27,
+      "value": "\"com.scribeup.storageQueue\""
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1011,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1074,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1136,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1337,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "kind": "StringLiteral",
+      "offset": 241,
+      "length": 21,
+      "value": "\"com.scribeup.timers\""
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "kind": "IntegerLiteral",
+      "offset": 942,
+      "length": 3,
+      "value": "250"
     },
     {
       "filePath": "\/Users\/yoheioka\/Library\/Developer\/Xcode\/DerivedData\/ScribeUpSDK-bxtzcsleodtgwxcfkmrjawujezfe\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ScribeUpSDK\/IntermediateBuildFilesPath\/ScribeUpSDK.build\/Release-iphonesimulator\/ScribeUpSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
