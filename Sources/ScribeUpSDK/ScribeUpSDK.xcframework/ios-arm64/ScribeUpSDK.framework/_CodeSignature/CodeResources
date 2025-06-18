@@ -18,23 +18,23 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		7hOkiq96Vf5uBqMlyOwXrphPBiI=
+		Sp+uK4cfJIh3eQiDUECpOL3EMAk=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		AGlJ+PVpLb0WQqO6/KMS/glWqPg=
+		1fpg23briwaKmnc96XWgUDDwfew=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		fK1WGTXYTS+BWos4wazpUp+lVvg=
+		RyzLQP+hQ7NGzkafDg50CDdu/DM=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		AGlJ+PVpLb0WQqO6/KMS/glWqPg=
+		1fpg23briwaKmnc96XWgUDDwfew=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		3ru/pTjvvh3baYpXYYKovQBMsxs=
+		tgU+8WTmNnCWMBC1XVLKZ07hxpk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -61,35 +61,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LM1wI+87m6BIIxVsqXsdKBRByqN9oOm05K6LqWPCMug=
+			QVmLsaIgZDBy2IiaVb7GApQPizO3FfhmIF0gC/ntJc4=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N5qu88EGV09YSLY1wiNa8TC/KQDSj0e+IM+XxcBsK1E=
+			XOSMKnpCnGruQi1H96FfFaJWdyG83XIJsPtXgFe4R5c=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VlZN3V/+TMmiXtdKej7HA60EEwoHnMl+ynD5SGWajVI=
+			8VuSh2ni8GINe6QiJEoh86afscQJYNW9QyNS0OcYEaQ=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N5qu88EGV09YSLY1wiNa8TC/KQDSj0e+IM+XxcBsK1E=
+			XOSMKnpCnGruQi1H96FfFaJWdyG83XIJsPtXgFe4R5c=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Am4LfgmTKB19utsamlycOekaBp793gDUD+Ywct4hEA4=
+			kkUZKlufiq81NuWwB5MW93BCbvMjjWCsg9a2QolypQo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
