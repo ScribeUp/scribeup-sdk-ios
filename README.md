@@ -23,19 +23,58 @@ import ScribeUpSDK
 
 let subscriptionVC = SubscriptionManagerViewController(
   url: authenticatedUrl,
-  productName: "Bill Navigator",
-  delegate: self
+  productName: "Subscription Manager",
+  listener: self.subscriptionListener
 )
 self.present(subscriptionVC, animated: true)
 ```
 
-For details on completing authentication and generating a valid URL, please visit [ScribeUp Documentation](https://docs.scribeup.io).
+- `url`: A fully authenticated URL for managing subscriptions.
+  - For details on completing authentication and generating a valid URL, please visit [ScribeUp Documentation](https://docs.scribeup.io).
+- `productName` (optional): The name displayed in the navigation bar.
+- `listener` (optional): An object conforming to `SubscriptionManagerListener` to receive event callbacks.
 
-## Implementing SubscriptionManagerDelegate
-To receive optional callback events, conform to the SubscriptionManagerDelegate protocol. For example:
 
-### `onExit(_ error: SubscriptionManagerError?)`
-This callback is invoked when the user exits the subscription manager—either intentionally or as a result of an error.
+## Listener Model
+Implement the `SubscriptionManagerListener` protocol to receive optional event callbacks.
+```swift
+// SubscriptionManagerListener.swift
+import Foundation
+
+public protocol SubscriptionManagerListener: AnyObject {
+    // Called when the subscription manager flow ends.
+    // - Parameter error: `SubscriptionManagerError` if the flow failed or `nil` on success.
+    func onExit(_ error: SubscriptionManagerError?)
+}
+```
+
+Example implementation in your app:
+```swift
+private class SubscriptionListener: SubscriptionManagerListener {
+    func onExit(_ error: SubscriptionManagerError?) {
+        print("onExit triggered: \(error?.message ?? "No error")")
+    }
+}
+
+class ViewController: UIViewController {
+  // Usage in your view controller:
+  private var subscriptionListener: SubscriptionManagerListener?
+
+  // ...
+
+  @objc private func openSubscriptionManager() {
+    // Create and assign the listener
+    self.subscriptionListener = SubscriptionListener()
+
+    let subscriptionVC = SubscriptionManagerViewController(
+      url: authenticatedUrl,
+      productName: "Subscription Manager",
+      listener: self.subscriptionListener
+    )
+    self.present(subscriptionVC, animated: true)
+  }
+}
+```
 
 ## Author
 
