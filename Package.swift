@@ -3,13 +3,12 @@
 
  let package = Package(
      name: "ScribeUpSDK",
+     platforms: [.iOS(.v13)],
      products: [
          .library(
              name: "ScribeUpSDK",
              targets: ["ScribeUpSDK"]
          ),
-     ],
-     dependencies: [
      ],
      targets: [
         .binaryTarget(
