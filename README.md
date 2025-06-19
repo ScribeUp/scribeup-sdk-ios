@@ -2,19 +2,6 @@
 
 
 ### Installation
-<<<<<<< HEAD
-The ScribeUp iOS SDK is available via Swift Package Manager. To add the SDK to your project, add the following repository URL as a package dependency:
-
-```
-https://github.com/ScribeUp/scribeup-sdk-ios
-```
-
-Latest Version
-```
-0.0.1
-```
-
-=======
 
 The ScribeUp iOS SDK is available via [Swift Package Manager](https://swift.org/package-manager/).
 
@@ -27,7 +14,6 @@ Latest Version
 Add `https://github.com/ScribeUp/scribeup-sdk-ios` as a package dependency.
 
 
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
 ### SubscriptionManagerViewController
 
 `SubscriptionManagerViewController` is a UIViewController subclass that lets you easily integrate the subscription manager into your app. For example, you can present it like this:
@@ -56,8 +42,4 @@ This callback is invoked when the user exits the subscription manager—either i
 [ScribeUp](https://scribeup.io)
 
 ## License
-<<<<<<< HEAD
 ScribeUpSDK is released under the MIT license. See the LICENSE file for details.
-=======
-ScribeUpSDK is released under the MIT license. See the LICENSE file for details.
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
