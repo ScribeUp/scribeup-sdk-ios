@@ -6,11 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-<<<<<<< HEAD
-		wLK7uWWGp2k7JKyEEXEkPN9Vvzw=
-=======
 		QI/sssrDc9GnbWr5U1NM1W2BP/Y=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
 		</data>
 		<key>Headers/ScribeUpSDK.h</key>
 		<data>
@@ -18,58 +14,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-<<<<<<< HEAD
-		6oLjrqqjj2eJ1GpymCQDnLAijCo=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
-		<data>
-		556pvqgOK7RKKNEunNPF5hGbh3w=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
-		<data>
-		52ZDDdUOKbOvTgZPVSVvrRjqZbQ=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
-		<data>
-		9Vu/mGEx/mF2GeQ8hhjGwOtHoK0=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
-		<data>
-		52ZDDdUOKbOvTgZPVSVvrRjqZbQ=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
-		<data>
-		EoQZlNVXiyzqm/QWy+gGuXHeFgY=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
-		<data>
-		556pvqgOK7RKKNEunNPF5hGbh3w=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
-		<data>
-		E3aTGnVAXpGa0a7uN4e1Bs0tN2I=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
-		<data>
-		vBcuWs5YfsgGgRwdEDa3QGh3IVk=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
-		<data>
-		E3aTGnVAXpGa0a7uN4e1Bs0tN2I=
-		</data>
-		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
-		<data>
-		3HqPhwn9WDFOxi6XX7HEFQHVpU0=
-=======
 		1FeuAT5kiLoo99RHygFboTGUEf0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		I6YkoxDMchaFh8M3hP3TRjq7cTs=
+		/oCxwk3mpQKylPWjIrWpTkvClxU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		NkQHKvoTAe9Egs4dq3qo1ivfhsY=
+		5aS7OoCti/ubQQmzHJwr9KTEtEs=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -77,19 +30,19 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		NkQHKvoTAe9Egs4dq3qo1ivfhsY=
+		5aS7OoCti/ubQQmzHJwr9KTEtEs=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		isOLOTrXxDJHbc5rQNytJYUbbao=
+		UA4WoFXuNDAZ3sIID9aWt/6PD24=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		I6YkoxDMchaFh8M3hP3TRjq7cTs=
+		/oCxwk3mpQKylPWjIrWpTkvClxU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		AhrBvB14wv4K1RHJg7fZESO+WWA=
+		s33j1ZB0+IBcXMTVyxYzLQm9NGo=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -97,12 +50,11 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		AhrBvB14wv4K1RHJg7fZESO+WWA=
+		s33j1ZB0+IBcXMTVyxYzLQm9NGo=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		kxZlUcmOt4LKzrV0mYDkwcLeT84=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+		6LuS1hfxk5LHYDF3/jtJs6PofNY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -113,17 +65,21 @@
 	<dict>
 		<key>Assets.car</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			QI/sssrDc9GnbWr5U1NM1W2BP/Y=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			X88yaAj4w6MQ2ngvz4X3U3IV0yux5BTAktRHCr6yEog=
-=======
 			cp4hEpNP2YlozoucGSQXO8DZ9/KInrJjXA4CTIN6Tuc=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
 			</data>
 		</dict>
 		<key>Headers/ScribeUpSDK.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			xgmiSq4l6Y5v4dci8qDFjMUj0Bg=
+			</data>
 			<key>hash2</key>
 			<data>
 			JPQk2Sgx6GnO0TCNeXiTPs/u6ykoQuBZnJUnpW7OP2g=
@@ -131,116 +87,120 @@
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			/oCxwk3mpQKylPWjIrWpTkvClxU=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			3UlZZiI/2QpaSsQQzE654x0ZGiLXNOByQVURgs/Q3hk=
-=======
-			5SR3QLoUKm5mvdNMf5HrascVeoTyAQBerwFQVeopbgw=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			diXeqXZVj3s/kU2v82xLtsejvnYwg3nL53FvflRpNZE=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			5aS7OoCti/ubQQmzHJwr9KTEtEs=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			GG4gQsRXFRUspQlmY250t+1eFprOxDb0NkV1jixlRMs=
-=======
-			7Xdt7cNcExX9//ic/ni+QUj6O9Ay95eVcEuKLRSiFNc=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			X6LXJ8MdVFVQnfe5HjBv0crB4mC7PJg/rLg4cdjiRls=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			chaFC+kCJT4uDB+q1kvPrmDe5RE=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			Gow6/g1nqEw2ABwA4zEQIK0gCpL+QqrWTw3fb9Oo3kM=
-=======
 			b9Rh2mXWoUASlDZYW5daDa6/m9bxCQN/OwElWkIbXMg=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			5aS7OoCti/ubQQmzHJwr9KTEtEs=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			GG4gQsRXFRUspQlmY250t+1eFprOxDb0NkV1jixlRMs=
-=======
-			7Xdt7cNcExX9//ic/ni+QUj6O9Ay95eVcEuKLRSiFNc=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			X6LXJ8MdVFVQnfe5HjBv0crB4mC7PJg/rLg4cdjiRls=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			UA4WoFXuNDAZ3sIID9aWt/6PD24=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			oyUqNxpOthsNeUX26hagzaDGk7dE0gCg5wiR1BcX1w0=
-=======
-			cBMYh49NtnlYEIxDZ+1VYE0KNSSY/JI3TXN9pzrggxs=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			a+ztQEqFSuF54m4Ov4GOffepZCpvbktBrMUH2BjNUMM=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			/oCxwk3mpQKylPWjIrWpTkvClxU=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			3UlZZiI/2QpaSsQQzE654x0ZGiLXNOByQVURgs/Q3hk=
-=======
-			5SR3QLoUKm5mvdNMf5HrascVeoTyAQBerwFQVeopbgw=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			diXeqXZVj3s/kU2v82xLtsejvnYwg3nL53FvflRpNZE=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			s33j1ZB0+IBcXMTVyxYzLQm9NGo=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			4IONSo2YYMcGlofhuda8bNEbrUtdNQHxYdtLnHczj2c=
-=======
-			qQvhk6P/Ny3kNuGagLbwI+iR7V40ribA3oOpFHPULCY=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			s3yMCoGW7ZGKEimX5zJMyJ2NMsk+6mwJyJC0mI0SlaQ=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			itMZvJTwZr2E8VHD1QtqN3RRYzk=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			WN/ZVBGP0iujnow2Ypuiw8EArXEBvIwA6BdOxf20M5s=
-=======
 			qyD/cSEQSRnn8qEjmVjnEATezB5/5e8m9Y1grzsrzXs=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			s33j1ZB0+IBcXMTVyxYzLQm9NGo=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			4IONSo2YYMcGlofhuda8bNEbrUtdNQHxYdtLnHczj2c=
-=======
-			qQvhk6P/Ny3kNuGagLbwI+iR7V40ribA3oOpFHPULCY=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			s3yMCoGW7ZGKEimX5zJMyJ2NMsk+6mwJyJC0mI0SlaQ=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			6LuS1hfxk5LHYDF3/jtJs6PofNY=
+			</data>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			yaitT/vCf9QoTuKemqwdiFWxkaBgliiVlmux8gBh70U=
-=======
-			GCbJM2zrwWJ4k55EPfifSUt6Ho1qNY5EbDEWB2Rf+Ic=
->>>>>>> fc6c52c5c0858ea0b055d69a760aa8914c8b4c14
+			ZzQMpy+mSRjTX9OCZrP9qAMldnvsCkA3CDTL8wwDXw0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			rhzyrQaGJ9eBOdBIYLDriIRHrWQ=
+			</data>
 			<key>hash2</key>
 			<data>
 			prPvU8XR6mXWjvnwbqHCEn7zNob8Upj7SR1BGsBcahg=
