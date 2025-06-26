@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   # ---- Basic metadata ----------------------------------------------------
   s.name             = 'ScribeUpSDK'
-  s.version          = '0.5.62'
+  s.version          = '0.5.63'
   s.summary          = 'ScribeUp iOS SDK'
   s.swift_version    = '5.0'
 
