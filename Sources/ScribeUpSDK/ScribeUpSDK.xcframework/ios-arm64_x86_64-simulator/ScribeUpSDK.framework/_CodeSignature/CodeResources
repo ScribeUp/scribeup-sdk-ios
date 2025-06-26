@@ -18,43 +18,43 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		W9GbpgjNFcF2T/EIHdnKv2VJKfM=
+		zfQoE8Js7sNXWl/Rcr+90iYABiU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		hhvuD4B/42gzgSwpBjDYxbIKaRw=
+		z7PGKj+ErGvOqNocZCZUnLUdo/0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		chaFC+kCJT4uDB+q1kvPrmDe5RE=
+		gEO2jbmmOdRbBoRAAeI82O7Yfbo=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		hhvuD4B/42gzgSwpBjDYxbIKaRw=
+		z7PGKj+ErGvOqNocZCZUnLUdo/0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		nM27o4F32nNOTB4O9uH7rGrMZ98=
+		rtMc4JKY3yocKenSI0QAx/QVh1E=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		W9GbpgjNFcF2T/EIHdnKv2VJKfM=
+		zfQoE8Js7sNXWl/Rcr+90iYABiU=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		bYtkrHsRHBHdvpikp2CMlrmfg7A=
+		RDh0zZRpfCyYBTiBKNXj+9+tgQ0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		itMZvJTwZr2E8VHD1QtqN3RRYzk=
+		ShMIdD9BA8ghBx4Mr3N1tvl8rhI=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		bYtkrHsRHBHdvpikp2CMlrmfg7A=
+		RDh0zZRpfCyYBTiBKNXj+9+tgQ0=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		oAGOQxV0k1XEWU2qgpMK71jL2ac=
+		oDstXcaSAL/LWc2yQ2lzoGY67f0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -97,110 +97,110 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			W9GbpgjNFcF2T/EIHdnKv2VJKfM=
+			zfQoE8Js7sNXWl/Rcr+90iYABiU=
 			</data>
 			<key>hash2</key>
 			<data>
-			vB/6wPSHAkqY3wcXJ9iUF+T+6hHT25AK7zzhTAG+PTk=
+			BMnHqcMPs9/IWMo/zajXA7JsHItpvSC+0KAfWvl8D4I=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hhvuD4B/42gzgSwpBjDYxbIKaRw=
+			z7PGKj+ErGvOqNocZCZUnLUdo/0=
 			</data>
 			<key>hash2</key>
 			<data>
-			MUxC/O68m/0Wseqmbqg1jjnY3fdZ4XIXKSei2OgRHlg=
+			quApGiXqSHbLQXMexEj8i2rw2+B4K+CqsbJYhhIwCPg=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			chaFC+kCJT4uDB+q1kvPrmDe5RE=
+			gEO2jbmmOdRbBoRAAeI82O7Yfbo=
 			</data>
 			<key>hash2</key>
 			<data>
-			b9Rh2mXWoUASlDZYW5daDa6/m9bxCQN/OwElWkIbXMg=
+			2Tx4GBPoaljriRh9PnXam8J/r9XyVvOtE+pvBAWexeE=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hhvuD4B/42gzgSwpBjDYxbIKaRw=
+			z7PGKj+ErGvOqNocZCZUnLUdo/0=
 			</data>
 			<key>hash2</key>
 			<data>
-			MUxC/O68m/0Wseqmbqg1jjnY3fdZ4XIXKSei2OgRHlg=
+			quApGiXqSHbLQXMexEj8i2rw2+B4K+CqsbJYhhIwCPg=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nM27o4F32nNOTB4O9uH7rGrMZ98=
+			rtMc4JKY3yocKenSI0QAx/QVh1E=
 			</data>
 			<key>hash2</key>
 			<data>
-			jWgeqnufnLaen1oBDF6vpwZ95XhMUYyroW4xnVo8f1Q=
+			8AVtmgPXNao1mJfE3KgdQk4T88LY5du4mzvUX0jL8R8=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			W9GbpgjNFcF2T/EIHdnKv2VJKfM=
+			zfQoE8Js7sNXWl/Rcr+90iYABiU=
 			</data>
 			<key>hash2</key>
 			<data>
-			vB/6wPSHAkqY3wcXJ9iUF+T+6hHT25AK7zzhTAG+PTk=
+			BMnHqcMPs9/IWMo/zajXA7JsHItpvSC+0KAfWvl8D4I=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bYtkrHsRHBHdvpikp2CMlrmfg7A=
+			RDh0zZRpfCyYBTiBKNXj+9+tgQ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			0I9ksId1LzX654HGEQvwIUdS0H6ANHQASVOH/Z0085g=
+			u66ValQVzNzEfigFqS67dAjjWjmDEz4lXQocxo5UWYw=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			itMZvJTwZr2E8VHD1QtqN3RRYzk=
+			ShMIdD9BA8ghBx4Mr3N1tvl8rhI=
 			</data>
 			<key>hash2</key>
 			<data>
-			qyD/cSEQSRnn8qEjmVjnEATezB5/5e8m9Y1grzsrzXs=
+			kNmWupcuzzReIQuELSKYb65Q2hK+9ac0KoN8PlKGZD8=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bYtkrHsRHBHdvpikp2CMlrmfg7A=
+			RDh0zZRpfCyYBTiBKNXj+9+tgQ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			0I9ksId1LzX654HGEQvwIUdS0H6ANHQASVOH/Z0085g=
+			u66ValQVzNzEfigFqS67dAjjWjmDEz4lXQocxo5UWYw=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oAGOQxV0k1XEWU2qgpMK71jL2ac=
+			oDstXcaSAL/LWc2yQ2lzoGY67f0=
 			</data>
 			<key>hash2</key>
 			<data>
-			X8/gsRAW6Db1alPnhcPOMxuc+Q0QigtJ6W0gbsrdL3A=
+			89wyl9e1f+tnxOmzEe2C7cyBPJ2FpwnEVPDiwped30A=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
