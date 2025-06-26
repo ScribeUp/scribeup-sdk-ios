@@ -12,6 +12,32 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+public enum DDSite {
+  case us1
+  case us3
+  case us5
+  case eu1
+  case ap1
+  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct ScribeUpDDConfig {
+  public let clientToken: Swift.String
+  public let site: ScribeUpSDK.DDSite
+  public let environment: Swift.String
+  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
+}
+public protocol SubscriptionManagerListener : AnyObject {
+  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
+}
+public struct SubscriptionManagerError : Swift.Error {
+  public let code: Swift.Int
+  public let message: Swift.String
+  public init(code: Swift.Int, message: Swift.String)
+}
 public enum ScribeUpLog {
   public enum Level {
     case debug, info, notice, warn, error, critical
@@ -178,33 +204,7 @@ public class ScribeUpAPIController {
   public func startJob(jobBody: [Swift.String : Any], completion: @escaping (Swift.Result<ScribeUpSDK.SimpleSuccessResponse, any Swift.Error>) -> Swift.Void)
   @objc deinit
 }
-public enum DDSite {
-  case us1
-  case us3
-  case us5
-  case eu1
-  case ap1
-  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct ScribeUpDDConfig {
-  public let clientToken: Swift.String
-  public let site: ScribeUpSDK.DDSite
-  public let environment: Swift.String
-  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
-}
-public protocol SubscriptionManagerListener : AnyObject {
-  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
-public struct SubscriptionManagerError : Swift.Error {
-  public let code: Swift.Int
-  public let message: Swift.String
-  public init(code: Swift.Int, message: Swift.String)
-}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
