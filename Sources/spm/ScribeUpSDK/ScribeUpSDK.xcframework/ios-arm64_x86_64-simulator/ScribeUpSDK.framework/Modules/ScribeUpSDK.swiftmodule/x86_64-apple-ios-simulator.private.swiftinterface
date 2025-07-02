@@ -12,25 +12,6 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public enum ScribeUpLog {
-  public enum Level {
-    case debug, info, notice, warn, error, critical
-    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
-}
-public struct JavaScriptHelper {
-}
-@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
-  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
-  @objc deinit
-}
 public enum ScribeUpSDKVersion {
   public static let version: Swift.String
   public static let build: Swift.String
@@ -204,7 +185,26 @@ public struct SubscriptionManagerError : Swift.Error {
   public let message: Swift.String
   public init(code: Swift.Int, message: Swift.String)
 }
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
+public enum ScribeUpLog {
+  public enum Level {
+    case debug, info, notice, warn, error, critical
+    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
+}
+public struct JavaScriptHelper {
+}
+@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
+  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
+  @objc deinit
+}
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
