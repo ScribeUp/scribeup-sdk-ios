@@ -2,6 +2,7 @@
 // swift-compiler-version: Apple Swift version 6.1.2 effective-5.10 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)
 // swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name ScribeUpSDK
 // swift-module-flags-ignorable:  -interface-compiler-version 6.1.2
+import AuthenticationServices
 import CoreText
 import DeveloperToolsSupport
 import Foundation
@@ -14,6 +15,24 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+public enum DDSite {
+  case us1
+  case us3
+  case us5
+  case eu1
+  case ap1
+  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct ScribeUpDDConfig {
+  public let clientToken: Swift.String
+  public let site: ScribeUpSDK.DDSite
+  public let environment: Swift.String
+  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
+}
 public struct SimpleSuccessResponse : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
@@ -132,9 +151,6 @@ public class ScribeUpAPIController {
   public func startJob(jobBody: [Swift.String : Any], completion: @escaping (Swift.Result<ScribeUpSDK.SimpleSuccessResponse, any Swift.Error>) -> Swift.Void)
   @objc deinit
 }
-public protocol SubscriptionManagerListener : AnyObject {
-  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
 public enum ScribeUpSDKVersion {
   public static let version: Swift.String
   public static let build: Swift.String
@@ -157,6 +173,14 @@ extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKNavigationDelegate 
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
   @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
 }
+public struct SubscriptionManagerError : Swift.Error {
+  public let code: Swift.Int
+  public let message: Swift.String
+  public init(code: Swift.Int, message: Swift.String)
+}
+public protocol SubscriptionManagerListener : AnyObject {
+  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
+}
 public enum ScribeUpLog {
   public enum Level {
     case debug, info, notice, warn, error, critical
@@ -176,12 +200,7 @@ public struct JavaScriptHelper {
   @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
   @objc deinit
 }
-public struct SubscriptionManagerError : Swift.Error {
-  public let code: Swift.Int
-  public let message: Swift.String
-  public init(code: Swift.Int, message: Swift.String)
-}
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerViewController : UIKit.UIViewController, WebKit.WKNavigationDelegate, WebKit.WKScriptMessageHandler, SafariServices.SFSafariViewControllerDelegate {
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerViewController : UIKit.UIViewController, WebKit.WKNavigationDelegate, WebKit.WKScriptMessageHandler, SafariServices.SFSafariViewControllerDelegate, AuthenticationServices.ASWebAuthenticationPresentationContextProviding {
   @_Concurrency.MainActor @preconcurrency public static let sdkVersion: Swift.String
   @_Concurrency.MainActor @preconcurrency public init(url: Swift.String, productName: Swift.String = "Subscription Manager", listener: (any ScribeUpSDK.SubscriptionManagerListener)? = nil)
   @objc deinit
@@ -190,26 +209,9 @@ public struct SubscriptionManagerError : Swift.Error {
   @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
   @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
   @_Concurrency.MainActor @preconcurrency @objc public func safariViewControllerDidFinish(_ controller: SafariServices.SFSafariViewController)
+  @_Concurrency.MainActor @preconcurrency @objc public func presentationAnchor(for session: AuthenticationServices.ASWebAuthenticationSession) -> AuthenticationServices.ASPresentationAnchor
 }
-public enum DDSite {
-  case us1
-  case us3
-  case us5
-  case eu1
-  case ap1
-  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct ScribeUpDDConfig {
-  public let clientToken: Swift.String
-  public let site: ScribeUpSDK.DDSite
-  public let environment: Swift.String
-  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
-}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
