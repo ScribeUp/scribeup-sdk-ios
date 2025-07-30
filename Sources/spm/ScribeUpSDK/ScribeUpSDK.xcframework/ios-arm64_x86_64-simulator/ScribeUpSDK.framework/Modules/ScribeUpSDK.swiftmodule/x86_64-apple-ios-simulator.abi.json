@@ -6,27 +6,6 @@
     "children": [
       {
         "kind": "Import",
-        "name": "CoreText",
-        "printedName": "CoreText",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -99,6 +78,593 @@
             "printedName": "Copyable",
             "usr": "s:s8CopyableP",
             "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "DatadogCore",
+        "printedName": "DatadogCore",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "DatadogCrashReporting",
+        "printedName": "DatadogCrashReporting",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "DatadogInternal",
+        "printedName": "DatadogInternal",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "DatadogLogs",
+        "printedName": "DatadogLogs",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "DatadogRUM",
+        "printedName": "DatadogRUM",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "DDSite",
+        "printedName": "DDSite",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "us1",
+            "printedName": "us1",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "DDSite",
+                        "printedName": "ScribeUpSDK.DDSite",
+                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11ScribeUpSDK6DDSiteO3us1yA2CmF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO3us1yA2CmF",
+            "moduleName": "ScribeUpSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "us3",
+            "printedName": "us3",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "DDSite",
+                        "printedName": "ScribeUpSDK.DDSite",
+                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11ScribeUpSDK6DDSiteO3us3yA2CmF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO3us3yA2CmF",
+            "moduleName": "ScribeUpSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "us5",
+            "printedName": "us5",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "DDSite",
+                        "printedName": "ScribeUpSDK.DDSite",
+                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11ScribeUpSDK6DDSiteO3us5yA2CmF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO3us5yA2CmF",
+            "moduleName": "ScribeUpSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "eu1",
+            "printedName": "eu1",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "DDSite",
+                        "printedName": "ScribeUpSDK.DDSite",
+                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11ScribeUpSDK6DDSiteO3eu1yA2CmF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO3eu1yA2CmF",
+            "moduleName": "ScribeUpSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "ap1",
+            "printedName": "ap1",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "DDSite",
+                        "printedName": "ScribeUpSDK.DDSite",
+                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11ScribeUpSDK6DDSiteO3ap1yA2CmF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO3ap1yA2CmF",
+            "moduleName": "ScribeUpSDK"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DDSite",
+                "printedName": "ScribeUpSDK.DDSite",
+                "usr": "s:11ScribeUpSDK6DDSiteO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DDSite",
+                "printedName": "ScribeUpSDK.DDSite",
+                "usr": "s:11ScribeUpSDK6DDSiteO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK6DDSiteO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO2eeoiySbAC_ACtFZ",
+            "moduleName": "ScribeUpSDK",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK6DDSiteO9hashValueSivp",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO9hashValueSivp",
+            "moduleName": "ScribeUpSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK6DDSiteO9hashValueSivg",
+                "mangledName": "$s11ScribeUpSDK6DDSiteO9hashValueSivg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK6DDSiteO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s11ScribeUpSDK6DDSiteO4hash4intoys6HasherVz_tF",
+            "moduleName": "ScribeUpSDK",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:11ScribeUpSDK6DDSiteO",
+        "mangledName": "$s11ScribeUpSDK6DDSiteO",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScribeUpDDConfig",
+        "printedName": "ScribeUpDDConfig",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "clientToken",
+            "printedName": "clientToken",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientTokenSSvp",
+            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientTokenSSvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientTokenSSvg",
+                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientTokenSSvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "site",
+            "printedName": "site",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "DDSite",
+                "printedName": "ScribeUpSDK.DDSite",
+                "usr": "s:11ScribeUpSDK6DDSiteO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvp",
+            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DDSite",
+                    "printedName": "ScribeUpSDK.DDSite",
+                    "usr": "s:11ScribeUpSDK6DDSiteO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvg",
+                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "environment",
+            "printedName": "environment",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB8DDConfigV11environmentSSvp",
+            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11environmentSSvp",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB8DDConfigV11environmentSSvg",
+                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11environmentSSvg",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(clientToken:site:environment:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ScribeUpDDConfig",
+                "printedName": "ScribeUpSDK.ScribeUpDDConfig",
+                "usr": "s:11ScribeUpSDK0aB8DDConfigV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DDSite",
+                "printedName": "ScribeUpSDK.DDSite",
+                "hasDefaultArg": true,
+                "usr": "s:11ScribeUpSDK6DDSiteO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientToken4site11environmentACSS_AA6DDSiteOSStcfc",
+            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientToken4site11environmentACSS_AA6DDSiteOSStcfc",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:11ScribeUpSDK0aB8DDConfigV",
+        "mangledName": "$s11ScribeUpSDK0aB8DDConfigV",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
           }
         ]
       },
@@ -214,515 +780,6 @@
         "declKind": "Enum",
         "usr": "s:11ScribeUpSDK0aB10SDKVersionO",
         "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "AccessControl",
-          "RawDocComment"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          }
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "DatadogLogs",
-        "printedName": "DatadogLogs",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "ScribeUpLog",
-        "printedName": "ScribeUpLog",
-        "children": [
-          {
-            "kind": "TypeDecl",
-            "name": "Level",
-            "printedName": "Level",
-            "children": [
-              {
-                "kind": "Var",
-                "name": "debug",
-                "printedName": "debug",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO5debugyA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO5debugyA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Var",
-                "name": "info",
-                "printedName": "info",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4infoyA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4infoyA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Var",
-                "name": "notice",
-                "printedName": "notice",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO6noticeyA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO6noticeyA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Var",
-                "name": "warn",
-                "printedName": "warn",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4warnyA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4warnyA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Var",
-                "name": "error",
-                "printedName": "error",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO5erroryA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO5erroryA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Var",
-                "name": "critical",
-                "printedName": "critical",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Level",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Level",
-                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO8criticalyA2EmF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO8criticalyA2EmF",
-                "moduleName": "ScribeUpSDK"
-              },
-              {
-                "kind": "Function",
-                "name": "==",
-                "printedName": "==(_:_:)",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "usr": "s:Sb"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Level",
-                    "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Level",
-                    "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-                  }
-                ],
-                "declKind": "Func",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO2eeoiySbAE_AEtFZ",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO2eeoiySbAE_AEtFZ",
-                "moduleName": "ScribeUpSDK",
-                "static": true,
-                "implicit": true,
-                "funcSelfKind": "NonMutating"
-              },
-              {
-                "kind": "Var",
-                "name": "hashValue",
-                "printedName": "hashValue",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO9hashValueSivp",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO9hashValueSivp",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Int",
-                        "printedName": "Swift.Int",
-                        "usr": "s:Si"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO9hashValueSivg",
-                    "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO9hashValueSivg",
-                    "moduleName": "ScribeUpSDK",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Function",
-                "name": "hash",
-                "printedName": "hash(into:)",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Hasher",
-                    "printedName": "Swift.Hasher",
-                    "paramValueOwnership": "InOut",
-                    "usr": "s:s6HasherV"
-                  }
-                ],
-                "declKind": "Func",
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4hash4intoys6HasherVz_tF",
-                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4hash4intoys6HasherVz_tF",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "funcSelfKind": "NonMutating"
-              }
-            ],
-            "declKind": "Enum",
-            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO",
-            "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "conformances": [
-              {
-                "kind": "Conformance",
-                "name": "Copyable",
-                "printedName": "Copyable",
-                "usr": "s:s8CopyableP",
-                "mangledName": "$ss8CopyableP"
-              },
-              {
-                "kind": "Conformance",
-                "name": "Escapable",
-                "printedName": "Escapable",
-                "usr": "s:s9EscapableP",
-                "mangledName": "$ss9EscapableP"
-              },
-              {
-                "kind": "Conformance",
-                "name": "Equatable",
-                "printedName": "Equatable",
-                "usr": "s:SQ",
-                "mangledName": "$sSQ"
-              },
-              {
-                "kind": "Conformance",
-                "name": "Hashable",
-                "printedName": "Hashable",
-                "usr": "s:SH",
-                "mangledName": "$sSH"
-              }
-            ]
-          },
-          {
-            "kind": "Function",
-            "name": "log",
-            "printedName": "log(_:level:attrs:jobId:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Level",
-                "printedName": "ScribeUpSDK.ScribeUpLog.Level",
-                "hasDefaultArg": true,
-                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Dictionary",
-                "printedName": "[Swift.String : any Swift.Encodable]",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Encodable",
-                    "printedName": "any Swift.Encodable",
-                    "usr": "s:SE"
-                  }
-                ],
-                "hasDefaultArg": true,
-                "usr": "s:SD"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "hasDefaultArg": true,
-                "usr": "s:Sq"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:11ScribeUpSDK0aB3LogO3log_5level5attrs5jobIdySS_AC5LevelOSDySSSE_pGSSSgtFZ",
-            "mangledName": "$s11ScribeUpSDK0aB3LogO3log_5level5attrs5jobIdySS_AC5LevelOSDySSSE_pGSSSgtFZ",
-            "moduleName": "ScribeUpSDK",
-            "static": true,
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          }
-        ],
-        "declKind": "Enum",
-        "usr": "s:11ScribeUpSDK0aB3LogO",
-        "mangledName": "$s11ScribeUpSDK0aB3LogO",
         "moduleName": "ScribeUpSDK",
         "declAttributes": [
           "AccessControl",
@@ -2034,33 +2091,52 @@
       },
       {
         "kind": "Import",
-        "name": "DatadogCore",
-        "printedName": "DatadogCore",
+        "name": "UIKit",
+        "printedName": "UIKit",
         "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
-        "name": "DatadogCrashReporting",
-        "printedName": "DatadogCrashReporting",
+        "name": "WebKit",
+        "printedName": "WebKit",
         "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
-        "name": "DatadogInternal",
-        "printedName": "DatadogInternal",
+        "name": "Foundation",
+        "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -2073,266 +2149,273 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "DatadogRUM",
-        "printedName": "DatadogRUM",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
         "kind": "TypeDecl",
-        "name": "DDSite",
-        "printedName": "DDSite",
+        "name": "ScribeUpLog",
+        "printedName": "ScribeUpLog",
         "children": [
           {
-            "kind": "Var",
-            "name": "us1",
-            "printedName": "us1",
+            "kind": "TypeDecl",
+            "name": "Level",
+            "printedName": "Level",
             "children": [
               {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
+                "kind": "Var",
+                "name": "debug",
+                "printedName": "debug",
                 "children": [
                   {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "ScribeUpSDK.DDSite.Type",
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
                     "children": [
                       {
                         "kind": "TypeNominal",
-                        "name": "DDSite",
-                        "printedName": "ScribeUpSDK.DDSite",
-                        "usr": "s:11ScribeUpSDK6DDSiteO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11ScribeUpSDK6DDSiteO3us1yA2CmF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO3us1yA2CmF",
-            "moduleName": "ScribeUpSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "us3",
-            "printedName": "us3",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "ScribeUpSDK.DDSite.Type",
-                    "children": [
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
                       {
                         "kind": "TypeNominal",
-                        "name": "DDSite",
-                        "printedName": "ScribeUpSDK.DDSite",
-                        "usr": "s:11ScribeUpSDK6DDSiteO"
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
                       }
                     ]
                   }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11ScribeUpSDK6DDSiteO3us3yA2CmF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO3us3yA2CmF",
-            "moduleName": "ScribeUpSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "us5",
-            "printedName": "us5",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "ScribeUpSDK.DDSite.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "DDSite",
-                        "printedName": "ScribeUpSDK.DDSite",
-                        "usr": "s:11ScribeUpSDK6DDSiteO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11ScribeUpSDK6DDSiteO3us5yA2CmF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO3us5yA2CmF",
-            "moduleName": "ScribeUpSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "eu1",
-            "printedName": "eu1",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "ScribeUpSDK.DDSite.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "DDSite",
-                        "printedName": "ScribeUpSDK.DDSite",
-                        "usr": "s:11ScribeUpSDK6DDSiteO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11ScribeUpSDK6DDSiteO3eu1yA2CmF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO3eu1yA2CmF",
-            "moduleName": "ScribeUpSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "ap1",
-            "printedName": "ap1",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(ScribeUpSDK.DDSite.Type) -> ScribeUpSDK.DDSite",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "ScribeUpSDK.DDSite.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "DDSite",
-                        "printedName": "ScribeUpSDK.DDSite",
-                        "usr": "s:11ScribeUpSDK6DDSiteO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11ScribeUpSDK6DDSiteO3ap1yA2CmF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO3ap1yA2CmF",
-            "moduleName": "ScribeUpSDK"
-          },
-          {
-            "kind": "Function",
-            "name": "==",
-            "printedName": "==(_:_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO5debugyA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO5debugyA2EmF",
+                "moduleName": "ScribeUpSDK"
               },
               {
-                "kind": "TypeNominal",
-                "name": "DDSite",
-                "printedName": "ScribeUpSDK.DDSite",
-                "usr": "s:11ScribeUpSDK6DDSiteO"
+                "kind": "Var",
+                "name": "info",
+                "printedName": "info",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4infoyA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4infoyA2EmF",
+                "moduleName": "ScribeUpSDK"
               },
               {
-                "kind": "TypeNominal",
-                "name": "DDSite",
-                "printedName": "ScribeUpSDK.DDSite",
-                "usr": "s:11ScribeUpSDK6DDSiteO"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:11ScribeUpSDK6DDSiteO2eeoiySbAC_ACtFZ",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO2eeoiySbAC_ACtFZ",
-            "moduleName": "ScribeUpSDK",
-            "static": true,
-            "implicit": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Var",
-            "name": "hashValue",
-            "printedName": "hashValue",
-            "children": [
+                "kind": "Var",
+                "name": "notice",
+                "printedName": "notice",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO6noticeyA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO6noticeyA2EmF",
+                "moduleName": "ScribeUpSDK"
+              },
               {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK6DDSiteO9hashValueSivp",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO9hashValueSivp",
-            "moduleName": "ScribeUpSDK",
-            "implicit": true,
-            "accessors": [
+                "kind": "Var",
+                "name": "warn",
+                "printedName": "warn",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4warnyA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4warnyA2EmF",
+                "moduleName": "ScribeUpSDK"
+              },
               {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
+                "kind": "Var",
+                "name": "error",
+                "printedName": "error",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO5erroryA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO5erroryA2EmF",
+                "moduleName": "ScribeUpSDK"
+              },
+              {
+                "kind": "Var",
+                "name": "critical",
+                "printedName": "critical",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(ScribeUpSDK.ScribeUpLog.Level.Type) -> ScribeUpSDK.ScribeUpLog.Level",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Level",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                        "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "ScribeUpSDK.ScribeUpLog.Level.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Level",
+                            "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO8criticalyA2EmF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO8criticalyA2EmF",
+                "moduleName": "ScribeUpSDK"
+              },
+              {
+                "kind": "Function",
+                "name": "==",
+                "printedName": "==(_:_:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Level",
+                    "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Level",
+                    "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO2eeoiySbAE_AEtFZ",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO2eeoiySbAE_AEtFZ",
+                "moduleName": "ScribeUpSDK",
+                "static": true,
+                "implicit": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Var",
+                "name": "hashValue",
+                "printedName": "hashValue",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -2341,19 +2424,101 @@
                     "usr": "s:Si"
                   }
                 ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK6DDSiteO9hashValueSivg",
-                "mangledName": "$s11ScribeUpSDK6DDSiteO9hashValueSivg",
+                "declKind": "Var",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO9hashValueSivp",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO9hashValueSivp",
                 "moduleName": "ScribeUpSDK",
                 "implicit": true,
-                "accessorKind": "get"
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:11ScribeUpSDK0aB3LogO5LevelO9hashValueSivg",
+                    "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO9hashValueSivg",
+                    "moduleName": "ScribeUpSDK",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Function",
+                "name": "hash",
+                "printedName": "hash(into:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Hasher",
+                    "printedName": "Swift.Hasher",
+                    "paramValueOwnership": "InOut",
+                    "usr": "s:s6HasherV"
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO4hash4intoys6HasherVz_tF",
+                "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO4hash4intoys6HasherVz_tF",
+                "moduleName": "ScribeUpSDK",
+                "implicit": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:11ScribeUpSDK0aB3LogO5LevelO",
+            "mangledName": "$s11ScribeUpSDK0aB3LogO5LevelO",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
               }
             ]
           },
           {
             "kind": "Function",
-            "name": "hash",
-            "printedName": "hash(into:)",
+            "name": "log",
+            "printedName": "log(_:level:attrs:jobId:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -2362,241 +2527,69 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Hasher",
-                "printedName": "Swift.Hasher",
-                "paramValueOwnership": "InOut",
-                "usr": "s:s6HasherV"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Level",
+                "printedName": "ScribeUpSDK.ScribeUpLog.Level",
+                "hasDefaultArg": true,
+                "usr": "s:11ScribeUpSDK0aB3LogO5LevelO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : any Swift.Encodable]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Encodable",
+                    "printedName": "any Swift.Encodable",
+                    "usr": "s:SE"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Func",
-            "usr": "s:11ScribeUpSDK6DDSiteO4hash4intoys6HasherVz_tF",
-            "mangledName": "$s11ScribeUpSDK6DDSiteO4hash4intoys6HasherVz_tF",
+            "usr": "s:11ScribeUpSDK0aB3LogO3log_5level5attrs5jobIdySS_AC5LevelOSDySSSE_pGSSSgtFZ",
+            "mangledName": "$s11ScribeUpSDK0aB3LogO3log_5level5attrs5jobIdySS_AC5LevelOSDySSSE_pGSSSgtFZ",
             "moduleName": "ScribeUpSDK",
-            "implicit": true,
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
             "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Enum",
-        "usr": "s:11ScribeUpSDK6DDSiteO",
-        "mangledName": "$s11ScribeUpSDK6DDSiteO",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "AccessControl",
-          "RawDocComment"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          }
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "ScribeUpDDConfig",
-        "printedName": "ScribeUpDDConfig",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "clientToken",
-            "printedName": "clientToken",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientTokenSSvp",
-            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientTokenSSvp",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientTokenSSvg",
-                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientTokenSSvg",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "site",
-            "printedName": "site",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "DDSite",
-                "printedName": "ScribeUpSDK.DDSite",
-                "usr": "s:11ScribeUpSDK6DDSiteO"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvp",
-            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvp",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "DDSite",
-                    "printedName": "ScribeUpSDK.DDSite",
-                    "usr": "s:11ScribeUpSDK6DDSiteO"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvg",
-                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV4siteAA6DDSiteOvg",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "environment",
-            "printedName": "environment",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB8DDConfigV11environmentSSvp",
-            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11environmentSSvp",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB8DDConfigV11environmentSSvg",
-                "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11environmentSSvg",
-                "moduleName": "ScribeUpSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(clientToken:site:environment:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "ScribeUpDDConfig",
-                "printedName": "ScribeUpSDK.ScribeUpDDConfig",
-                "usr": "s:11ScribeUpSDK0aB8DDConfigV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "DDSite",
-                "printedName": "ScribeUpSDK.DDSite",
-                "hasDefaultArg": true,
-                "usr": "s:11ScribeUpSDK6DDSiteO"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "hasDefaultArg": true,
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:11ScribeUpSDK0aB8DDConfigV11clientToken4site11environmentACSS_AA6DDSiteOSStcfc",
-            "mangledName": "$s11ScribeUpSDK0aB8DDConfigV11clientToken4site11environmentACSS_AA6DDSiteOSStcfc",
-            "moduleName": "ScribeUpSDK",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "init_kind": "Designated"
-          }
-        ],
-        "declKind": "Struct",
-        "usr": "s:11ScribeUpSDK0aB8DDConfigV",
-        "mangledName": "$s11ScribeUpSDK0aB8DDConfigV",
+        "usr": "s:11ScribeUpSDK0aB3LogO",
+        "mangledName": "$s11ScribeUpSDK0aB3LogO",
         "moduleName": "ScribeUpSDK",
         "declAttributes": [
           "AccessControl",
@@ -7872,8 +7865,8 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "CoreText",
+        "printedName": "CoreText",
         "declKind": "Import",
         "moduleName": "ScribeUpSDK"
       },
@@ -7881,6 +7874,13 @@
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
         "declKind": "Import",
         "moduleName": "ScribeUpSDK"
       },
@@ -7987,6 +7987,13 @@
             "printedName": "Escapable",
             "usr": "s:s9EscapableP",
             "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
           },
           {
             "kind": "Conformance",
@@ -8208,13 +8215,6 @@
           },
           {
             "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
             "name": "Hashable",
             "printedName": "Hashable",
             "usr": "s:SH",
@@ -8325,25 +8325,95 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
       "kind": "StringLiteral",
-      "offset": 241,
-      "length": 21,
-      "value": "\"com.scribeup.timers\""
+      "offset": 841,
+      "length": 12,
+      "value": "\"production\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 1242,
+      "length": 37,
+      "value": "\"pubca2f377d623d18ba805e35b41ec38102\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 1302,
+      "length": 12,
+      "value": "\"production\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 1387,
+      "length": 18,
+      "value": "\"scribeup-ios-sdk\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 1667,
+      "length": 38,
+      "value": "\"38ae34b6-e21a-49b6-b6ca-c2e0a97bea8c\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "FloatLiteral",
+      "offset": 1961,
+      "length": 4,
+      "value": "0.25"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2010,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2266,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
       "kind": "IntegerLiteral",
-      "offset": 942,
+      "offset": 2306,
       "length": 3,
-      "value": "250"
+      "value": "100"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 2514,
+      "length": 9,
+      "value": "\"service\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "StringLiteral",
+      "offset": 2532,
+      "length": 18,
+      "value": "\"scribeup-ios-sdk\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3039,
+      "length": 1,
+      "value": "2"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
       "kind": "StringLiteral",
       "offset": 168,
       "length": 7,
-      "value": "\"0.7.4\""
+      "value": "\"0.7.5\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
@@ -8351,62 +8421,6 @@
       "offset": 243,
       "length": 3,
       "value": "\"1\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 775,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "StringLiteral",
-      "offset": 925,
-      "length": 27,
-      "value": "\"com.scribeup.storageQueue\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1011,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1074,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "Dictionary",
-      "offset": 1136,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1337,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Auth.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4971,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/ScribeUpLog.swift",
-      "kind": "Dictionary",
-      "offset": 1108,
-      "length": 3,
-      "value": "[]"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Scripts.swift",
@@ -8682,88 +8696,60 @@
       "value": "-15"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 841,
-      "length": 12,
-      "value": "\"production\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 1242,
-      "length": 37,
-      "value": "\"pubca2f377d623d18ba805e35b41ec38102\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 1302,
-      "length": 12,
-      "value": "\"production\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 1387,
-      "length": 18,
-      "value": "\"scribeup-ios-sdk\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 1667,
-      "length": 38,
-      "value": "\"38ae34b6-e21a-49b6-b6ca-c2e0a97bea8c\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "FloatLiteral",
-      "offset": 1961,
-      "length": 4,
-      "value": "0.25"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2010,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2266,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2306,
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 775,
       "length": 3,
-      "value": "100"
+      "value": "[]"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
       "kind": "StringLiteral",
-      "offset": 2514,
-      "length": 9,
-      "value": "\"service\""
+      "offset": 925,
+      "length": 27,
+      "value": "\"com.scribeup.storageQueue\""
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
-      "kind": "StringLiteral",
-      "offset": 2532,
-      "length": 18,
-      "value": "\"scribeup-ios-sdk\""
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1011,
+      "length": 3,
+      "value": "[]"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1074,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "Dictionary",
+      "offset": 1136,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1337,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Auth.swift",
       "kind": "IntegerLiteral",
-      "offset": 3039,
+      "offset": 4971,
       "length": 1,
-      "value": "2"
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/ScribeUpLog.swift",
+      "kind": "Dictionary",
+      "offset": 1108,
+      "length": 3,
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/ScribeUpAPIController.swift",
@@ -8967,6 +8953,20 @@
       "offset": 5729,
       "length": 18,
       "value": "\"external_user_id\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "kind": "StringLiteral",
+      "offset": 241,
+      "length": 21,
+      "value": "\"com.scribeup.timers\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/TimerHelpers.swift",
+      "kind": "IntegerLiteral",
+      "offset": 942,
+      "length": 3,
+      "value": "250"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Library\/Developer\/Xcode\/DerivedData\/ScribeUpSDK-ghgwmfqecdvgascwkkgmbsxmrqzf\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ScribeUpSDK\/IntermediateBuildFilesPath\/ScribeUpSDK.build\/Release-iphonesimulator\/ScribeUpSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
