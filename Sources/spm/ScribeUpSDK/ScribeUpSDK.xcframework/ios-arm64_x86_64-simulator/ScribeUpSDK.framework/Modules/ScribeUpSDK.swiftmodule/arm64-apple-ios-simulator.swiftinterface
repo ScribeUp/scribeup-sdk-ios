@@ -15,42 +15,6 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public protocol SubscriptionManagerListener : AnyObject {
-  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
-public enum ScribeUpSDKVersion {
-  public static let version: Swift.String
-  public static let build: Swift.String
-}
-extension Swift.Dictionary where Value : Swift.Hashable {
-  public var combinedHash: Swift.Int {
-    get
-  }
-}
-@available(iOS 11.0, *)
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKHTTPCookieStoreObserver {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func cookiesDidChange(in cookieStore: WebKit.WKHTTPCookieStore)
-}
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKUIDelegate {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
-  @available(iOS 9.0, *)
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webViewDidClose(_ webView: WebKit.WKWebView)
-}
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKNavigationDelegate {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
-}
-public enum ScribeUpLog {
-  public enum Level {
-    case debug, info, notice, warn, error, critical
-    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
-}
 public struct JavaScriptHelper {
 }
 @objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
@@ -74,6 +38,10 @@ public struct SubscriptionManagerError : Swift.Error {
   @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
   @_Concurrency.MainActor @preconcurrency @objc public func safariViewControllerDidFinish(_ controller: SafariServices.SFSafariViewController)
   @_Concurrency.MainActor @preconcurrency @objc public func presentationAnchor(for session: AuthenticationServices.ASWebAuthenticationSession) -> AuthenticationServices.ASPresentationAnchor
+}
+public enum ScribeUpSDKVersion {
+  public static let version: Swift.String
+  public static let build: Swift.String
 }
 public enum DDSite {
   case us1
@@ -211,7 +179,48 @@ public class ScribeUpAPIController {
   public func startJob(jobBody: [Swift.String : Any], completion: @escaping (Swift.Result<ScribeUpSDK.SimpleSuccessResponse, any Swift.Error>) -> Swift.Void)
   @objc deinit
 }
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
-extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
+public protocol SubscriptionManagerListener : AnyObject {
+  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerWidgetView : UIKit.UIView, WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor @preconcurrency public init(url: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public func reload()
+  @_Concurrency.MainActor @preconcurrency public func loadURL(_ urlString: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
+  @objc deinit
+}
+extension Swift.Dictionary where Value : Swift.Hashable {
+  public var combinedHash: Swift.Int {
+    get
+  }
+}
+@available(iOS 11.0, *)
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKHTTPCookieStoreObserver {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func cookiesDidChange(in cookieStore: WebKit.WKHTTPCookieStore)
+}
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKUIDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
+  @available(iOS 9.0, *)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webViewDidClose(_ webView: WebKit.WKWebView)
+}
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+}
+public enum ScribeUpLog {
+  public enum Level {
+    case debug, info, notice, warn, error, critical
+    public static func == (a: ScribeUpSDK.ScribeUpLog.Level, b: ScribeUpSDK.ScribeUpLog.Level) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
+}
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
+extension ScribeUpSDK.ScribeUpLog.Level : Swift.Hashable {}
