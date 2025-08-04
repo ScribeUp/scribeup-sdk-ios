@@ -18,9 +18,14 @@ import _SwiftConcurrencyShims
 public protocol SubscriptionManagerListener : AnyObject {
   func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
 }
-public enum ScribeUpSDKVersion {
-  public static let version: Swift.String
-  public static let build: Swift.String
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerWidgetView : UIKit.UIView, WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor @preconcurrency public init(url: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public func reload()
+  @_Concurrency.MainActor @preconcurrency public func loadURL(_ urlString: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
+  @objc deinit
 }
 extension Swift.Dictionary where Value : Swift.Hashable {
   public var combinedHash: Swift.Int {
@@ -74,6 +79,10 @@ public struct SubscriptionManagerError : Swift.Error {
   @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
   @_Concurrency.MainActor @preconcurrency @objc public func safariViewControllerDidFinish(_ controller: SafariServices.SFSafariViewController)
   @_Concurrency.MainActor @preconcurrency @objc public func presentationAnchor(for session: AuthenticationServices.ASWebAuthenticationSession) -> AuthenticationServices.ASPresentationAnchor
+}
+public enum ScribeUpSDKVersion {
+  public static let version: Swift.String
+  public static let build: Swift.String
 }
 public enum DDSite {
   case us1

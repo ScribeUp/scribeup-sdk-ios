@@ -6,6 +6,20 @@
     "children": [
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
         "name": "CoreText",
         "printedName": "CoreText",
         "declKind": "Import",
@@ -104,21 +118,37 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
         "declKind": "Import",
         "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "TypeDecl",
-        "name": "ScribeUpSDKVersion",
-        "printedName": "ScribeUpSDKVersion",
+        "name": "SubscriptionManagerWidgetView",
+        "printedName": "SubscriptionManagerWidgetView",
         "children": [
           {
-            "kind": "Var",
-            "name": "version",
-            "printedName": "version",
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(url:)",
             "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerWidgetView",
+                "printedName": "ScribeUpSDK.SubscriptionManagerWidgetView",
+                "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView"
+              },
               {
                 "kind": "TypeNominal",
                 "name": "String",
@@ -126,47 +156,51 @@
                 "usr": "s:SS"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
-            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
+            "declKind": "Constructor",
+            "usr": "s:11ScribeUpSDK29SubscriptionManagerWidgetViewC3urlACSS_tcfc",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC3urlACSS_tcfc",
             "moduleName": "ScribeUpSDK",
-            "static": true,
             "declAttributes": [
-              "HasInitialValue",
-              "HasStorage",
+              "Preconcurrency",
+              "Custom",
               "AccessControl",
               "RawDocComment"
             ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
-                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
-                "moduleName": "ScribeUpSDK",
-                "static": true,
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
+            "init_kind": "Designated"
           },
           {
-            "kind": "Var",
-            "name": "build",
-            "printedName": "build",
+            "kind": "Function",
+            "name": "reload",
+            "printedName": "reload()",
             "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK29SubscriptionManagerWidgetViewC6reloadyyF",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC6reloadyyF",
+            "moduleName": "ScribeUpSDK",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loadURL",
+            "printedName": "loadURL(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
               {
                 "kind": "TypeNominal",
                 "name": "String",
@@ -174,50 +208,209 @@
                 "usr": "s:SS"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
-            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
+            "declKind": "Func",
+            "usr": "s:11ScribeUpSDK29SubscriptionManagerWidgetViewC7loadURLyySSF",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC7loadURLyySSF",
             "moduleName": "ScribeUpSDK",
-            "static": true,
             "declAttributes": [
-              "HasInitialValue",
-              "HasStorage",
+              "Preconcurrency",
+              "Custom",
               "AccessControl",
               "RawDocComment"
             ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "webView",
+            "printedName": "webView(_:didStartProvisionalNavigation:)",
+            "children": [
               {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebView",
+                "printedName": "WebKit.WKWebView",
+                "usr": "c:objc(cs)WKWebView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "WebKit.WKNavigation?",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
+                    "name": "WKNavigation",
+                    "printedName": "WebKit.WKNavigation",
+                    "usr": "c:objc(cs)WKNavigation"
                   }
                 ],
-                "declKind": "Accessor",
-                "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
-                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
-                "moduleName": "ScribeUpSDK",
-                "static": true,
-                "implicit": true,
-                "accessorKind": "get"
+                "usr": "s:Sq"
               }
-            ]
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView(im)webView:didStartProvisionalNavigation:",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC03webG0_29didStartProvisionalNavigationySo05WKWebG0C_So12WKNavigationCSgtF",
+            "moduleName": "ScribeUpSDK",
+            "objc_name": "webView:didStartProvisionalNavigation:",
+            "declAttributes": [
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "webView",
+            "printedName": "webView(_:didFinish:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebView",
+                "printedName": "WebKit.WKWebView",
+                "usr": "c:objc(cs)WKWebView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "WebKit.WKNavigation?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "WKNavigation",
+                    "printedName": "WebKit.WKNavigation",
+                    "usr": "c:objc(cs)WKNavigation"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView(im)webView:didFinishNavigation:",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC03webG0_9didFinishySo05WKWebG0C_So12WKNavigationCSgtF",
+            "moduleName": "ScribeUpSDK",
+            "objc_name": "webView:didFinishNavigation:",
+            "declAttributes": [
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "webView",
+            "printedName": "webView(_:didFail:withError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebView",
+                "printedName": "WebKit.WKWebView",
+                "usr": "c:objc(cs)WKWebView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "WebKit.WKNavigation?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "WKNavigation",
+                    "printedName": "WebKit.WKNavigation",
+                    "usr": "c:objc(cs)WKNavigation"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView(im)webView:didFailNavigation:withError:",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC03webG0_7didFail9withErrorySo05WKWebG0C_So12WKNavigationCSgs0L0_ptF",
+            "moduleName": "ScribeUpSDK",
+            "objc_name": "webView:didFailNavigation:withError:",
+            "declAttributes": [
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(frame:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SubscriptionManagerWidgetView",
+                "printedName": "ScribeUpSDK.SubscriptionManagerWidgetView",
+                "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGRect",
+                "printedName": "CoreFoundation.CGRect",
+                "usr": "c:@S@CGRect"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView(im)initWithFrame:",
+            "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC5frameACSo6CGRectV_tcfc",
+            "moduleName": "ScribeUpSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithFrame:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
           }
         ],
-        "declKind": "Enum",
-        "usr": "s:11ScribeUpSDK0aB10SDKVersionO",
-        "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO",
+        "declKind": "Class",
+        "usr": "c:@M@ScribeUpSDK@objc(cs)SubscriptionManagerWidgetView",
+        "mangledName": "$s11ScribeUpSDK29SubscriptionManagerWidgetViewC",
         "moduleName": "ScribeUpSDK",
         "declAttributes": [
+          "Preconcurrency",
+          "Custom",
           "AccessControl",
-          "RawDocComment"
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)UIView",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
         ],
         "conformances": [
           {
@@ -233,6 +426,69 @@
             "printedName": "Escapable",
             "usr": "s:s9EscapableP",
             "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
           }
         ]
       },
@@ -1323,6 +1579,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "UITraitChangeObservable",
             "printedName": "UITraitChangeObservable",
             "usr": "s:5UIKit23UITraitChangeObservableP",
@@ -2018,17 +2281,151 @@
           },
           {
             "kind": "Conformance",
-            "name": "UITraitChangeObservable",
-            "printedName": "UITraitChangeObservable",
-            "usr": "s:5UIKit23UITraitChangeObservableP",
-            "mangledName": "$s5UIKit23UITraitChangeObservableP"
-          },
-          {
-            "kind": "Conformance",
             "name": "Sendable",
             "printedName": "Sendable",
             "usr": "s:s8SendableP",
             "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScribeUpSDKVersion",
+        "printedName": "ScribeUpSDKVersion",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "version",
+            "printedName": "version",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
+            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvpZ",
+            "moduleName": "ScribeUpSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
+                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO7versionSSvgZ",
+                "moduleName": "ScribeUpSDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "build",
+            "printedName": "build",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
+            "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvpZ",
+            "moduleName": "ScribeUpSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
+                "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO5buildSSvgZ",
+                "moduleName": "ScribeUpSDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:11ScribeUpSDK0aB10SDKVersionO",
+        "mangledName": "$s11ScribeUpSDK0aB10SDKVersionO",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
           }
         ]
       },
@@ -7886,20 +8283,6 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
         "name": "SwiftUI",
         "printedName": "SwiftUI",
         "declKind": "Import",
@@ -8339,20 +8722,6 @@
       "value": "250"
     },
     {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 168,
-      "length": 7,
-      "value": "\"0.7.4\""
-    },
-    {
-      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 243,
-      "length": 3,
-      "value": "\"1\""
-    },
-    {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/Interceptor.swift",
       "kind": "Dictionary",
       "offset": 775,
@@ -8680,6 +9049,20 @@
       "offset": 5450,
       "length": 3,
       "value": "-15"
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 168,
+      "length": 7,
+      "value": "\"0.7.7\""
+    },
+    {
+      "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 243,
+      "length": 3,
+      "value": "\"1\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/DDBootstrap.swift",
