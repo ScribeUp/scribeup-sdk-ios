@@ -24,9 +24,16 @@ target 'MyApp' do
 end
 ```
 
-### SubscriptionManagerViewController
+### Integration Options
 
-`SubscriptionManagerViewController` is a UIViewController subclass that lets you easily integrate the subscription manager into your app. For example, you can present it like this:
+The ScribeUp SDK provides two ways to integrate subscription management into your app:
+
+1. **Modal Presentation** - Using `SubscriptionManagerViewController`
+2. **Embedded Widget** - Using `SubscriptionManagerWidgetView`
+
+#### SubscriptionManagerViewController
+
+`SubscriptionManagerViewController` is a UIViewController subclass that lets you easily integrate the subscription manager as a modal presentation. For example, you can present it like this:
 
 ```swift
 import ScribeUpSDK
@@ -43,6 +50,39 @@ self.present(subscriptionVC, animated: true)
   - For details on completing authentication and generating a valid URL, please visit [ScribeUp Documentation](https://docs.scribeup.io).
 - `productName` (optional): The name displayed in the navigation bar.
 - `listener` (optional): An object conforming to `SubscriptionManagerListener` to receive event callbacks.
+
+#### SubscriptionManagerWidgetView
+
+`SubscriptionManagerWidgetView` is a UIView subclass that allows you to embed the subscription manager directly into your existing view hierarchy. This is useful when you want to display subscription management as part of your app's UI rather than as a modal.
+
+```swift
+import ScribeUpSDK
+
+// Create and configure the widget view
+let widgetView = SubscriptionManagerWidgetView(url: authenticatedUrl)
+widgetView.translatesAutoresizingMaskIntoConstraints = false
+view.addSubview(widgetView)
+
+// Set up Auto Layout constraints
+NSLayoutConstraint.activate([
+    widgetView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+    widgetView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+    widgetView.topAnchor.constraint(equalTo: someView.bottomAnchor, constant: 20),
+    widgetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+])
+```
+
+**Parameters:**
+- `url`: A fully authenticated URL for managing subscriptions (same as ViewController)
+
+**Widget Management:**
+```swift
+// Show/hide the widget
+widgetView.isHidden = false // or true
+
+// Remove the widget completely
+widgetView.removeFromSuperview()
+```
 
 
 ## Listener Model
