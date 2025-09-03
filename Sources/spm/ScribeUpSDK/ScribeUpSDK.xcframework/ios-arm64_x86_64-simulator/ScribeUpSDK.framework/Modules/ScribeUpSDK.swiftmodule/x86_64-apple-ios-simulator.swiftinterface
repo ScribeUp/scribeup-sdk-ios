@@ -15,36 +15,6 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public protocol SubscriptionManagerListener : AnyObject {
-  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
-}
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerWidgetView : UIKit.UIView, WebKit.WKNavigationDelegate {
-  @_Concurrency.MainActor @preconcurrency public init(url: Swift.String)
-  @_Concurrency.MainActor @preconcurrency public func reload()
-  @_Concurrency.MainActor @preconcurrency public func loadURL(_ urlString: Swift.String)
-  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
-  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
-  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
-  @objc deinit
-}
-extension Swift.Dictionary where Value : Swift.Hashable {
-  public var combinedHash: Swift.Int {
-    get
-  }
-}
-@available(iOS 11.0, *)
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKHTTPCookieStoreObserver {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func cookiesDidChange(in cookieStore: WebKit.WKHTTPCookieStore)
-}
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKUIDelegate {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
-  @available(iOS 9.0, *)
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webViewDidClose(_ webView: WebKit.WKWebView)
-}
-extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKNavigationDelegate {
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
-}
 public enum ScribeUpLog {
   public enum Level {
     case debug, info, notice, warn, error, critical
@@ -56,13 +26,23 @@ public enum ScribeUpLog {
   }
   public static func log(_ message: Swift.String, level: ScribeUpSDK.ScribeUpLog.Level = .info, attrs: [Swift.String : any Swift.Encodable] = [:], jobId: Swift.String? = nil)
 }
-public struct JavaScriptHelper {
+public enum DDSite {
+  case us1
+  case us3
+  case us5
+  case eu1
+  case ap1
+  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
 }
-@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
-  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
-  @objc deinit
+public struct ScribeUpDDConfig {
+  public let clientToken: Swift.String
+  public let site: ScribeUpSDK.DDSite
+  public let environment: Swift.String
+  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
 }
 public struct SubscriptionManagerError : Swift.Error {
   public let code: Swift.Int
@@ -83,24 +63,6 @@ public struct SubscriptionManagerError : Swift.Error {
 public enum ScribeUpSDKVersion {
   public static let version: Swift.String
   public static let build: Swift.String
-}
-public enum DDSite {
-  case us1
-  case us3
-  case us5
-  case eu1
-  case ap1
-  public static func == (a: ScribeUpSDK.DDSite, b: ScribeUpSDK.DDSite) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct ScribeUpDDConfig {
-  public let clientToken: Swift.String
-  public let site: ScribeUpSDK.DDSite
-  public let environment: Swift.String
-  public init(clientToken: Swift.String, site: ScribeUpSDK.DDSite = .us5, environment: Swift.String = "production")
 }
 public struct SimpleSuccessResponse : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
@@ -218,6 +180,44 @@ public class ScribeUpAPIController {
   public func updateJobStatus(jobId: Swift.String, status: Swift.String, token: Swift.String, completion: @escaping (Swift.Result<ScribeUpSDK.SimpleSuccessResponse, any Swift.Error>) -> Swift.Void)
   public func createSession(sessionBody: [Swift.String : Any], completion: @escaping (Swift.Result<ScribeUpSDK.SessionResponse, any Swift.Error>) -> Swift.Void)
   public func startJob(jobBody: [Swift.String : Any], completion: @escaping (Swift.Result<ScribeUpSDK.SimpleSuccessResponse, any Swift.Error>) -> Swift.Void)
+  @objc deinit
+}
+public struct JavaScriptHelper {
+}
+extension Swift.Dictionary where Value : Swift.Hashable {
+  public var combinedHash: Swift.Int {
+    get
+  }
+}
+@available(iOS 11.0, *)
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKHTTPCookieStoreObserver {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func cookiesDidChange(in cookieStore: WebKit.WKHTTPCookieStore)
+}
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKUIDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
+  @available(iOS 9.0, *)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webViewDidClose(_ webView: WebKit.WKWebView)
+}
+extension ScribeUpSDK.MerchantLoginViewController : WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+}
+@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
+  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
+  @objc deinit
+}
+public protocol SubscriptionManagerListener : AnyObject {
+  func onExit(_ error: ScribeUpSDK.SubscriptionManagerError?)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SubscriptionManagerWidgetView : UIKit.UIView, WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor @preconcurrency public init(url: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public func reload()
+  @_Concurrency.MainActor @preconcurrency public func loadURL(_ urlString: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
   @objc deinit
 }
 extension ScribeUpSDK.ScribeUpLog.Level : Swift.Equatable {}
