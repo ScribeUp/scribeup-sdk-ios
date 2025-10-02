@@ -93,16 +93,38 @@ import Foundation
 
 public protocol SubscriptionManagerListener: AnyObject {
     // Called when the subscription manager flow ends.
-    // - Parameter error: `SubscriptionManagerError` if the flow failed or `nil` on success.
-    func onExit(_ error: SubscriptionManagerError?)
+    // - Parameters:
+    //   - error: `SubscriptionManagerError` if the flow failed or `nil` on success.
+    //   - data: Optional JSON object with additional data.
+    func onExit(_ error: SubscriptionManagerError?, _ data: [String: Any]?)
+
+    // Called when the subscription manager emits an event.
+    // - Parameter data: JSON object representing the event payload.
+    func onEvent(_ data: [String: Any])
+}
+
+public extension SubscriptionManagerListener {
+    func onExit(_ error: SubscriptionManagerError?, _ data: [String: Any]?) {}
+    func onEvent(_ data: [String: Any]) {}
 }
 ```
 
 Example implementation in your app:
 ```swift
 private class SubscriptionListener: SubscriptionManagerListener {
-    func onExit(_ error: SubscriptionManagerError?) {
-        print("onExit triggered: \(error?.message ?? "No error")")
+    func onExit(_ error: SubscriptionManagerError?, _ data: [String: Any]?) {
+        let errorDescription = error.map { "code: \($0.code), message: \($0.message)" } ?? "No error"
+        let dataDescription = (data.flatMap { try? JSONSerialization.data(withJSONObject: $0, options: .prettyPrinted) })
+            .flatMap { String(data: $0, encoding: .utf8) } ?? "No data"
+
+        print("onExit triggered - \(errorDescription), data: \(dataDescription)")
+    }
+
+    func onEvent(_ data: [String: Any]) {
+        let dataDescription = (try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted))
+            .flatMap { String(data: $0, encoding: .utf8) } ?? "{}"
+
+        print("onEvent triggered - data: \(dataDescription)")
     }
 }
 
