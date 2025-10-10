@@ -7,7 +7,7 @@ The ScribeUp iOS SDK is available via [Swift Package Manager](https://swift.org/
 
 Latest Version
 ```
-0.8.5
+0.8.7
 ```
 
 #### Swift Package Manager
