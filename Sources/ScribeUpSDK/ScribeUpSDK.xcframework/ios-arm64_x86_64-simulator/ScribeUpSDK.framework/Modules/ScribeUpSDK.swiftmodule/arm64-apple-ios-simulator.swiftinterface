@@ -70,6 +70,9 @@ public enum ScribeUpLog {
 }
 public struct JavaScriptHelper {
 }
+public enum CrashTester {
+  public static func triggerCrash() -> Swift.Never
+}
 @objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
