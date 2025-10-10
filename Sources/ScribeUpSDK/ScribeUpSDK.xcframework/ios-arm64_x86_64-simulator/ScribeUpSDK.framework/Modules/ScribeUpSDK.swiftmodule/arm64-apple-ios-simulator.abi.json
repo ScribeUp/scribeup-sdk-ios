@@ -9536,13 +9536,13 @@
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
       "kind": "StringLiteral",
       "offset": 168,
-      "length": 7,
-      "value": "\"0.8.5\""
+      "length": 8,
+      "value": "\"0.8.71\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
       "kind": "StringLiteral",
-      "offset": 243,
+      "offset": 244,
       "length": 3,
       "value": "\"1\""
     },
