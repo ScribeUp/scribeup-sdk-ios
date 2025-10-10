@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		RCBH0nh7dV88IrbXnYLq661sahI=
+		+uv104MhTykQJ5KiDQi9ep72PB4=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		l1KO1BBY9aZAoTc7u/xfpfzZFfY=
+		QS9AgGmK4yvHD3VbThFQPv2/6CY=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		RCBH0nh7dV88IrbXnYLq661sahI=
+		+uv104MhTykQJ5KiDQi9ep72PB4=
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		bgjGffyyiFnxSIIvOmzcjwcj1pk=
+		pzopw2eUk/coZgoJ0qrpLe8BXBs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -105,11 +105,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RCBH0nh7dV88IrbXnYLq661sahI=
+			+uv104MhTykQJ5KiDQi9ep72PB4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Bun5DLYC5HFmyhWrYB1H0fM5QAazSczTR4Y295dgCbQ=
+			g458YZZdFJLDZrfYgHAlfVxjD7R5ZkBTquG/LXm2W08=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -149,22 +149,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l1KO1BBY9aZAoTc7u/xfpfzZFfY=
+			QS9AgGmK4yvHD3VbThFQPv2/6CY=
 			</data>
 			<key>hash2</key>
 			<data>
-			TS91yVMz8wuIDJGKpmlkalcytRR+VieWblaHb1HO8FE=
+			qTD0SeTG3G+TajUEvzwZs/gjLa2s3tA2HgtFCMV20c8=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RCBH0nh7dV88IrbXnYLq661sahI=
+			+uv104MhTykQJ5KiDQi9ep72PB4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Bun5DLYC5HFmyhWrYB1H0fM5QAazSczTR4Y295dgCbQ=
+			g458YZZdFJLDZrfYgHAlfVxjD7R5ZkBTquG/LXm2W08=
 			</data>
 		</dict>
 		<key>Modules/ScribeUpSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -204,11 +204,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bgjGffyyiFnxSIIvOmzcjwcj1pk=
+			pzopw2eUk/coZgoJ0qrpLe8BXBs=
 			</data>
 			<key>hash2</key>
 			<data>
-			IQ3/w/J1X4mVFBNIiKtFYNcJFCQIFsFVj27O955oM34=
+			aL3Jufh4rkpU+kmoROeUzP8/+qo5CD1qraEONjxleDo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

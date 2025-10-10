@@ -1175,6 +1175,16 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "CoreText",
         "printedName": "CoreText",
         "declKind": "Import",
@@ -9346,189 +9356,189 @@
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3162,
+      "offset": 3208,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3334,
+      "offset": 3380,
       "length": 2,
       "value": "18"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3489,
+      "offset": 3535,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3549,
+      "offset": 3595,
       "length": 2,
       "value": "18"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3699,
+      "offset": 3745,
       "length": 17,
       "value": "\"arrow.clockwise\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3933,
+      "offset": 3979,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3986,
+      "offset": 4032,
       "length": 2,
       "value": "14"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 3989,
+      "offset": 4035,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4003,
+      "offset": 4049,
       "length": 2,
       "value": "90"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4006,
+      "offset": 4052,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4019,
+      "offset": 4065,
       "length": 3,
       "value": "204"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4023,
+      "offset": 4069,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4037,
+      "offset": 4083,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4167,
+      "offset": 4213,
       "length": 6,
       "value": "\"Exit\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4269,
+      "offset": 4315,
       "length": 6,
       "value": "\"Exit\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4429,
+      "offset": 4475,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4499,
+      "offset": 4545,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4550,
+      "offset": 4596,
       "length": 2,
       "value": "14"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4553,
+      "offset": 4599,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4567,
+      "offset": 4613,
       "length": 2,
       "value": "90"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4570,
+      "offset": 4616,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4583,
+      "offset": 4629,
       "length": 3,
       "value": "204"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4587,
+      "offset": 4633,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4601,
+      "offset": 4647,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5015,
+      "offset": 5061,
       "length": 2,
       "value": "50"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5117,
+      "offset": 5163,
       "length": 2,
       "value": "15"
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5475,
+      "offset": 5521,
       "length": 3,
       "value": "-15"
     },
@@ -9536,13 +9546,13 @@
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
       "kind": "StringLiteral",
       "offset": 168,
-      "length": 7,
-      "value": "\"0.8.5\""
+      "length": 8,
+      "value": "\"0.8.91\""
     },
     {
       "filePath": "\/Users\/giladspitzer\/Engineering\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
       "kind": "StringLiteral",
-      "offset": 243,
+      "offset": 244,
       "length": 3,
       "value": "\"1\""
     },
