@@ -15,6 +15,12 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
+  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
+  @objc deinit
+}
 public struct SimpleSuccessResponse : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
@@ -221,12 +227,6 @@ public enum ScribeUpSDKVersion {
 }
 public enum CrashTester {
   public static func triggerCrash() -> Swift.Never
-}
-@objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
-  @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @_Concurrency.MainActor @objc override dynamic public func viewDidLoad()
-  @objc deinit
 }
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
