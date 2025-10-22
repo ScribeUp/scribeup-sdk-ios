@@ -6,6 +6,20 @@
     "children": [
       {
         "kind": "Import",
+        "name": "CoreText",
+        "printedName": "CoreText",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -7888,6 +7902,13 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScribeUpSDK"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -8274,7 +8295,10 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
+        "moduleName": "ScribeUpSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
       },
       {
         "kind": "Import",
@@ -8421,16 +8445,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
         "kind": "TypeDecl",
         "name": "CrashTester",
         "printedName": "CrashTester",
@@ -8483,20 +8497,6 @@
             "mangledName": "$ss9EscapableP"
           }
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "CoreText",
-        "printedName": "CoreText",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "ScribeUpSDK"
       },
       {
         "kind": "Import",
@@ -9347,189 +9347,189 @@
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3162,
+      "offset": 3242,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3334,
+      "offset": 3414,
       "length": 2,
       "value": "18"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3489,
+      "offset": 3569,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3549,
+      "offset": 3629,
       "length": 2,
       "value": "18"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3699,
+      "offset": 3779,
       "length": 17,
       "value": "\"arrow.clockwise\""
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3933,
+      "offset": 4013,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3986,
+      "offset": 4066,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 3989,
+      "offset": 4069,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4003,
+      "offset": 4083,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4006,
+      "offset": 4086,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4019,
+      "offset": 4099,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4022,
+      "offset": 4102,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4036,
+      "offset": 4116,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4166,
+      "offset": 4246,
       "length": 6,
       "value": "\"Exit\""
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4268,
+      "offset": 4348,
       "length": 6,
       "value": "\"Exit\""
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4428,
+      "offset": 4508,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4498,
+      "offset": 4578,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4549,
+      "offset": 4629,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4552,
+      "offset": 4632,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4566,
+      "offset": 4646,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4569,
+      "offset": 4649,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4582,
+      "offset": 4662,
       "length": 2,
       "value": "77"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4585,
+      "offset": 4665,
       "length": 5,
       "value": "255.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 4599,
+      "offset": 4679,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5013,
+      "offset": 5093,
       "length": 2,
       "value": "50"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5115,
+      "offset": 5195,
       "length": 2,
       "value": "15"
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/SubscriptionManagerViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5473,
+      "offset": 5553,
       "length": 3,
       "value": "-15"
     },
@@ -9546,20 +9546,6 @@
       "offset": 942,
       "length": 3,
       "value": "250"
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 168,
-      "length": 7,
-      "value": "\"0.9.1\""
-    },
-    {
-      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
-      "kind": "StringLiteral",
-      "offset": 243,
-      "length": 3,
-      "value": "\"1\""
     },
     {
       "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/LoginViewControllerHelpers\/UploadManager.swift",
@@ -9581,6 +9567,20 @@
       "offset": 951,
       "length": 4,
       "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 168,
+      "length": 7,
+      "value": "\"0.9.2\""
+    },
+    {
+      "filePath": "\/Users\/yoheioka\/scribeup\/phoenix\/scribeup-sdk-ios-internal\/ScribeUpSDK\/Version.swift",
+      "kind": "StringLiteral",
+      "offset": 243,
+      "length": 3,
+      "value": "\"1\""
     },
     {
       "filePath": "\/Users\/yoheioka\/Library\/Developer\/Xcode\/DerivedData\/ScribeUpSDK-bxtzcsleodtgwxcfkmrjawujezfe\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ScribeUpSDK\/IntermediateBuildFilesPath\/ScribeUpSDK.build\/Release-iphoneos\/ScribeUpSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
