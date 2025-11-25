@@ -15,6 +15,9 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+public enum CrashTester {
+  public static func triggerCrash() -> Swift.Never
+}
 @objc @_Concurrency.MainActor public class MerchantLoginViewController : UIKit.UIViewController {
   @_Concurrency.MainActor public init(merchant: ScribeUpSDK.Merchant, jobId: Swift.String = "", token: Swift.String, apiController: ScribeUpSDK.ScribeUpAPIController, uploadUrls: [Swift.String : Foundation.URL]? = nil)
   @_Concurrency.MainActor @objc required dynamic public init?(coder: Foundation.NSCoder)
@@ -224,9 +227,6 @@ extension ScribeUpSDK.SubscriptionManagerListener {
 public enum ScribeUpSDKVersion {
   public static let version: Swift.String
   public static let build: Swift.String
-}
-public enum CrashTester {
-  public static func triggerCrash() -> Swift.Never
 }
 extension ScribeUpSDK.DDSite : Swift.Equatable {}
 extension ScribeUpSDK.DDSite : Swift.Hashable {}
